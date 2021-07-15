@@ -1,0 +1,172 @@
+.main-banner-container {
+  .bx-wrapper {
+    margin-bottom: 0;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    background: #fff;
+    .bx-pager {
+      bottom: 15px;
+      a {
+        background: $base-red;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+      }
+      a:hover,
+      a.active,
+      a:focus {
+        background: $base-color;
+      }
+    }
+  }
+  .banner-item {
+    line-height: 1;
+    position: relative;
+    text-align: right;
+    &_img {
+      width: 100%;
+      img {
+        width: 100%;
+      }
+    }
+    &_caption1 {
+      position: absolute;
+      top: 25%;
+      padding-left: 50px;
+      font-size: 45px;
+    }
+    &_caption2 {
+      position: absolute;
+      top: 40%;
+      padding-left: 50px;
+      font-size: 45px;
+      font-weight: bold;
+    }
+    &_button {
+      position: absolute;
+      top: 60%;
+      padding-left: 50px;
+      a {
+        display: inline-block;
+        background-color: $base-red;
+        border: 1px solid $base-red;
+        color: #fff;
+        padding: 15px 20px;
+        &:hover {
+          background-color: #fff;
+          color: $base-red;
+        }
+      }
+    }
+  }
+}
+.small-banner-container {
+  margin-bottom: 30px;
+  position: relative;
+  &.with-breadcrumb {
+    .small-banner-caption-container {
+      transform: translateY(-65%);
+    }
+  }
+  .small-banner {
+    position: relative;
+    &_img {
+      img {
+        width: 100%;
+      }
+    }
+  }
+  .small-banner-caption-container {
+    margin-bottom: 30px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 50%;
+    line-height: 1;
+    transform: translateY(-50%);
+    &.centered {
+      text-align: center;
+      text-align: -webkit-center;
+      text-align: -moz-center;
+      .banner-title1 {
+        font-family: $fontsecondary;
+        font-size: 40px;
+        color: #fff;
+        margin-bottom: 10px;
+      }
+      .banner-title2 {
+        font-size: 35px;
+        font-weight: 300;
+        font-family: $fontsecondary;
+        color: #fff;
+        margin-bottom: 10px;
+      }
+      .banner-title3 {
+        font-family: $fontPrimary;
+        font-size: 20px;
+        color: #fff;
+        font-weight: 300;
+      }
+    }
+    .banner-title {
+      font-family: $fontsecondary;
+      color: $base-color;
+      font-weight: 500;
+      font-size: 34px;
+      margin-bottom: 10px;
+    }
+    .banner-brief {
+      font-family: $fontPrimary;
+      color: #000;
+      font-weight: 300;
+      font-size: 20px;
+    }
+  }
+  .banner-breadcrumb {
+    margin-bottom: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    right: 0;
+    ul {
+      padding-left: 0;
+      list-style: none;
+      margin-bottom: 0;
+      li {
+        display: inline-block;
+        a {
+          line-height: 1;
+          font-size: 16px;
+          font-family: $fontPrimary;
+          color: #fff;
+          padding: 0px 8px;
+          border-left: 1px solid #fff;
+        }
+
+        &:last-child {
+          a {
+            padding-right: 0;
+            color: $base-color;
+            &.light {
+              color: #fff;
+            }
+          }
+        }
+        &:first-child {
+          a {
+            padding-left: 0;
+            border-left: none;
+          }
+        }
+        span {
+          margin-right: 5px;
+          position: relative;
+          top: -2px;
+        }
+      }
+    }
+  }
+}

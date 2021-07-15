@@ -1,0 +1,77 @@
+<?php
+
+use Application\Controller\FacebookController;
+use Application\Controller\HelperController;
+use Application\Controller\UserController;
+
+?>
+<div class="main-wrapper shopping-cart pt30">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="modal-title"><?php echo _t('welcomeBack!'); ?></div>
+                    <div class="modal-subtitle"><?php echo _t('stayConnected'); ?></div>
+
+                    <div class="modal-form">
+                        <form action="<?php echo MAIN_URL . 'submit-login'; ?>" id="login-form">
+                            <input type="hidden" name="redirectUrl" value="<?php echo $_GET['redirectUrl']; ?>" />
+                            <div class="notice-area"></div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="<?php echo _t('emailAddress'); ?>*" id="login-email" name="email" autocomplete="username">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="<?php echo _t('enterPassword'); ?>" id="login-pwd" name="password" autocomplete="current-password">
+                                <span class="forgot"><a href="<?php echo MAIN_URL . 'forgot-password/' . UserController::$CUSTOMER; ?>"><?php echo _t('forgotPassword'); ?></a></span>
+                            </div>
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox"> <?php echo _t('rememberMe'); ?>
+                                </label>
+                            </div>
+
+
+                            <!-- <div class="form-group">
+                            <div id="my-signin2"></div>
+                        </div>
+                        <div class="form-group" id="fb-login-button">
+                            <div class="fb-login-button" data-width="" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
+                        </div> -->
+
+                            <div class="centered-button">
+                                <button type="submit" class="btn"><?php echo strtoupper(_t('signin')); ?></button>
+                            </div>
+                            <?php
+                            $redirectUrl = HelperController::getCurrentUrl();
+                            if (strpos($redirectUrl, 'login-required') !== false) {
+                                $redirectUrl = $_GET['redirectUrl'];
+                            } ?>
+                            <div class="fb-button-wrapper">
+                                <a href="<?php echo FacebookController::getLoginUrl($redirectUrl); ?>"><i class="fab fa-facebook-f"></i> Login with facebook</a>
+                            </div>
+                            <div class="have-account">
+                                <p><?php echo _t('dontHaveAccount'); ?></p>
+                                <!-- Button to Open the Modal -->
+                                <a class="modal-register" data-toggle="modal" data-target="#signup-modal" data-dismiss="modal">
+                                    <?php echo _t('register'); ?>
+                                </a>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php //$redirectUrl = urlencode($_GET['redirectUrl']);
+?>
+<script>
+    // const redirectUrl = '<?php //echo $redirectUrl;
+                            ?>';
+    // $(function(){
+    //     $('input[name="redirectUrl"]').val(redirectUrl);
+    // });
+</script>

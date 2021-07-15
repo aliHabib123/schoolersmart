@@ -1,0 +1,115 @@
+<?php
+
+use Application\Controller\DesignController;
+use Application\Controller\HelperController;
+
+?>
+<div class="main-wrapper">
+    <div class="small-banner-container with-breadcrumb">
+        <div class="small-banner_img">
+            <img src="img/banner-red.jpg" />
+        </div>
+        <div class="small-banner-caption-container centered">
+            <div class="container">
+                <div class="banner-title1">NEW FOR YOU</div>
+                <div class="banner-title2"><?php echo _t('getReady'); ?></div>
+                <div class="banner-title3"><?php echo _t('promotions'); ?></div>
+            </div>
+        </div>
+        <div class="banner-breadcrumb">
+            <div class="container">
+                <ul>
+                    <li><a href="<?php echo MAIN_URL . $_SESSION['lang']; ?>"><span><img src="img/home-icon.jpg" /></span><?php echo _t('home'); ?></a></li>
+                    <li><a class="light"><?php echo _t('promotions'); ?></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="breadcrumb-c d-block d-sm-none">
+        <div class="breadcrumb-c-inner">
+            <div class="container">
+                <ul>
+                    <li><a href="<?php echo MAIN_URL . $_SESSION['lang']; ?>"><span><img src="img/home-icon.jpg" /></span><?php echo _t('home'); ?></a></li>
+                    <li><a><?php echo _t('promotions'); ?></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 with-margin">
+                <?php echo DesignController::mainTitle(strtoupper(_t('promotions'))) ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 promotions-categories">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link <?php if (!$this->category) {
+                                                echo 'active';
+                                            } ?>" href="<?php echo MAIN_URL . $_SESSION['lang'] .'/promotions' ?>">All</a>
+                    </li>
+                    <?php foreach ($this->categories as $row) {
+                        $active = "";
+                        if ($this->category == $row->slug) {
+                            $active = "active";
+                        } ?>
+                        <li class="nav-item">
+                            <a class="nav-link <?php echo $active; ?>" href="<?php echo MAIN_URL .$_SESSION['lang'] . '/promotions/?category=' . $row->slug; ?>"><?php echo $row->name; ?></a>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <?php if ($this->items) {
+                foreach ($this->items as $item) { ?>
+                    <div class="col-6 col-md-2 item-col">
+                        <?php echo DesignController::item($item); ?>
+                    </div>
+                <?php }
+            } else { ?>
+                <div class="col-md-12 text-center">
+                    <h3 class="no-results"><?php echo _t('nothingFound');?></h3>
+                </div>
+            <?php } ?>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="product-pagination" class="product-pagination text-center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+$url = HelperController::getCurrentUrl();
+$t = parse_url($url, PHP_URL_QUERY); # output "myqueryhash"
+parse_str($t, $output);
+unset($output['page']);
+$append = "";
+if ($output) {
+    $append = '&' . http_build_query($output);
+}
+?>
+<script type="text/javascript">
+    const append = '<?php echo $append; ?>';
+    const currentPageUrl = '<?php echo MAIN_URL . 'promotions'; ?>';
+    $(function() {
+        //alert('s');
+        //Pagination
+        $("#product-pagination").twbsPagination({
+            totalPages: <?php echo $this->totalPages; ?>,
+            visiblePages: 5,
+            first: '<i class="fas fa-angle-double-' + translations.config.left + '"></i>',
+            last: '<i class="fas fa-angle-double-' + translations.config.right + '"></i>',
+            next: '<i class="fas fa-chevron-' + translations.config.right + '"></i>',
+            prev: '<i class="fas fa-chevron-' + translations.config.left + '"></i>',
+            startPage: <?php echo $this->currentPage; ?>,
+            initiateStartPageClick: false,
+            onPageClick: function(event, page) {
+                location.href = '<?php echo MAIN_URL . 'promotions' . "/?page="; ?>' + page + append;
+            },
+        });
+    });
+</script>

@@ -1,0 +1,119 @@
+<?php
+
+use Application\Controller\DesignController;
+use Application\Controller\HelperController;
+use Application\Controller\ProductController;
+
+$item = $this->item;
+$specs = preg_split("/\\r\\n|\\r|\\n/", $item->specification);
+$image = ($item->image != "" && $item->image != null) ? HelperController::getImageUrl($item->image) : PRODUCT_PLACEHOLDER_IMAGE_URL; ?>
+<div class="main-wrapper">
+    <div class="small-banner-container with-breadcrumb">
+        <div class="small-banner_img">
+            <img src="img/small-banner.jpg" />
+        </div>
+        <div class="small-banner-caption-container">
+            <div class="container">
+                <div class="banner-title">Electronics</div>
+                <div class="banner-brief">Shop the latest electronic products in the market</div>
+            </div>
+        </div>
+        <div class="banner-breadcrumb">
+            <div class="container">
+                <ul>
+                    <li><a href="<?php echo MAIN_URL; ?>"><span><img src="img/home-icon.jpg" /></span>Home</a></li>
+                    <li><a href="<?php echo MAIN_URL . $this->lang . '/products/' . $this->mainCategory->slug; ?>"><?php echo $this->mainCategory->name; ?></a></li>
+                    <li><a href="<?php echo MAIN_URL . $this->lang . '/products/' . $this->mainCategory->slug . "/" . $this->parentCategory->slug; ?>"><?php echo $this->parentCategory->name; ?></a></li>
+                    <li><a><?php echo $this->itemCategory->categoryName; ?></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="breadcrumb-c d-block d-sm-none">
+        <div class="breadcrumb-c-inner">
+            <div class="container">
+                <ul>
+                    <li><a href="<?php echo MAIN_URL; ?>"><span><img src="img/home-icon.jpg" /></span>Home</a></li>
+                    <li><a href="<?php echo MAIN_URL . $this->lang . '/products/' . $this->mainCategory->slug; ?>"><?php echo $this->mainCategory->name; ?></a></li>
+                    <li><a href="<?php echo MAIN_URL . $this->lang . '/products/' . $this->mainCategory->slug . "/" . $this->parentCategory->slug; ?>"><?php echo $this->parentCategory->name; ?></a></li>
+                    <li><a><?php echo $this->itemCategory->categoryName; ?></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="product-details">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="main-image">
+                        <a id="popup-image" href="<?php echo $image ?>">
+                            <img src="<?php echo $image ?>" />
+                        </a>
+                    </div>
+                    <div class="product-images-slider-c clearfix">
+                        <div class="product-images-slider">
+                            <div><img class="change-main-image" src="<?php echo $image; ?>" /></div>
+                            <?php if ($this->images) {
+                                foreach ($this->images as $row) { ?>
+                                    <div><img class="change-main-image" src="<?php echo HelperController::getImageUrl($row->imageName); ?>" /></div>
+                            <?php }
+                            } ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="product-details-side">
+                        <?php if ($item->salePrice) { ?>
+                            <div class="price1"><?php echo number_format($item->regularPrice * $item->usdExchangeRate) . " " . _t('lbp'); ?></div>
+                        <?php } ?>
+                        <div class="price2"><?php echo ProductController::getFinalPrice($item->regularPrice * $item->usdExchangeRate, $item->salePrice * $item->usdExchangeRate); ?><span><?php echo _t('lbp'); ?></span></div>
+                        <div class="title"><?php echo $item->title; ?></div>
+                        <div class="sku"><b>SKU: </b><?php echo $item->sku; ?></div>
+                        <?php if ($item->warranty) { ?>
+                            <div class="sku"><b>Warranty: </b><?php echo $item->warranty; ?></div>
+                        <?php } ?>
+                        <?php if ($item->exchange) { ?>
+                            <div class="sku"><b>Exchange: </b><?php echo $item->exchange; ?></div>
+                        <?php } ?>
+                        <?php if (isset($this->itemBrand->image)) { ?>
+                            <div class="brand"><img src="<?php echo HelperController::getImageUrl($this->itemBrand->image); ?>" /></div>
+                        <?php } ?>
+                        <div class="desc"><?php echo $item->description; ?></div>
+                        <!-- <div class="color">Color: Not Specified</div> -->
+                        <div class="qty noSelect">QTY:&nbsp;
+                            <span class="input-wrapper">
+                                <i class="fas fa-minus"></i><input type="number" value="1" min="1" pattern="[1-9]" id="qty" /><i class="fas fa-plus"></i>
+                            </span>
+                        </div>
+                        <div class="buttons">
+                            <a class="add-to-cart cart-add" href="javascript:void(0);" data-item-id="<?php echo $item->id; ?>"><img src="img/cart.png" />Add to Cart</a>
+                            <a class="buy-now" href="<?php echo MAIN_URL . 'checkout?id=' . $item->id; ?>">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                <?php if ($specs) { ?>
+                    <div class="col-md-8 specifications">
+                        <?php echo DesignController::secondaryTitle('Specifications') ?>
+                        <div class="specs-wrapper">
+                            <?php foreach ($specs as $row) { ?>
+                                <div class="specs-item"><?php echo $row; ?></div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                <?php } ?>
+                <div class="col-md-12">
+                    <?php echo DesignController::mainTitle('YOU MIGHT ALSO LIKE') ?>
+                    <div class="related">
+                        <div class="related-slider">
+                            <?php foreach ($this->relatedProducts as $row) {
+                                echo '<div>';
+                                echo DesignController::item($row);
+                                echo '</div>';
+                            } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

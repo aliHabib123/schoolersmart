@@ -1,0 +1,46 @@
+/* here you can put your own css to customize and override the theme */
+.user-active {
+  background-color: green !important;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+.user-inactive {
+  background-color: red !important;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+.search-form label.control-label {
+  margin-bottom: 5px;
+}
+.notice-area {
+  text-align: center;
+  min-height: 20px;
+}
+.notice-area .error {
+  color: red;
+}
+.notice-area .success {
+  color: green;
+}
+.footer .footer-inner {
+  color: #ffffff;
+  float: none;
+}
+.footer .footer-inner a {
+  color: red;
+}
+.navbar-inverse .navbar-nav > li > a {
+  color: #fff;
+}
+.header .navbar-nav > li.dropdown.user .dropdown-toggle .username {
+  color: #fff;
+}
+.header .navbar-nav li.dropdown .dropdown-toggle i {
+  color: #fff !important;
+}
+.header .navbar-nav > li.dropdown:last-child {
+  padding-right: 15px;
+  margin-top: 5px;
+}

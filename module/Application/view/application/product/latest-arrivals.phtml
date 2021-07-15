@@ -1,0 +1,90 @@
+<?php
+
+use Application\Controller\DesignController;
+use Application\Controller\HelperController;
+
+?>
+<div class="main-wrapper">
+    <div class="small-banner-container with-breadcrumb">
+        <div class="small-banner_img">
+            <img src="img/banner-red.jpg" />
+        </div>
+        <div class="small-banner-caption-container centered">
+            <div class="container">
+                <div class="banner-title1">NEW FOR YOU</div>
+                <div class="banner-title2"><?php echo _t('getReady'); ?></div>
+                <div class="banner-title3"><?php echo _t('getChance'); ?></div>
+            </div>
+        </div>
+        <div class="banner-breadcrumb">
+            <div class="container">
+                <ul>
+                    <li><a href="<?php echo MAIN_URL . $_SESSION['lang']; ?>"><span><img src="img/home-icon.jpg" /></span><?php echo _t('home'); ?></a></li>
+                    <li><a class="light"><?php echo _t('latestArrivals'); ?></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="breadcrumb-c d-block d-sm-none">
+        <div class="breadcrumb-c-inner">
+            <div class="container">
+                <ul>
+                    <li><a href="<?php echo MAIN_URL . $_SESSION['lang']; ?>"><span><img src="img/home-icon.jpg" /></span><?php echo _t('home'); ?></a></li>
+                    <li><a><?php echo _t('latestArrivals'); ?></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container ads-c">
+        <div class="row">
+            <?php foreach ($this->ads as $row) { ?>
+                <div class="col-md-6 ad-col">
+                    <a href="<?php echo $row->customUrl; ?>">
+                        <img src="<?php echo HelperController::getImageUrl($row->image); ?>" />
+                    </a>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 with-margin">
+                <?php echo DesignController::mainTitle(strtoupper(_t('latestArrivals'))) ?>
+            </div>
+        </div>
+        <div class="row">
+            <?php $obj = new stdClass(); ?>
+            <?php foreach ($this->items as $item) { ?>
+                <div class="col-6 col-md-2 item-col">
+                    <?php echo DesignController::item($item); ?>
+                </div>
+            <?php } ?>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="product-pagination" class="product-pagination text-center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function() {
+        //alert('s');
+        //Pagination
+        $("#product-pagination").twbsPagination({
+            totalPages: <?php echo $this->totalPages; ?>,
+            visiblePages: 5,
+            first: '<i class="fas fa-angle-double-' + translations.config.left + '"></i>',
+            last: '<i class="fas fa-angle-double-' + translations.config.right + '"></i>',
+            next: '<i class="fas fa-chevron-' + translations.config.right + '"></i>',
+            prev: '<i class="fas fa-chevron-' + translations.config.left + '"></i>',
+            startPage: <?php echo $this->currentPage; ?>,
+            initiateStartPageClick: false,
+            onPageClick: function(event, page) {
+                location.href = '<?php echo MAIN_URL . 'latest-arrivals' . "/?page="; ?>' + page;
+            },
+        });
+    });
+</script>

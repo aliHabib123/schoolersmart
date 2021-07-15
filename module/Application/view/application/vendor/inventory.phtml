@@ -1,0 +1,76 @@
+<?php
+
+use Application\Controller\DesignController;
+
+?>
+<div class="main-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 sidebar">
+                <?php echo DesignController::getVendorSidebar('inventory'); ?>
+            </div>
+            <div class="col-md-9 vendor-pl0">
+                <div class="page-date"><i class="far fa-calendar-alt"></i>&nbsp;<?php echo date('l, F j, Y') ?></div>
+                <div class="vendor-page-wrapper">
+                    <form id="import-form" action="<?php echo MAIN_URL . 'submit-import'; ?>">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card card1">
+                                    <div class="card-body">
+                                        <h5 class="card-title">STEP 1</h5>
+                                        <p class="card-text txt-lrg">DOWNLOAD INVENTORY CSV FILE</p>
+                                        <?php if ($this->user->uploadedFile) { ?>
+                                            <div class="card-bottom">
+                                                <a download href="<?php echo BASE_URL . upload_file_dir . $this->user->uploadedFile; ?>" class="btn download-csv">DOWNLOAD CSV</a>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card card2">
+                                    <div class="card-body">
+                                        <h5 class="card-title">STEP 2</h5>
+                                        <p class="card-text txt-lrg">UPDATE INVENTORY PRODUCTS</p>
+                                        <div class="card-bottom">
+                                            <div class="form-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="customFile" name="excel">
+                                                    <label class="custom-file-label" id="customFileLabel" for="customFile">File Name</label>
+                                                </div>
+                                            </div>
+                                            <!-- <button type="" class="btn upload-csv">UPLAOD CSV</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card card3 with-sub">
+                                    <div class="card-body">
+                                        <h5 class="card-title">STEP 3</h5>
+                                        <p class="card-text txt-sml">Please make sure that your changes were saved before running the profile</p>
+                                        <p class="card-text txt-lrg">RUN PROFILE</p>
+                                        <div class="card-bottom">
+                                            <button type="submit" class="btn run">UPDATE INVENTORY</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="notice-area"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function() {
+        <?php if (USE_NEW_IMPORT_MECHANISM) { ?>
+            $('.page-loader').toggle();
+            checkTempTable();
+        <?php } ?>
+    });
+</script>

@@ -1,0 +1,63 @@
+<?php
+
+use Application\Controller\DesignController;
+
+?>
+<div class="main-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 sidebar">
+                <?php echo DesignController::getVendorSidebar('warehouse');?>
+            </div>
+            <div class="col-md-9 vendor-pl0">
+                <div class="page-date"><i class="far fa-calendar-alt"></i>&nbsp;<?php echo date('l, F j, Y')?></div>
+                <div class="vendor-page-wrapper">
+                    <div class="warehouse-table-wrapper light-table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>LABEL</th>
+                                    <th>FULL NAME</th>
+                                    <th>MOBILE NUMBER</th>
+                                    <th>EMAIL</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody id="warehouse-tbody">
+                               <?php if ($this->warehouses) {
+    foreach ($this->warehouses as $row) {?>
+                                     <tr id="<?php echo $row->warehouseId; ?>">
+                                        <td><?php echo $row->warehouseId; ?></td>
+                                        <td><?php echo $row->title;?></td>
+                                        <td><?php echo $row->firstName . ' ' . $row->lastName;?></td>
+                                        <td><?php echo $row->mobile;?></td>
+                                        <td><?php echo $row->email;?></td>
+                                        <td>
+                                            <a 
+                                            href="javasript:void(0);"
+                                            data-warehouse-id="<?php echo $row->warehouseId; ?>"
+                                            data-contact-id="<?php echo $row->contactId; ?>"
+                                            data-title="<?php echo $row->title;?>"
+                                            data-mobile="<?php echo $row->mobile;?>"
+                                            data-email="<?php echo $row->email;?>"
+                                            data-first-name="<?php echo $row->firstName;?>"
+                                            data-last-name="<?php echo $row->lastName;?>"
+                                            data-href="<?php echo MAIN_URL.'edit-warehouse'; ?>"
+                                            class="edit-warehouse"><i class="fas fa-pen"></i></a>
+                                            <a class="delete-warehouse" data-contact-id="<?php echo $row->contactId;?>" data-id="<?php echo $row->warehouseId;?>" href="<?php echo MAIN_URL.'delete-warehouse';?>"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+                                <?php }
+}?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="button-wrapper">
+                        <a href="#" class="btn submit-btn" data-toggle="modal" data-target="#add-warehouse-modal">ADD WAREHOUSE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

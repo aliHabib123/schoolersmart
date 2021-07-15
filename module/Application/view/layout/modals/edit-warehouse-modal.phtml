@@ -1,0 +1,163 @@
+<!-- The Modal -->
+<div class="modal" id="edit-warehouse-modal">
+
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="modal-title">Add new warehouse!</div>
+                <div class="modal-subtitle">Add new warehuse to manage your stock.</div>
+                <div class="notice-area"></div>
+                <div class="vendor-page-wrapper">
+                    <form action="<?php echo MAIN_URL . 'edit-warehouse' ?>" id="edit-warehouse">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 input-wrap">
+                                    <div class="row">
+                                        <div class="col-md-4 pr0">
+                                            <label for="email">*First Name</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" placeholder="" name="first-name" id="first-name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 input-wrap">
+                                    <div class="row">
+                                        <div class="col-md-4 pr0">
+                                            <label for="email">*Last Name</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" placeholder="" name="last-name" id="last-name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 input-wrap">
+                                    <div class="row">
+                                        <div class="col-md-4 pr0">
+                                            <label for="email">*Email Address</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="email" class="form-control" placeholder="" name="email" id="email">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 input-wrap">
+                                    <div class="row">
+                                        <div class="col-md-4 pr0">
+                                            <label for="email">*Mobile Number</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input name="mobile" type="text" class="form-control" placeholder="" id="mobile-number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 input-wrap">
+                                    <div class="row">
+                                        <div class="col-md-4 pr0">
+                                            <label for="email">Warehouse Name</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input id="warehouse-name" type="text" class="form-control" placeholder="" name="warehouse-name">
+                                        </div>
+                                        <input type="hidden" id="contact-id" name="contact-id">
+                                        <input type="hidden" id="warehouse-id" name="warehouse-id">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn submit-btn">UPDATE</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("#edit-warehouse").submit(function(e) {
+        var formData = new FormData(this);
+        var formUrl = $(this).attr('action');
+        $.ajax({
+            url: formUrl,
+            type: 'POST',
+            dataType: 'json',
+            data: formData,
+            mimeType: "multipart/form-data",
+            contentType: false,
+            cache: false,
+            processData: false,
+            beforeSend: function() {
+                showMsg('.notice-area', true, 'Adding warehouse, please wait...');
+            },
+            success: function(response) {
+                console.log(response);
+                showMsg('.notice-area', response.status, response.msg);
+                if (response.status == true) {
+                    const html = `<tr id="${response.warehouse.id}">
+                                    <td>${response.warehouse.id}</td>
+                                    <td>${response.warehouse.title}</td>
+                                    <td>${response.contact.firstName + ' ' + response.contact.lastName}</td>
+                                    <td>${response.contact.mobile}</td>
+                                    <td>${response.contact.email}</td>
+                                    <td>
+                                    <a 
+                                            data-warehouse-id="${response.warehouse.id}"
+                                            data-contact-id="${response.warehouse.contactId}"
+                                            data-title="${response.warehouse.title}"
+                                            data-mobile="${response.contact.mobile}"
+                                            data-email="${response.contact.email}"
+                                            data-first-name="${response.contact.firstName}"
+                                            data-last-name="${response.contact.lastName}"
+                                            data-href="${mainUrl+'edit-warehouse'}"
+                                            class="edit-warehouse"><i class="fas fa-pen"></i></a>
+                                        <a data-id="${response.warehouse.id}" data-contact-id="${response.warehouse.contactId}" class="delete-warehouse" href="${mainUrl+'delete-warehouse'}"><i class="fas fa-trash-alt"></i></a>
+                                    </td>
+                                </tr>`;
+
+                    // const h = `<a 
+                    //             data-warehouse-id="${response.warehouse.id}"
+                    //             data-contact-id="${response.warehouse.contactId}"
+                    //             data-title="${response.warehouse.title}"
+                    //             data-mobile="${response.warehouse.mobile}"
+                    //             data-email="${response.warehouse.email}"
+                    //             data-first-name="${response.warehouse.firstName}"
+                    //             data-last-name="${response.warehouse.lastName}"
+                    //             data-href="${mainUrl+'edit-warehouse'}"
+                    //             class="edit-warehouse"><i class="fas fa-pen"></i></a>`;
+                    showMsg('.notice-area', response.status, '');
+                    $('#edit-warehouse')[0].reset();
+                    $('#edit-warehouse-modal').modal('hide');
+                    $("#warehouse-tbody")
+                        .find("tr#" + response.warehouse.id)
+                        .remove();
+                    $('#warehouse-tbody').prepend(html).fadeIn(500);
+                }
+            },
+            error: function() {
+                showMsg('.notice-area', false, 'An error occured, please try again!');
+            }
+        });
+        e.preventDefault();
+    });
+</script>
+
+<script>
+    // var warehouseId = $(this).data('warehouseId');
+    // var contactId = $(this).data('contactId');   
+    // var warehouseName = $(this).data('warehouseName');    
+
+    // $('#edit-warehouse-modal #warehouse-id').val(warehouseId);  
+    // $('#edit-warehouse-modal #contact-id').val(contactId);  
+    // $('#edit-warehouse-modal #warehouse-name').val(warehouseName);  
+    // $('#name').val(name);  
+    // $('#duration').val(duration);  
+    // $('#date').val(date); 
+</script>

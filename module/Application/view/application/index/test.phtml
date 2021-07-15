@@ -1,0 +1,13 @@
+<?php
+$conn = ConnectionFactory::getConnection();
+
+$sql = "select sku from items_temp where supplier_id = 44";
+
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+  $newItemsSKUList = [];
+  while ($row = $result->fetch_assoc()) {
+    array_push($newItemsSKUList, $row['sku']); 
+  }
+}
+print_r(implode(',', $newItemsSKUList));
