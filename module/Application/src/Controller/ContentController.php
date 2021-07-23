@@ -10,10 +10,10 @@ use Laminas\Mvc\Controller\AbstractActionController;
 
 class ContentController extends AbstractActionController
 {
-    public static function getBanners($bannerId)
+    public static function getBanners($location)
     {
         $bannerMySqlExtDAO = new BannerImageMySqlExtDAO();
-        $banners =  $bannerMySqlExtDAO->getBannerImagesByLocation($bannerId);
+        $banners =  $bannerMySqlExtDAO->getBannerImagesByLocation($location);
         return $banners;
     }
 
