@@ -34,10 +34,8 @@ class ProductController extends AbstractActionController
 
     public function indexAction()
     {
-        $langId =  LanguageController::setLanguage($this);
-        $lang = LanguageController::getLanguage();
         $itemCategoryMySqlExtDAO = new ItemCategoryMySqlExtDAO();
-        $prefixUrl = MAIN_URL . $lang . '/products/';
+        $prefixUrl = MAIN_URL . 'products/';
         $categoryList = [];
         $page = 1;
         $limit = 12;
@@ -94,7 +92,7 @@ class ProductController extends AbstractActionController
             } elseif ($cat2 && !$cat3) {
                 $cat2Info = $itemCategoryMySqlExtDAO->queryBySlug($cat2);
                 $cat2Id = $cat2Info[0]->id;
-                $categoriesLevel2 = CategoryController::getCategories("parent_id = $cat2Id AND lang_id = 1");
+                $categoriesLevel2 = CategoryController::getCategories("parent_id = $cat2Id");
                 foreach ($categoriesLevel2 as $row) {
                     if (count($categoriesFiltered) > 0) {
                         if (in_array($row->id, $categoriesFiltered)) {
@@ -104,45 +102,45 @@ class ProductController extends AbstractActionController
                         array_push($categoryArray, $row->id);
                     }
                 }
-                $categoryList = $itemCategoryMySqlExtDAO->select("a.`parent_id` = $cat2Id AND a.`lang_id` = 1 ORDER BY a.`name` ASC");
-                $prefixUrl = MAIN_URL . $lang . '/products/' . $cat1 . "/" . $cat2 . "/";
+                $categoryList = $itemCategoryMySqlExtDAO->select("parent_id = $cat2Id ORDER BY name ASC");
+                $prefixUrl = MAIN_URL . 'products/' . $cat1 . "/" . $cat2 . "/";
             } elseif ($cat1 && !$cat2 && !$cat3) {
                 $cat1Info = $itemCategoryMySqlExtDAO->queryBySlug($cat1);
                 $cat1Id = $cat1Info[0]->id;
-                $categoriesLevel1 = CategoryController::getCategories("parent_id = $cat1Id AND lang_id = 1");
+                $categoriesLevel1 = CategoryController::getCategories("parent_id = $cat1Id");
                 foreach ($categoriesLevel1 as $row) {
                     if (count($categoriesFiltered) > 0) {
                         $categoriesFilteredList = implode(',', $categoriesFiltered);
-                        $categoriesLevel2 = CategoryController::getCategories("parent_id IN ($categoriesFilteredList) AND lang_id = 1");
+                        $categoriesLevel2 = CategoryController::getCategories("parent_id IN ($categoriesFilteredList)");
                         foreach ($categoriesLevel2 as $row) {
                             array_push($categoryArray, $row->id);
                         }
                     } else {
                         $cat2Info = $itemCategoryMySqlExtDAO->queryBySlug($row->slug);
                         $cat2Id = $cat2Info[0]->id;
-                        $categoriesLevel2 = CategoryController::getCategories("parent_id = $cat2Id AND lang_id = 1");
+                        $categoriesLevel2 = CategoryController::getCategories("parent_id = $cat2Id");
                         foreach ($categoriesLevel2 as $row) {
                             array_push($categoryArray, $row->id);
                         }
                     }
                 }
-                $categoryList = $itemCategoryMySqlExtDAO->select("a.`parent_id` = $cat1Id AND a.`lang_id` = 1 ORDER BY a.`name` ASC");
-                $prefixUrl = MAIN_URL . $lang . '/products/' . $cat1 . "/";
+                $categoryList = $itemCategoryMySqlExtDAO->select("parent_id = $cat1Id ORDER BY name ASC");
+                $prefixUrl = MAIN_URL . 'products/' . $cat1 . "/";
             }
         } else {
             if (count($categoriesFiltered) > 0) {
                 $categoriesFilteredList = implode(',', $categoriesFiltered);
-                $categoriesLevel1 = CategoryController::getCategories("parent_id IN ($categoriesFilteredList) AND lang_id = 1");
+                $categoriesLevel1 = CategoryController::getCategories("parent_id IN ($categoriesFilteredList)");
                 foreach ($categoriesLevel1 as $row) {
                     $cat2Info = $itemCategoryMySqlExtDAO->queryBySlug($row->slug);
                     $cat2Id = $cat2Info[0]->id;
-                    $categoriesLevel2 = CategoryController::getCategories("parent_id = $cat2Id AND lang_id = 1");
+                    $categoriesLevel2 = CategoryController::getCategories("parent_id = $cat2Id");
                     foreach ($categoriesLevel2 as $row) {
                         array_push($categoryArray, $row->id);
                     }
                 }
             } else {
-                $categoryList = $itemCategoryMySqlExtDAO->select('a.`parent_id` = 0 AND a.`lang_id` = 1 ORDER BY a.`name` ASC');
+                $categoryList = $itemCategoryMySqlExtDAO->select('parent_id = 0 ORDER BY name ASC');
             }
         }
 
@@ -180,14 +178,11 @@ class ProductController extends AbstractActionController
             'minPrice' => $minPrice,
             'maxPrice' => $maxPrice,
             'categoriesFiltered' => $categoriesFiltered,
-            'lang' => $lang,
         ];
         return new ViewModel($data);
     }
     public function detailsAction()
     {
-        $langId =  LanguageController::setLanguage($this);
-        $lang = LanguageController::getLanguage();
         $slug = HelperController::filterInput($this->params('slug'));
         $itemMySqlExtDAO = new ItemMySqlExtDAO();
         $item = $itemMySqlExtDAO->queryBySlug($slug);
@@ -227,12 +222,10 @@ class ProductController extends AbstractActionController
             'itemBrand' => $itemBrand,
             'images' => $images,
             'relatedProducts' => $relatedProducts,
-            'lang' => $lang,
         ]);
     }
     public function todaysDealsAction()
     {
-        $langId =  LanguageController::setLanguage($this);
         $page = 1;
         $limit = 12;
         $offset = 0;
@@ -261,7 +254,7 @@ class ProductController extends AbstractActionController
     }
     public function latestArrivalsAction()
     {
-        $langId =  LanguageController::setLanguage($this);
+        $langId = HelperController::langId(HelperController::filterInput($this->params('lang')));
         $page = 1;
         $limit = 12;
         $offset = 0;
@@ -273,8 +266,8 @@ class ProductController extends AbstractActionController
         $itemTagMySqlExtDAO = new ItemTagMySqlExtDAO();
         $tagInfo = $itemTagMySqlExtDAO->queryBySlug('latest-arrivals');
         $tagId = $tagInfo[0]->id;
-        $items = self::getItems(false, "", "", "", "", $tagId, "", $limit, $offset);
-        $itemsCount = count(self::getItems(false, "", "", "", "", $tagId));
+        $items = self::getItems(false, false, $tagId, "", $limit, $offset);
+        $itemsCount = count(self::getItems(false, false, $tagId));
         $totalPages = ceil($itemsCount / $limit);
 
         $ads = ContentController::getContent("type = 'ad1' and lang = $langId ORDER BY display_order asc LIMIT 3");
@@ -289,7 +282,6 @@ class ProductController extends AbstractActionController
 
     public function promotionsAction()
     {
-        $langId =  LanguageController::setLanguage($this);
         $page = 1;
         $limit = 12;
         $offset = 0;
@@ -297,19 +289,19 @@ class ProductController extends AbstractActionController
             $page = $_GET['page'];
             $offset = ($page - 1) * $limit;
         }
-        $catetgories = CategoryController::getCategories('parent_id = 0 AND lang_id = 1 ORDER BY display_order ASC, name ASC, id DESC');
+        $catetgories = CategoryController::getCategories('parent_id = 0 ORDER BY display_order ASC, name ASC, id DESC');
         $category = (isset($_GET['category']) && $_GET['category'] != "") ? $_GET['category'] : false;
         $categoryArray = [];
         if ($category) {
             $itemCategoryMySqlExtDAO = new ItemCategoryMySqlExtDAO();
             $cat1Info = $itemCategoryMySqlExtDAO->queryBySlug($category);
             $cat1Id = $cat1Info[0]->id;
-            $categoriesLevel1 = CategoryController::getCategories("parent_id = $cat1Id AND lang_id = 1");
+            $categoriesLevel1 = CategoryController::getCategories("parent_id = $cat1Id");
             foreach ($categoriesLevel1 as $row) {
                 array_push($categoryArray, $row->id);
                 $cat2Info = $itemCategoryMySqlExtDAO->queryBySlug($row->slug);
                 $cat2Id = $cat2Info[0]->id;
-                $categoriesLevel2 = CategoryController::getCategories("parent_id = $cat2Id AND lang_id = 1");
+                $categoriesLevel2 = CategoryController::getCategories("parent_id = $cat2Id");
                 foreach ($categoriesLevel2 as $row) {
                     array_push($categoryArray, $row->id);
                 }
@@ -363,22 +355,22 @@ class ProductController extends AbstractActionController
         foreach ($items as $row) {
             $albumId = 0;
             $prefix = $supplierId . '-' . HelperController::slugify($row['SKU']);
-            $image = HelperController::downloadFile($row['Image 1'], $prefix);
+            $image = HelperController::getOrDownloadImage($row['Image 1'], $prefix);
             $imagesArray = [];
             if ($row['Image 2'] != "") {
-                $image1 = HelperController::downloadFile($row['Image 2'], $prefix);
+                $image1 = HelperController::getOrDownloadImage($row['Image 2'], $prefix);
                 if ($image1) {
                     array_push($imagesArray, $image1);
                 }
             }
             if ($row['Image 3'] != "") {
-                $image2 = HelperController::downloadFile($row['Image 3'], $prefix);
+                $image2 = HelperController::getOrDownloadImage($row['Image 3'], $prefix);
                 if ($image2) {
                     array_push($imagesArray, $image2);
                 }
             }
             if ($row['Image 4'] != "") {
-                $image3 = HelperController::downloadFile($row['Image 4'], $prefix);
+                $image3 = HelperController::getOrDownloadImage($row['Image 4'], $prefix);
                 if ($image3) {
                     array_push($imagesArray, $image3);
                 }
@@ -484,15 +476,15 @@ class ProductController extends AbstractActionController
         $supplierId = $_SESSION['user']->id;
         $data = [];
         foreach ($items as $row) {
-            $image1 = isset($row['Image 1']) ? mysqli_real_escape_string($conn, $row['Image 1']) : '';
-            $image2 = isset($row['Image 2']) ? mysqli_real_escape_string($conn, $row['Image 2']) : '';
-            $image3 = isset($row['Image 3']) ? mysqli_real_escape_string($conn, $row['Image 3']) : '';
-            $image4 = isset($row['Image 4']) ? mysqli_real_escape_string($conn, $row['Image 4']) : '';
-            $title = isset($row['Title']) ? $row['Title'] : '';
+            $image1 = isset($row['Image 1']) ? mysqli_real_escape_string($conn, strval($row['Image 1'])) : '';
+            $image2 = isset($row['Image 2']) ? mysqli_real_escape_string($conn, strval($row['Image 2'])) : '';
+            $image3 = isset($row['Image 3']) ? mysqli_real_escape_string($conn, strval($row['Image 3'])) : '';
+            $image4 = isset($row['Image 4']) ? mysqli_real_escape_string($conn, strval($row['Image 4'])) : '';
+            $title = isset($row['Title']) ? mysqli_real_escape_string($conn, $row['Title']) : '';
             $category = isset($row['Category']) ? $row['Category'] : '';
             $subCategory = isset($row['sub category']) ? $row['sub category'] : '';
             $productCategory = isset($row['product category']) ? $row['product category'] : '';
-            $sku = isset($row['SKU']) ? mysqli_real_escape_string($conn, $row['SKU']) : '';
+            $sku = isset($row['SKU']) ? mysqli_real_escape_string($conn, strval($row['SKU'])) : '';
             $description = isset($row['Description']) ?  mysqli_real_escape_string($conn, $row['Description']) : '';
             $specs = isset($row['Specification']) ?  mysqli_real_escape_string($conn, $row['Specification']) : '';
             $color = isset($row['Color']) ? $row['Color'] : '';
@@ -528,10 +520,12 @@ class ProductController extends AbstractActionController
         `stock`, `price`, `special_price`, `warranty`, `exchange`,
         `title_ar`, `description_ar`, `specs_ar`,
         `color_ar`, `size_ar`, `dimensions_ar`, `warranty_ar`, `exchange_ar`, `supplier_id`, `processed`) VALUES " . implode(',', $data);
-        // /echo $sql;
+        
         if (!$conn->query($sql)) {
             $res = false;
             $msg = $conn->error;
+            error_log($msg);
+            error_log($sql);
         } else {
             $res = true;
             $msg = 'imported';
@@ -559,45 +553,45 @@ class ProductController extends AbstractActionController
             $update = $insert = false;
             $albumId = 0;
             $prefix = $supplierId . '-' . HelperController::slugify($row['SKU']);
-            $image = HelperController::downloadFile($row['Image 1'], $prefix);
+            $image = HelperController::getOrDownloadImage($row['Image 1'], $prefix);
             $imagesArray = [];
             if ($row['Image 2'] != "") {
-                $image1 = HelperController::downloadFile($row['Image 2'], $prefix);
+                $image1 = HelperController::getOrDownloadImage($row['Image 2'], $prefix);
                 if ($image1) {
                     array_push($imagesArray, $image1);
                 }
             }
             if ($row['Image 3'] != "") {
-                $image2 = HelperController::downloadFile($row['Image 3'], $prefix);
+                $image2 = HelperController::getOrDownloadImage($row['Image 3'], $prefix);
                 if ($image2) {
                     array_push($imagesArray, $image2);
                 }
             }
             if ($row['Image 4'] != "") {
-                $image3 = HelperController::downloadFile($row['Image 4'], $prefix);
+                $image3 = HelperController::getOrDownloadImage($row['Image 4'], $prefix);
                 if ($image3) {
                     array_push($imagesArray, $image3);
                 }
             }
 
-            if ($imagesArray) {
-                $albumMySqlExtDAO = new AlbumMySqlExtDAO();
-                $albumImageMySqlExtDAO = new ImageMySqlExtDAO();
-                $albumObj = new Album();
-                $albumObj->displayOrder = 0;
-                $albumObj->active = 1;
-                $albumId = $albumMySqlExtDAO->insert($albumObj);
+            $albumMySqlExtDAO = new AlbumMySqlExtDAO();
+            $albumImageMySqlExtDAO = new ImageMySqlExtDAO();
+            // if ($imagesArray) {
+            //     $albumObj = new Album();
+            //     $albumObj->displayOrder = 0;
+            //     $albumObj->active = 1;
+            //     $albumId = $albumMySqlExtDAO->insert($albumObj);
 
-                foreach ($imagesArray as $albumImageItem) {
-                    $albumImageObj = new Image();
-                    $albumImageObj->albumId = $albumId;
-                    $albumImageObj->imageName = $albumImageItem;
-                    $albumImageMySqlExtDAO->insert($albumImageObj);
-                }
-            }
+            //     foreach ($imagesArray as $albumImageItem) {
+            //         $albumImageObj = new Image();
+            //         $albumImageObj->albumId = $albumId;
+            //         $albumImageObj->imageName = $albumImageItem;
+            //         $albumImageMySqlExtDAO->insert($albumImageObj);
+            //     }
+            // }
 
             $itemObj = new Item();
-            self::populateItem($itemObj, $row, $supplierId, $albumId);
+            self::populateItem($itemObj, $row, $supplierId);
             if ($image) {
                 $itemObj->image = $image;
             }
@@ -606,16 +600,98 @@ class ProductController extends AbstractActionController
             $date = date('Y-m-d H:i:s');
             $categoryId = ProductController::getCategory($row['Category'], $row['sub category'], $row['product category']);
             if ($itemExists) {
-                // delete image
-                HelperController::deleteImage($itemExists[0]->image);
+
+                // if ($imagesArray) {
+                //     $albumObj = new Album();
+                //     $albumObj->displayOrder = 0;
+                //     $albumObj->active = 1;
+                //     $albumId = $albumMySqlExtDAO->insert($albumObj);
+
+                //     foreach ($imagesArray as $albumImageItem) {
+                //         $albumImageObj = new Image();
+                //         $albumImageObj->albumId = $albumId;
+                //         $albumImageObj->imageName = $albumImageItem;
+                //         $albumImageMySqlExtDAO->insert($albumImageObj);
+                //     }
+                // }
+
+                // delete image if changed or removed
+                if (!$image || ($image != $itemExists[0]->image)) {
+                    HelperController::deleteImage($itemExists[0]->image);
+                }
+
                 // delete album and images
-                if ($itemExists[0]->albumId != 0) {
-                    $oldImages = $albumImageMySqlExtDAO->queryByAlbumId($itemExists[0]->albumId);
-                    foreach ($oldImages as $oldImage) {
-                        HelperController::deleteImage($oldImage->imageName);
-                        $albumImageMySqlExtDAO->deleteByAlbumId($itemExists[0]->albumId);
+                if ($itemExists[0]->albumId && $itemExists[0]->albumId != 0) {
+                    if (count($imagesArray) == 0) {
+                        $oldImages = $albumImageMySqlExtDAO->queryByAlbumId($itemExists[0]->albumId);
+                        foreach ($oldImages as $oldImage) {
+                            HelperController::deleteImage($oldImage->imageName);
+                            $albumImageMySqlExtDAO->deleteByAlbumId($itemExists[0]->albumId);
+                        }
+                        $albumMySqlExtDAO->delete($itemExists[0]->albumId);
+                    } else {
+                        $albumObj = $albumMySqlExtDAO->load($itemExists[0]->albumId);
+                        if ($albumObj) {
+                            $albumId = $albumObj->id;
+                            if($albumId != 0){
+                                $albumImages = $albumImageMySqlExtDAO->queryByAlbumId($albumId);
+
+                                //Delete deleted images
+                                foreach ($albumImages as $row1) {
+                                    if (!in_array($row1->imageName, $imagesArray)) {
+                                        HelperController::deleteImage($row1->imageName);
+                                    }
+                                }
+    
+                                $oldImagesNames = array_map(function ($e) {
+                                    return $e->imageName;
+                                }, $albumImages);
+    
+                                //error_log(json_encode($oldImagesNames));
+                                
+                                //update album 
+                                foreach ($imagesArray as $albumImageItem) {
+                                    if (!in_array($albumImageItem, $oldImagesNames)) {
+                                        $albumImageObj = new Image();
+                                        $albumImageObj->albumId = $albumId;
+                                        $albumImageObj->imageName = $albumImageItem;
+                                        $albumImageMySqlExtDAO->insert($albumImageObj);
+                                    }
+                                }
+                            }
+                        } else {
+                            if ($imagesArray) {
+                                $albumObj = new Album();
+                                $albumObj->displayOrder = 0;
+                                $albumObj->active = 1;
+                                $albumId = $albumMySqlExtDAO->insert($albumObj);
+
+                                foreach ($imagesArray as $albumImageItem) {
+                                    $albumImageObj = new Image();
+                                    $albumImageObj->albumId = $albumId;
+                                    $albumImageObj->imageName = $albumImageItem;
+                                    $albumImageMySqlExtDAO->insert($albumImageObj);
+                                }
+                                $itemObj->albumId = $albumId;
+                            }
+                        }
                     }
-                    $albumMySqlExtDAO->delete($itemExists[0]->albumId);
+                    //print_r($itemExists);
+                } else {
+                    if ($imagesArray) {
+                        $albumObj = new Album();
+                        $albumObj->displayOrder = 0;
+                        $albumObj->active = 1;
+                        $albumId = $albumMySqlExtDAO->insert($albumObj);
+
+                        foreach ($imagesArray as $albumImageItem) {
+                            $albumImageObj = new Image();
+                            $albumImageObj->albumId = $albumId;
+                            $albumImageObj->imageName = $albumImageItem;
+                            $albumImageMySqlExtDAO->insert($albumImageObj);
+                        }
+                        $itemObj->albumId = $albumId;
+                    }
                 }
 
                 $itemObj->id = $itemExists[0]->id;
@@ -634,6 +710,22 @@ class ProductController extends AbstractActionController
                     }
                 }
             } else {
+
+                if ($imagesArray) {
+                    $albumObj = new Album();
+                    $albumObj->displayOrder = 0;
+                    $albumObj->active = 1;
+                    $albumId = $albumMySqlExtDAO->insert($albumObj);
+
+                    foreach ($imagesArray as $albumImageItem) {
+                        $albumImageObj = new Image();
+                        $albumImageObj->albumId = $albumId;
+                        $albumImageObj->imageName = $albumImageItem;
+                        $albumImageMySqlExtDAO->insert($albumImageObj);
+                    }
+                    $itemObj->albumId = $albumId;
+                }
+
                 //echo 'does not exists<br>';
                 $itemObj->updatedAt = $date;
                 $itemObj->createdAt = $date;
@@ -665,7 +757,7 @@ class ProductController extends AbstractActionController
         return $response;
     }
 
-    public static function populateItem(&$itemObj, $row, $supplierId, $albumId)
+    public static function populateItem(&$itemObj, $row, $supplierId)
     {
         $itemObj->title = $row['Title'];
         $itemObj->description = (isset($row['Description']) && !empty($row['Description'])) ? $row['Description'] : "";
@@ -678,7 +770,6 @@ class ProductController extends AbstractActionController
         $itemObj->color = (isset($row['Color']) && !empty($row['Color'])) ? $row['Color'] : "";
         $itemObj->size = (isset($row['Size']) && !empty($row['Size'])) ? $row['Size'] : "";
         $itemObj->dimensions = (isset($row['Dimensions']) && !empty($row['Dimensions'])) ? $row['Dimensions'] : "";
-        $itemObj->albumId = $albumId;
         $itemObj->supplierId = $supplierId;
         $itemObj->displayOrder = 0;
         $itemObj->slug = self::slugify($row['Title'], $row['SKU']);

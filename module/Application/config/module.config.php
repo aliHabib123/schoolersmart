@@ -20,7 +20,7 @@ return [
             'home' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/[:lang][/]',
+                    'route'    => '/[:lang]',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
@@ -44,14 +44,14 @@ return [
             'products' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route'    => '/[:lang[/]]products[/:cat1][/:cat2][/:cat3][/]',
+                    'route'    => '/products[/:cat1][/:cat2][/:cat3][/]',
                     'defaults' => [
                         'controller' => Controller\ProductController::class,
                         'action'     => 'index',
-                        'lang' => 'en',
+                        'year'       => date('Y'),
                     ],
                     'constraints' => [
-                        'lang' => '(en|ar)',
+                        'year' => '\d{4}',
                     ],
                 ],
             ],
@@ -72,43 +72,41 @@ return [
             'todaysDeals' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route'    => '/[:lang[/]]todays-deals[/]',
+                    'route'    => '/todays-deals[/]',
                     'defaults' => [
                         'controller' => Controller\ProductController::class,
                         'action'     => 'todaysDeals',
-                        'lang' => 'en',
                     ],
                     'constraints' => [
                         'year' => '\d{4}',
-                        'lang' => '(en|ar)',
                     ],
                 ],
             ],
             'latestArrivals' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route'    => '/[:lang[/]]latest-arrivals[/]',
+                    'route'    => '/latest-arrivals[/]',
                     'defaults' => [
                         'controller' => Controller\ProductController::class,
                         'action'     => 'latestArrivals',
-                        'lang' => 'en',
+                        'year'       => date('Y'),
                     ],
                     'constraints' => [
-                        'lang' => '(en|ar)',
+                        'year' => '\d{4}',
                     ],
                 ],
             ],
             'promotions' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route'    => '/[:lang[/]]promotions[/]',
+                    'route'    => '/promotions[/]',
                     'defaults' => [
                         'controller' => Controller\ProductController::class,
                         'action'     => 'promotions',
-                        'lang' => 'en',
+                        'year'       => date('Y'),
                     ],
                     'constraints' => [
-                        'lang' => '(en|ar)',
+                        'year' => '\d{4}',
                     ],
                 ],
             ],
@@ -431,16 +429,12 @@ return [
                 ],
             ],
             'myOrders' => [
-                'type'    => Segment::class,
+                'type'    => Literal::class,
                 'options' => [
-                    'route'    => '/[:lang[/]]my-orders',
+                    'route'    => '/my-orders',
                     'defaults' => [
                         'controller' => Controller\UserController::class,
                         'action'     => 'myOrders',
-                        'lang' => 'en',
-                    ],
-                    'constraints' => [
-                        'lang' => '(en|ar)',
                     ],
                 ],
             ],
@@ -458,19 +452,16 @@ return [
                 ],
             ],
             'myWishlist' => [
-                'type'    => Segment::class,
+                'type'    => Literal::class,
                 'options' => [
-                    'route'    => '/[:lang[/]]my-wishlist[/]',
+                    'route'    => '/my-wishlist',
                     'defaults' => [
                         'controller' => Controller\UserController::class,
                         'action'     => 'myWishlist',
-                        'lang' => 'en',
-                    ],
-                    'constraints' => [
-                        'lang' => '(en|ar)',
                     ],
                 ],
             ],
+
             'addToWishlist' => [
                 'type'    => Literal::class,
                 'options' => [
@@ -636,28 +627,23 @@ return [
             'content' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route'    => '/[:lang[/]]page[/:slug][/]',
+                    'route'    => '/page[/:slug][/]',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'content',
-                        'lang' => 'en',
                     ],
                     'constraints' => [
-                        'lang' => '(en|ar)',
+                        'year' => '\d{4}',
                     ],
                 ],
             ],
             'contactUs' => [
-                'type'    => Segment::class,
+                'type'    => Literal::class,
                 'options' => [
-                    'route'    => '/[:lang[/]]contact-us',
+                    'route'    => '/contact-us',
                     'defaults' => [
                         'controller' => Controller\ContactController::class,
                         'action'     => 'index',
-                        'lang' => 'en',
-                    ],
-                    'constraints' => [
-                        'lang' => '(en|ar)',
                     ],
                 ],
             ],
@@ -672,30 +658,22 @@ return [
                 ],
             ],
             'careers' => [
-                'type'    => Segment::class,
+                'type'    => Literal::class,
                 'options' => [
-                    'route'    => '/[:lang[/]]careers[/]',
+                    'route'    => '/careers',
                     'defaults' => [
                         'controller' => Controller\CareerController::class,
                         'action'     => 'index',
-                        'lang' => 'en',
-                    ],
-                    'constraints' => [
-                        'lang' => '(en|ar)',
                     ],
                 ],
             ],
             'career' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/[:lang[/]]career/:id',
+                    'route'    => '/career/:id',
                     'defaults' => [
                         'controller' => Controller\CareerController::class,
                         'action'     => 'details',
-                        'lang' => 'en',
-                    ],
-                    'constraints' => [
-                        'lang' => '(en|ar)',
                     ],
                 ],
             ],
@@ -732,7 +710,6 @@ return [
             Controller\MPGSController::class => InvokableFactory::class,
             Controller\PaymentController::class => InvokableFactory::class,
             Controller\OptionsController::class => InvokableFactory::class,
-            Controller\LanguageController::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [

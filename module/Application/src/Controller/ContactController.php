@@ -11,7 +11,6 @@ class ContactController extends AbstractActionController
 {
     public function indexAction()
     {
-        $langId =  LanguageController::setLanguage($this);
         return new ViewModel([]);
     }
 
@@ -24,10 +23,10 @@ class ContactController extends AbstractActionController
         $message = HelperController::filterInput($this->getRequest()->getPost('message'));
 
         if($fullName == "" || $email == "" || $mobile == "" || $message == ""){
-            $msg = _t('fillRequired');
+            $msg = "Please fill all required inputs!";
         } else {
             $result = true;
-            $msg = _t('messageSent');
+            $msg = "Your Message has been send.";
         }        
         $response = json_encode([
             'status' => $result,

@@ -22,19 +22,5 @@ class ContentMySqlExtDAO extends ContentMySqlDAO{
 		$sqlQuery->set($id);
 		return $this->executeUpdate($sqlQuery);
 	}
-	public function queryBySlugAndLang($slug, $langId){
-
-		if($langId==1){
-			$sql = 'SELECT * FROM content WHERE slug = ?';
-			$sqlQuery = new SqlQuery($sql);
-			$sqlQuery->set($slug);
-		} else {
-			$sql = 'SELECT * FROM content WHERE id IN (SELECT translation_id FROM content WHERE slug = ?)';
-			$sqlQuery = new SqlQuery($sql);
-			$sqlQuery->set($slug);
-		}
-
-		return $this->getList($sqlQuery);
-	}
 }
 ?>

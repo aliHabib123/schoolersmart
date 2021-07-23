@@ -337,9 +337,6 @@ class ItemCategoryMySqlDAO implements ItemCategoryDAO{
 		$itemCategory->createdAt = $row['created_at'];
 		$itemCategory->updatedAt = $row['updated_at'];
 
-		// ++
-		$itemCategory->arabicName = isset($row['arabic_name']) ? $row['arabic_name'] : '';
-
 		return $itemCategory;
 	}
 	

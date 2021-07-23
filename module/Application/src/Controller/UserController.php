@@ -249,7 +249,6 @@ class UserController extends AbstractActionController
     public function myProfileAction()
     {
         self::checkCustomerLoggedIn();
-        $langId =  LanguageController::setLanguage($this);
         $saleOrders = self::getOrders();
         $cityMySqlExtDAO = new CityMySqlExtDAO();
         $cities = $cityMySqlExtDAO->queryAllOrderBy('city ASC');
@@ -264,7 +263,6 @@ class UserController extends AbstractActionController
     public function myWishlistAction()
     {
         self::checkCustomerLoggedIn();
-        $langId =  LanguageController::setLanguage($this);
         $saleOrders = self::getOrders();
         $itemMySqlExtDAO = new ItemMySqlExtDAO();
         $wishlist = [];
@@ -373,8 +371,8 @@ class UserController extends AbstractActionController
         } else {
             $shipping = OptionsController::getOption(OptionsController::$SHIPPING_OUTSIDE_BEIRUT);
         }
-        $shippingLabel = number_format(floatval($shipping)) . " " . _t('lbp');
-        $total = number_format(floatval($productsTotal) + floatval($shipping)) . " " . _t('lbp');
+        $shippingLabel = number_format(floatval($shipping)) . " LBP";
+        $total = number_format(floatval($productsTotal) + floatval($shipping)) . " LBP";
         $response = json_encode([
             'shipping' => $shipping,
             'label' => $shippingLabel,
@@ -412,7 +410,7 @@ class UserController extends AbstractActionController
                     <tr>
                         <td class=\"text-right cart-total\">Total</td>
                         <td class=\"text-right\" id=\"cart-total\">";
-        $html .= number_format($total) . " " . _t('lbp');
+        $html .= number_format($total) . " LBP";
         $html .= "</td>
                 </tr>
             </tfoot>
@@ -451,7 +449,7 @@ class UserController extends AbstractActionController
             'status' => $result,
             'msg' => $msg,
             'haveItems' => $haveItems,
-            'total' => number_format($total) . " ". _t('lbp'),
+            'total' => number_format($total) . " LBP",
         ]);
         print_r($response);
         return $this->response;
@@ -479,7 +477,7 @@ class UserController extends AbstractActionController
                 $subtotalRaw = $rawPrice * $item->cartQty;
                 $total += $subtotalRaw;
                 if ($item->id == $itemId) {
-                    $subtotal = number_format($subtotalRaw) . " ". _t('lbp');
+                    $subtotal = number_format($subtotalRaw) . " LBP";
                 }
             }
             $result = true;
@@ -488,7 +486,7 @@ class UserController extends AbstractActionController
         $response = json_encode([
             'status' => $result,
             'msg' => $msg,
-            'total' => number_format($total) . " ". _t('lbp'),
+            'total' => number_format($total) . " LBP",
             'subtotal' => $subtotal,
             'qty' => $cartQty,
         ]);
@@ -536,7 +534,6 @@ class UserController extends AbstractActionController
     public function myOrdersAction()
     {
         self::checkCustomerLoggedIn();
-        $langId =  LanguageController::setLanguage($this);
         $fromDate = $toDate = false;
         $status = (isset($_GET['status']) && !empty($_GET['status'])) ? HelperController::filterInput($_GET['status']) : false;
         $date = (isset($_GET['date']) && !empty($_GET['date'])) ? HelperController::filterInput($_GET['date']) : false;
@@ -928,7 +925,6 @@ class UserController extends AbstractActionController
 
     public function vendorLoginAction()
     {
-        $langId =  LanguageController::setLanguage($this);
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->userType == UserController::$SUPPLIER) {
                 header('Location: ' . MAIN_URL . 'vendor/my-dashboard');
