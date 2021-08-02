@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'Mountain Bridge';
+    src: url('./mountain-bridge/MountainBridgeRegular.eot');
+    src: local('Mountain Bridge'), local('MountainBridgeRegular'),
+        url('./mountain-bridge/MountainBridgeRegular.eot?#iefix') format('embedded-opentype'),
+        url('./mountain-bridge/MountainBridgeRegular.woff2') format('woff2'),
+        url('./mountain-bridge/MountainBridgeRegular.woff') format('woff'),
+        url('./mountain-bridge/MountainBridgeRegular.ttf') format('truetype'),
+        url('./mountain-bridge/MountainBridgeRegular.svg#MountainBridgeRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Notera';
+    src: url('./notera/NoteraPersonalUseOnly.eot');
+    src: local('Notera Personal Use Only'), local('NoteraPersonalUseOnly'),
+        url('./notera/NoteraPersonalUseOnly.eot?#iefix') format('embedded-opentype'),
+        url('./notera/NoteraPersonalUseOnly.woff2') format('woff2'),
+        url('./notera/NoteraPersonalUseOnly.woff') format('woff'),
+        url('./notera/NoteraPersonalUseOnly.ttf') format('truetype'),
+        url('./notera/NoteraPersonalUseOnly.svg#NoteraPersonalUseOnly') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
