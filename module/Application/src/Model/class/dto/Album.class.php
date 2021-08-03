@@ -5,6 +5,7 @@
 	class Album{
 		
 		var $id;
+		var $title;
 		var $image;
 		var $albumType;
 		var $displayOrder;

@@ -48,6 +48,8 @@ interface AlbumDAO{
 	 */
 	public function clean();
 
+	public function queryByTitle($value);
+
 	public function queryByImage($value);
 
 	public function queryByAlbumType($value);
@@ -56,6 +58,8 @@ interface AlbumDAO{
 
 	public function queryByActive($value);
 
+
+	public function deleteByTitle($value);
 
 	public function deleteByImage($value);
 

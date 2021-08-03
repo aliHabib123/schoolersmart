@@ -54,10 +54,11 @@ class AlbumMySqlDAO implements AlbumDAO{
  	 * @param AlbumMySql album
  	 */
 	public function insert($album){
-		$sql = 'INSERT INTO album (image, album_type, display_order, active) VALUES (?, ?, ?, ?)';
+		$sql = 'INSERT INTO album (title, image, album_type, display_order, active) VALUES (?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($album->image);
+		$sqlQuery->set($album->title);
+		$sqlQuery->set($album->image);
 		$sqlQuery->set($album->albumType);
 		$sqlQuery->setNumber($album->displayOrder);
 		$sqlQuery->setNumber($album->active);
@@ -73,10 +74,11 @@ class AlbumMySqlDAO implements AlbumDAO{
  	 * @param AlbumMySql album
  	 */
 	public function update($album){
-		$sql = 'UPDATE album SET image = ?, album_type = ?, display_order = ?, active = ? WHERE id = ?';
+		$sql = 'UPDATE album SET title = ?, image = ?, album_type = ?, display_order = ?, active = ? WHERE id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($album->image);
+		$sqlQuery->set($album->title);
+		$sqlQuery->set($album->image);
 		$sqlQuery->set($album->albumType);
 		$sqlQuery->setNumber($album->displayOrder);
 		$sqlQuery->setNumber($album->active);
@@ -94,10 +96,17 @@ class AlbumMySqlDAO implements AlbumDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 
+	public function queryByTitle($value){
+		$sql = 'SELECT * FROM album WHERE title = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->getList($sqlQuery);
+	}
+
 	public function queryByImage($value){
 		$sql = 'SELECT * FROM album WHERE image = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->setNumber($value);
+		$sqlQuery->set($value);
 		return $this->getList($sqlQuery);
 	}
 
@@ -123,10 +132,17 @@ class AlbumMySqlDAO implements AlbumDAO{
 	}
 
 
+	public function deleteByTitle($value){
+		$sql = 'DELETE FROM album WHERE title = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
 	public function deleteByImage($value){
 		$sql = 'DELETE FROM album WHERE image = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->setNumber($value);
+		$sqlQuery->set($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -162,6 +178,7 @@ class AlbumMySqlDAO implements AlbumDAO{
 		$album = new Album();
 		
 		$album->id = $row['id'];
+		$album->title = $row['title'];
 		$album->image = $row['image'];
 		$album->albumType = $row['album_type'];
 		$album->displayOrder = $row['display_order'];
