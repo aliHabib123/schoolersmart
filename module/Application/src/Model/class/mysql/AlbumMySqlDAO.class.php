@@ -1,9 +1,6 @@
 <?php
 /**
  * Class that operate on table 'album'. Database Mysql.
- *
- * @author: http://phpdao.com
- * @date: 2021-05-14 19:34
  */
 class AlbumMySqlDAO implements AlbumDAO{
 
@@ -57,10 +54,11 @@ class AlbumMySqlDAO implements AlbumDAO{
  	 * @param AlbumMySql album
  	 */
 	public function insert($album){
-		$sql = 'INSERT INTO album (image, display_order, active) VALUES (?, ?, ?)';
+		$sql = 'INSERT INTO album (image, album_type, display_order, active) VALUES (?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->setNumber($album->image);
+		$sqlQuery->set($album->albumType);
 		$sqlQuery->setNumber($album->displayOrder);
 		$sqlQuery->setNumber($album->active);
 
@@ -75,10 +73,11 @@ class AlbumMySqlDAO implements AlbumDAO{
  	 * @param AlbumMySql album
  	 */
 	public function update($album){
-		$sql = 'UPDATE album SET image = ?, display_order = ?, active = ? WHERE id = ?';
+		$sql = 'UPDATE album SET image = ?, album_type = ?, display_order = ?, active = ? WHERE id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->setNumber($album->image);
+		$sqlQuery->set($album->albumType);
 		$sqlQuery->setNumber($album->displayOrder);
 		$sqlQuery->setNumber($album->active);
 
@@ -102,6 +101,13 @@ class AlbumMySqlDAO implements AlbumDAO{
 		return $this->getList($sqlQuery);
 	}
 
+	public function queryByAlbumType($value){
+		$sql = 'SELECT * FROM album WHERE album_type = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->getList($sqlQuery);
+	}
+
 	public function queryByDisplayOrder($value){
 		$sql = 'SELECT * FROM album WHERE display_order = ?';
 		$sqlQuery = new SqlQuery($sql);
@@ -121,6 +127,13 @@ class AlbumMySqlDAO implements AlbumDAO{
 		$sql = 'DELETE FROM album WHERE image = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByAlbumType($value){
+		$sql = 'DELETE FROM album WHERE album_type = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -150,6 +163,7 @@ class AlbumMySqlDAO implements AlbumDAO{
 		
 		$album->id = $row['id'];
 		$album->image = $row['image'];
+		$album->albumType = $row['album_type'];
 		$album->displayOrder = $row['display_order'];
 		$album->active = $row['active'];
 

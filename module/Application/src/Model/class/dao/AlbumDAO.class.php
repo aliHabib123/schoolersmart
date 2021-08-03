@@ -1,9 +1,6 @@
 <?php
 /**
  * Intreface DAO
- *
- * @author: http://phpdao.com
- * @date: 2021-05-14 19:34
  */
 interface AlbumDAO{
 
@@ -53,12 +50,16 @@ interface AlbumDAO{
 
 	public function queryByImage($value);
 
+	public function queryByAlbumType($value);
+
 	public function queryByDisplayOrder($value);
 
 	public function queryByActive($value);
 
 
 	public function deleteByImage($value);
+
+	public function deleteByAlbumType($value);
 
 	public function deleteByDisplayOrder($value);
 
