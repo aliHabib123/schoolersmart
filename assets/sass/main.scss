@@ -667,21 +667,35 @@ body {
   -ms-user-select: none; /* IE 10+ */
 }
 .modal-title {
-  font-family: $fontPrimary;
-  font-size: 34px;
-  font-weight: bold;
-  color: $base-color;
+  font-family: $notera;
+  font-size: 55px;
+  //font-weight: bold;
+  color: #fff;
   text-align: center;
   line-height: 1;
   margin-bottom: 15px;
+  &.dark {
+    color: #000;
+  }
 }
 .modal-subtitle {
   font-family: $fontsecondary;
   font-size: 16px;
-  color: $base-black;
+  color: #fff;
   text-align: center;
   line-height: 1;
   margin-bottom: 25px;
+  &.dark {
+    color: #000;
+  }
+}
+.modal-logo {
+  text-align: center;
+  text-align: -webkit-center;
+  text-align: -moz-center;
+  margin-bottom: 30px;
+  img {
+  }
 }
 .modal-header {
   padding: 0.5em 0.5rem;
@@ -703,43 +717,61 @@ body {
   input[type="password"],
   input[type="text"],
   input[type="date"] {
-    border-radius: 0;
-    border-left: none;
-    border-bottom: none;
-    border-right: none;
+    background-color: #f1f1f3;
+    // border-radius: 0;
+    // border-left: none;
+    // border-bottom: none;
+    // border-right: none;
+    &:focus {
+      outline: none;
+      border-color: initial;
+    }
+  }
+  select {
+    background-color: #f1f1f3;
     &:focus {
       outline: none;
       border-color: initial;
     }
   }
   .confirm-password {
-    margin-bottom: 30px;
+    //margin-bottom: 30px;
   }
   .centered-button {
     text-align: center;
     text-align: -webkit-center;
     text-align: -moz-center;
-    button[type="submit"] {
-      margin-bottom: 30px;
-      width: 240px;
-      background-color: $base-color;
-      font-family: $fontsecondary;
-      font-size: 22px;
-      color: #fff;
-      padding: 7px 15px;
-      line-height: 1;
-    }
-    button[type="submit"].signup-button {
-      background-color: $button-color;
-      color: #fff;
-      font-size: 16px;
-      font-family: $fontsecondary;
-      width: 80%;
-      margin-left: 10%;
-      margin-right: 10%;
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
+  }
+  button[type="submit"] {
+    margin-bottom: 30px;
+    width: 240px;
+    background-color: $base-color;
+    font-family: $fontsecondary;
+    font-size: 22px;
+    color: #fff;
+    padding: 7px 15px;
+    line-height: 1;
+  }
+  button[type="submit"].signup-button {
+    background-color: $eastern-blue;
+    border: 1px solid $eastern-blue;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 30px;
+    width: auto;
+    border-radius: 30px;
+  }
+  button[type="submit"].light {
+    font-family: $fontPrimary;
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+    font-size: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 30px;
+    width: auto;
+    padding: 10px 40px;
   }
 }
 ::-webkit-input-placeholder {
@@ -768,10 +800,11 @@ body {
 }
 span.forgot {
   float: right;
+  margin-top: 5px;
   a {
-    color: $base-black;
+    color: #fff;
     &:hover {
-      color: $base-color;
+      color: $blue;
     }
   }
 }
@@ -1161,6 +1194,50 @@ div.skewed2 {
     left: 50%;
   }
 }
-.mb15{
+.mb15 {
   margin-bottom: 15px;
+}
+.modal-left {
+  background-color: #1ba79f;
+  /* padding-top: 5rem; */
+  /* padding-bottom: 5rem; */
+  padding: 5rem 3rem;
+}
+.modal-body {
+  &.no-padding {
+    padding: 0;
+  }
+}
+.remember-me {
+  color: #fff;
+}
+.register-modal-body {
+  .modal-title {
+    color: #000;
+  }
+  .modal-subtitle {
+    color: #000;
+  }
+}
+.tabs-register {
+  padding-left: 15px;
+  margin-bottom: 20px;
+  .nav-pills .nav-link.active,
+  .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: $eastern-blue;
+  }
+  .nav-pills .nav-link {
+    background-color: rgba(33, 169, 160, 0.12);
+    color: rgba(0, 0, 0, 0.5);
+    border-radius: 0;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  .nav-item {
+    //transform: skewX(40deg);
+    a {
+      //transform: skewX(-40deg);
+    }
+  }
 }
