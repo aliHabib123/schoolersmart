@@ -6,14 +6,25 @@ $base-grey: #818181;
 $base-purple: #c3023b;
 $menu-grey: #acacac;
 $button-color: #c5003c;
-$fontPrimary: "Montserrat Alternates", sans-serif;
-$fontsecondary: "Montserrat", sans-serif;
+$fontPrimary: "Montserrat", sans-serif;
+$fontsecondary: "Montserrat Alternates", sans-serif;
+$mountainBridge: "Mountain Bridge";
+$notera: 'Notera';
+//Brand Colors
+$amaranth: #E91C6C;
+$sun-glow: #FDBE2F;
+$sushi: #8EC54D;
+$eastern-blue: #21a9a0;
+$blue: #58BDE6;
+//Other Colors
+$grey: #f3f3f3;
 @media (min-width: 1305px) {
   .container {
     max-width: 1300px;
   }
 }
 @import "main";
+@import "common";
 @import "header";
 @import "banner";
 @import "product";

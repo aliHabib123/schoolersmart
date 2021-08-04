@@ -1,19 +1,13 @@
 <?php function main()
-{
-	$bannerMySqlExtDAO = new BannerMySqlExtDAO();
-	$banners = $bannerMySqlExtDAO->queryAll();
-?>
-
-
-
+{?>
 	<div class="portlet box green">
 		<div class="portlet-title">
-			<div class="caption"><i class="fa fa-reorder"></i>Create Banner Image</div>
+			<div class="caption"><i class="fa fa-reorder"></i>Create Album Image</div>
 		</div>
 		<div class="portlet-body form">
-			<form action="insert_banner_image.php" method="post" enctype="multipart/form-data" name="frm" id="frm" class="form-horizontal form-bordered">
+			<form action="insert_album_image.php" method="post" enctype="multipart/form-data" name="frm" id="frm" class="form-horizontal form-bordered">
 				<div class="form-body">
-
+					<input type="hidden" name="location" value="<?php echo $_GET['id']; ?>" />
 					<div class="form-group">
 						<label class="col-md-3 control-label">Image</label>
 						<div class="col-md-9">
@@ -40,40 +34,6 @@
 							<input name="caption1" type="text" class="form-control" id="caption1" value="" placeholder="Enter caption 1">
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-md-3 control-label">Caption 1</label>
-						<div class="col-md-6">
-							<input name="caption2" type="text" class="form-control" id="caption2" value="" placeholder="Enter caption 2">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-3 control-label">Button Text</label>
-						<div class="col-md-3">
-							<input name="button_text" type="text" class="form-control" id="button_text" value="" placeholder="Enter button text">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-3 control-label">Button Link</label>
-						<div class="col-md-3">
-							<input name="button_link" type="text" class="form-control" id="button_link" value="" placeholder="Enter button link">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-md-3">Location</label>
-						<div class="col-md-4">
-							<select class="form-control select2me" data-placeholder="Select..." name="location" id="location">
-								<option selected="selected" value="0">--- Select Parent Banner ---</option>
-								<?php
-									foreach($banners as $row){
-										$sel = ($row->id == $_GET['id']) ? 'selected' : "";
-                                        ?>
-										<option value="<?php echo $row->id;?>" <?php echo $sel;?>><?php echo $row->title;?></option>
-								<?php
-                                    }?>
-							</select>
-						</div>
-					</div>
-
 					<br />
 					<div class="row">
 						<div class="col-md-12">

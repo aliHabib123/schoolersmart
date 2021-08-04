@@ -7,6 +7,11 @@
  */
 class ImageMySqlExtDAO extends ImageMySqlDAO{
 
+    public function select($condition){
+		$sql = "SELECT * FROM `image` WHERE $condition";
+		$sqlQuery = new SqlQuery($sql);
+		return $this->getList($sqlQuery);
+	}
 	
 }
 ?>

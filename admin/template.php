@@ -180,6 +180,12 @@ if (isset($_REQUEST['act'])) {
 						<span class="title">Pages</span>
 					</a>
 				</li>
+				<li class="">
+					<a href="display_album.php">
+						<i class="fas fa-columns"></i>
+						<span class="title">Albums</span>
+					</a>
+				</li>
 				<!-- <li class="">
 					<a href="display_ad.php">
 						<i class="fas fa-ad"></i>

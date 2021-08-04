@@ -1,4 +1,91 @@
 .main-banner-container {
+  position: relative;
+  .main-banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 9;
+    .banner-menu {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      .categories {
+        .start-here {
+          font-family: $mountainBridge;
+          font-size: 40px;
+          color: #fff;
+          display: inline-block;
+          padding: 10px 15px;
+          line-height: 1;
+          width: 250px;
+          text-align: left;
+        }
+        ul {
+          padding-left: 0;
+          list-style: none;
+          li {
+            a {
+              font-weight: 600;
+              padding: 5px 10px;
+              color: #000;
+              background-color: rgba(255, 255, 255, 0.68);
+              min-width: 200px;
+              display: inline-block;
+              text-align: center;
+              margin-bottom: 5px;
+              &.categories-title {
+                background-color: $eastern-blue;
+                min-width: 220px;
+                margin-right: -10px;
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+      .categories-labels {
+        .label {
+          display: inline-block;
+          color: #fff;
+          padding: 10px 30px;
+          margin-bottom: 15px;
+          font-size: 26px;
+          line-height: 1;
+          &.blue {
+            background: linear-gradient(-35deg, transparent 15px, $blue 15px);
+          }
+          &.purple {
+            background: linear-gradient(
+              -35deg,
+              transparent 15px,
+              $amaranth 15px
+            );
+          }
+          &.green {
+            background: linear-gradient(-35deg, transparent 15px, $sushi 15px);
+          }
+          span {
+            font-size: 36px;
+            font-weight: bold;
+          }
+        }
+      }
+      .right-column {
+        padding-right: 75px;
+      }
+      .left-column {
+        padding-left: 75px;
+        margin-top: 20px;
+      }
+      #line1,
+      #line1-1 {
+        position: relative;
+      }
+    }
+  }
   .bx-wrapper {
     margin-bottom: 0;
     -moz-box-shadow: none;
@@ -169,4 +256,7 @@
       }
     }
   }
+}
+.leader-line {
+  z-index: 999999 !important;
 }

@@ -2,6 +2,8 @@
 require "session_start.php";
 function main()
 {
+	$albumMySqlExtDAO = new AlbumMySqlExtDAO();
+	$albums = $albumMySqlExtDAO->select("album_type = 'content'");
 	$id = $_REQUEST["id"];
 	$contentMySqlExtDAO = new ContentMySqlExtDAO();
 	$page = $contentMySqlExtDAO->load($id);
@@ -85,7 +87,21 @@ function main()
 						</div>
 					</div>
 
-
+					<div class="form-group">
+						<label class="control-label col-md-3">Album</label>
+						<div class="col-md-4">
+							<select class="form-control select2me" data-placeholder="Select..." name="album" id="album">
+								<option selected="selected" value="0">--- Select Album ---</option>
+								<?php foreach ($albums as $album) {
+									$selected  = "";
+									if ($album->id == $page->albumId) {
+										$selected = "selected";
+									} ?>
+									<option value="<?php echo $album->id; ?>" <?php echo $selected; ?>><?php echo $album->title; ?></option>
+								<?php } ?>
+							</select>
+						</div>
+					</div>
 					<br />
 					<div class="row">
 						<div class="col-md-12">

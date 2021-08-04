@@ -2,12 +2,8 @@
 require "session_start.php";
 function main()
 {
-
-	$bannerMySqlExtDAO = new BannerMySqlExtDAO();
-	$banners = $bannerMySqlExtDAO->queryAll();
-
 	$id = $_REQUEST["id"];
-	$bannerImageMySqlExtDAO = new BannerImageMySqlExtDAO();
+	$bannerImageMySqlExtDAO = new ImageMySqlExtDAO();
 	$banner = $bannerImageMySqlExtDAO->load($id);
 
 ?>
@@ -16,15 +12,13 @@ function main()
 	<script language="JavaScript" type="text/javascript" src="javascript/delete_file_confirmation.js"></script>
 	<div class="portlet box green">
 		<div class="portlet-title">
-			<div class="caption"><i class="fa fa-reorder"></i>Edit Banner</div>
+			<div class="caption"><i class="fa fa-reorder"></i>Edit Image</div>
 		</div>
 		<div class="portlet-body form">
-			<form action="update_banner_image.php" method="post" enctype="multipart/form-data" name="frm" id="frm" class="form-horizontal form-bordered">
+			<form action="update_album_image.php" method="post" enctype="multipart/form-data" name="frm" id="frm" class="form-horizontal form-bordered">
 	<div class=" form-body">
 				<input name="id" type="hidden" value="<?php echo $banner->id ?>" />
-
-
-
+				<input name="location" type="hidden" value="<?php echo $banner->albumId ?>" />
 				<div class="form-group">
 					<label class="col-md-3 control-label">Image</label>
 					<div class="col-md-9">
@@ -51,48 +45,11 @@ function main()
 				</div>
 
 				<div class="form-group">
-					<label class="col-md-3 control-label">Caption 1</label>
+					<label class="col-md-3 control-label">Caption</label>
 					<div class="col-md-3">
-						<input name="caption1" type="text" class="form-control" id="caption1" value="<?php echo stripslashes($banner->caption1) ?>" placeholder="Enter Caption 1">
+						<input name="caption1" type="text" class="form-control" id="caption1" value="<?php echo stripslashes($banner->caption) ?>" placeholder="Enter Caption 1">
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">Caption 2</label>
-					<div class="col-md-3">
-						<input name="caption2" type="text" class="form-control" id="caption2" value="<?php echo stripslashes($banner->caption2) ?>" placeholder="Enter Caption 2">
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label class="col-md-3 control-label">Button Text</label>
-					<div class="col-md-3">
-						<input name="button_text" type="text" class="form-control" id="button_text" value="<?php echo stripslashes($banner->buttonText) ?>" placeholder="Enter Button Text">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">Button Link</label>
-					<div class="col-md-3">
-						<input name="button_link" type="text" class="form-control" id="button_link" value="<?php echo stripslashes($banner->buttonLink) ?>" placeholder="Enter Button Link">
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label class="control-label col-md-3">Location</label>
-					<div class="col-md-4">
-						<select class="form-control select2me" data-placeholder="Select..." name="location" id="location">
-							<option selected="selected" value="0">--- Select Parent Banner ---</option>
-							<?php
-							foreach ($banners as $row) {
-								$sel = ($row->id == $banner->bannerId) ? 'selected' : "";
-							?>
-								<option value="<?php echo $row->id; ?>" <?php echo $sel; ?>><?php echo $row->title; ?></option>
-							<?php
-							} ?>
-						</select>
-					</div>
-				</div>
-
-
 				<br />
 				<div class="row">
 					<div class="col-md-12">

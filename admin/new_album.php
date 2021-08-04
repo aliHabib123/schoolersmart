@@ -1,26 +1,21 @@
 <?php function main(){
-	$albumMySqlExtDAO = new AlbumMySqlExtDAO();
-	$albums = $albumMySqlExtDAO->select("album_type = 'content'");
-	$translate = false;
-	$pageId = 0;
-	if(isset($_GET['id']) && !empty($_GET['id'])){
-		$pageId = $_GET['id'];
-		$translate = true;
-	}?>
+//print_r($_SESSION['companyId']);?>
+
+
 		
 <div class="portlet box green">
 	<div class="portlet-title">
-		<div class="caption"><i class="fa fa-reorder"></i>Create Page</div>
+		<div class="caption"><i class="fa fa-reorder"></i>Create Album</div>
 	</div>
 	<div class="portlet-body form">
-	<form action="insert_page.php" method="post" enctype="multipart/form-data" name="frm" id="frm"  class="form-horizontal form-bordered">
+	<form action="insert_album.php" method="post" enctype="multipart/form-data" name="frm" id="frm"  class="form-horizontal form-bordered">
 	<div class="form-body">
-				<input type="hidden" name="translation_id" value="<?php echo $pageId;?>"/>
+				
 
 	<div class="form-group">
 		<label class="col-md-3 control-label">Title</label>
 		<div class="col-md-3">
-			<input  name="title" type="text"  class="form-control" id="title" value="" placeholder="Enter Page Title">
+			<input  name="title" type="text"  class="form-control" id="title" value="" placeholder="Enter Album caption">
 		</div>
 	</div>
 	<div class="form-group">
@@ -43,36 +38,11 @@
 		</div>
 	</div>
 	<div class="form-group">
-      <label class="col-md-3 control-label">Details</label>
-      	<div class="form-group">
-	      <?php
-	      	$fck = new FCKeditor ( "details");
-			$fck->BasePath = "fckeditor/";
-			$fck->Value = "";
-			$fck->Config["EnterMode"] = "br"; 
-			$fck->Create ();
-	      ?>
-		</div>
-    </div>
-	<div class="form-group" style="display:none">
-		<label class="control-label col-md-3">Language</label>
-		<div class="col-md-4">
-			<select  class="form-control select2me" data-placeholder="Select..." name="lang" id="lang">
-			<option selected="selected" value="0">--- Select Language ---</option>
-			   <option value="1" <?php if(!$translate){echo 'selected';}?>>English</option>
-			   <option value="2" <?php if($translate){echo 'selected';}?>>Arabic</option>
-			</select>
-		</div>
-	</div>
-	<div class="form-group">
-		<label class="control-label col-md-3">Album</label>
-		<div class="col-md-4">
-			<select  class="form-control select2me" data-placeholder="Select..." name="album" id="album">
-			<option selected="selected" value="0">--- Select Album ---</option>
-			   <?php foreach($albums as $album){?>
-				<option value="<?php echo $album->id;?>"><?php echo $album->title;?></option>
-				<?php }?>
-			</select>
+		<label class="col-md-3 control-label">Is active</label>
+		<div class="col-md-9">
+			<div class="make-switch" data-on="warning" data-off="danger">
+				<input type="checkbox" checked class="toggle"  name="active"/>
+			</div>
 		</div>
 	</div>
 	<div class="form-group">

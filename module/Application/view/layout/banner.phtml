@@ -4,6 +4,40 @@ use Application\Controller\HelperController;
 
 if ($this->banners) { ?>
   <div class="main-banner-container">
+    <div class="main-banner-overlay">
+      <div class="banner-menu">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 text-right right-column">
+              <div class="categories">
+                <div class="start-here">start here</div>
+                <ul >
+                  <li><a class="categories-title" href="#">OUR CATEGORIES</a></li>
+                  <li id="line1"><a href="#" >SCHOOL FURNITURE</a></li>
+                  <li id="line2"><a href="#">OUTDOOR SUPPLIES</a></li>
+                  <li><a href="#">LEARNING TOYS</a></li>
+                  <li><a href="#">SMALL SUPPLIES</a></li>
+                  <li ><a id="line3" href="#">SPECIALITY ITEMS</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6 text-left left-column">
+              <div class="categories-labels">
+                <div>
+                  <div id="line1-1" class="label purple">ARE YOU A<br><span>SCHOOL?</span></div>
+                </div>
+                <div>
+                  <div id="line2-2" class="label blue">ARE YOU A<br><span>PARENT?</span></div>
+                </div>
+                <div>
+                  <div id="line3-3" class="label green">TAKE A LOOK<br><span>AROUND</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="" id="main-banner">
       <?php foreach ($this->banners as $row) { ?>
         <div>

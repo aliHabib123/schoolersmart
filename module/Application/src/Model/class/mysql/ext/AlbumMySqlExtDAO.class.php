@@ -7,6 +7,11 @@
  */
 class AlbumMySqlExtDAO extends AlbumMySqlDAO{
 
+    public function select($condition){
+		$sql = "SELECT * FROM album WHERE $condition";
+		$sqlQuery = new SqlQuery($sql);
+		return $this->getList($sqlQuery);
+	}
 	
 }
 ?>
