@@ -1,4 +1,6 @@
 <?php function main(){
+	$albumMySqlExtDAO = new AlbumMySqlExtDAO();
+	$albums = $albumMySqlExtDAO->select("album_type = 'content'");
 	$translate = false;
 	$pageId = 0;
 	if(isset($_GET['id']) && !empty($_GET['id'])){
@@ -59,6 +61,17 @@
 			<option selected="selected" value="0">--- Select Language ---</option>
 			   <option value="1" <?php if(!$translate){echo 'selected';}?>>English</option>
 			   <option value="2" <?php if($translate){echo 'selected';}?>>Arabic</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-md-3">Album</label>
+		<div class="col-md-4">
+			<select  class="form-control select2me" data-placeholder="Select..." name="album" id="album">
+			<option selected="selected" value="0">--- Select Album ---</option>
+			   <?php foreach($albums as $album){?>
+				<option value="<?php echo $album->id;?>"><?php echo $album->title;?></option>
+				<?php }?>
 			</select>
 		</div>
 	</div>

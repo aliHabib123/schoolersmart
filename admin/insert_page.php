@@ -40,6 +40,7 @@ $obj->displayOrder = $display_order;
 $obj->type = 'page';
 $obj->slug = $slug;
 $obj->canDelete = 1;
+$obj->albumId = $album;
 
 if($translate){
     $obj->translationId = $translation_id;

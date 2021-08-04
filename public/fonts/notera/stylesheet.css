@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Notera Personal Use Only';
+    src: url('NoteraPersonalUseOnly.eot');
+    src: local('Notera Personal Use Only'), local('NoteraPersonalUseOnly'),
+        url('NoteraPersonalUseOnly.eot?#iefix') format('embedded-opentype'),
+        url('NoteraPersonalUseOnly.woff2') format('woff2'),
+        url('NoteraPersonalUseOnly.woff') format('woff'),
+        url('NoteraPersonalUseOnly.ttf') format('truetype'),
+        url('NoteraPersonalUseOnly.svg#NoteraPersonalUseOnly') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

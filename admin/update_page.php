@@ -54,6 +54,7 @@ $obj->displayOrder = $display_order;
 $obj->type = 'page';
 $obj->slug = $newSlug;
 $obj->canDelete = $page->canDelete;
+$obj->albumId = $album;
 
 $update = $contentMysqlExtDAO->update($obj);
 

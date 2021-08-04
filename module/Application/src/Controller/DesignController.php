@@ -11,9 +11,14 @@ use UserMySqlExtDAO;
 
 class DesignController extends AbstractActionController
 {
-    public static function mainTitle(string $title)
+    public static function mainTitle(string $title, string $class = "")
     {
-        $html = "<div class='main-title centered'>$title</div>";
+        $html = "<div class='main-title $class centered'>$title</div>";
+        return $html;
+    }
+    public static function subtitle(string $title)
+    {
+        $html = "<div class='subtitle centered'>$title</div>";
         return $html;
     }
     public static function secondaryTitle(string $title)
@@ -48,18 +53,14 @@ class DesignController extends AbstractActionController
 
 
 
-        $html = "<div class='item-wrapper' data-rate='$item->usdExchangeRate'>
-                    <div class='item-wrapper_img'>";
+        $html = "<div class='item-wrapper' data-rate='$item->usdExchangeRate'>";
         if ($hasDiscount) {
             $html .= "<span class=\"badge\">$discount%</span>";
         }
+        $html .= "<div class='item-wrapper_img'>";
+
         $html .= "<a href='$url'>
                         <img class='' src='$image' />
-                    </a>
-                </div>
-                <div class='item-wrapper_title'>
-                    <a href='$url'>
-                    $item->title
                     </a>
                 </div>
                 <div class='item-wrapper_price'>";
@@ -68,9 +69,15 @@ class DesignController extends AbstractActionController
         }
 
         $html .= "<div class='final-price'>
-                        $price
-                        </div>
-                    </div>
+                                $price
+                                </div>
+                            </div>
+                <div class='item-wrapper_title'>
+                    <a href='$url'>
+                    $item->title
+                    </a>
+                </div>
+
                     <div class='item-wrapper_cart_heart'>
                         <a class='heart wishlist-add off' href='#' data-item-id='$item->id' data-customer-id='$customerId'>
                             <img class='visible-heart' src='$imageSrc' />
@@ -279,7 +286,7 @@ class DesignController extends AbstractActionController
         return $obj;
     }
 
-    public static function compactCartItems($cartItems)
+    public static function compactCartItems($cartItems = [])
     {
         $html = "";
         if (count($cartItems) > 0) {
@@ -310,8 +317,8 @@ class DesignController extends AbstractActionController
                         </div>";
             }
             $html .= "<div class=\"compact-cart-buttons\">
-            <a href=\"$cartUrl\" class=\"to-cart\">Continue to cart</a>
-            <a href=\"$checkoutUrl\" class=\"to-checkout\">Continue to checkout</a>
+            <a href=\"$checkoutUrl\" class=\"to-checkout\">PROCEED TO CHECKOUT</a>
+            <a href=\"$cartUrl\" class=\"to-cart\">CONTINUE TO CART</a>
         </div>";
         } else {
             $html = "<h4 style=\"text-align: center;width: 100%;\">No items in cart!</h4>";

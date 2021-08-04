@@ -7,6 +7,49 @@ $(function () {
       controls: false,
     });
   }
+  //hot-selling-slider
+  if ($(".hot-selling-slider").length > 0) {
+    $(".hot-selling-slider").bxSlider({
+      //mode: "fade",
+      captions: false,
+      adaptiveHeight: true,
+      controls: true,
+      pager: false,
+    });
+  }
+  // what-makes-slider
+  const whatMakesSlider = '.what-makes-slider'; 
+  if ($(whatMakesSlider).length > 0) {
+    $(whatMakesSlider).bxSlider({
+      //mode: "fade",
+      captions: false,
+      adaptiveHeight: true,
+      controls: true,
+      pager: false,
+    });
+  }
+  //start-shopping
+  const startShopping = ".start-shopping";
+  if ($(startShopping).length > 0) {
+    $(startShopping).slick({
+      centerMode: true,
+      centerPadding: "100px",
+      slidesToShow: 3,
+      dots: true,
+      arrows: false,
+    });
+  }
+  //home-products-slider
+  const homeProductsSlider = ".home-products-slider";
+  if ($(homeProductsSlider).length > 0) {
+    $(homeProductsSlider).bxSlider({
+      adaptiveHeight: false,
+      pager: true,
+      touchEnabled: true,
+      controls: false,
+    });
+  }
+
   if ($(".product-images-slider").length > 0) {
     $(".product-images-slider").bxSlider({
       minSlides: 1,
@@ -257,7 +300,7 @@ $(function () {
         console.log(response);
         showMsg(".notice-area", response.status, response.msg);
         if (response.status == true) {
-          if(useNewMechanism == 1){
+          if (useNewMechanism == 1) {
             insertItemsBatches();
           }
           //location.href = response.redirectUrl;
@@ -334,6 +377,12 @@ $(".sidebar-brand-menu").on("click", "span", function (e) {
   $("#brand_id").val($(e.currentTarget).attr("id"));
 });
 
+//cart-wrapper
+$(document).on("click", ".cart-wrapper > a", function (e) {
+  console.log($(this))
+  e.preventDefault();
+  $(this).parent().toggleClass("open");
+});
 if ($(".sidebar-brand-menu").length > 0) {
   if ($("#brand_id").val() != "") {
     $(".sidebar-brand-menu")
@@ -407,7 +456,7 @@ $("html").on("click", ".cart-add", function (e) {
       if (response.status == true) {
         alertify.success("Added to cart.");
         $(".compact-cart-wrapper").html(response.items);
-        $(".cart-icon")
+        $(".cart-wrapper")
           .find("span.badge")
           .css("display", "inline-block")
           .html(response.count);
@@ -759,11 +808,11 @@ $("#reset-form").submit(function (e) {
 $(function () {
   $(".floating-wpp").floatingWhatsApp({
     phone: "0096181676564",
-    popupMessage: translations.whatsappHowCanIHelp,
-    showPopup: true,
-    message: "",
-    headerTitle: translations.whatsappTypicallyReplies,
-    position: translations.config.right,
+    // popupMessage: translations.whatsappHowCanIHelp,
+    // showPopup: true,
+    // message: "",
+    // headerTitle: translations.whatsappTypicallyReplies,
+    // position: translations.config.right,
   });
 });
 
@@ -817,7 +866,9 @@ function checkTempTable() {
       $(".page-loader").hide();
       console.log(response);
       if (response.res == true) {
-        $(".notice-area").html("importing your file, please wait. <i class='fas fa-spinner fa-spin'></i>");
+        $(".notice-area").html(
+          "importing your file, please wait. <i class='fas fa-spinner fa-spin'></i>"
+        );
         insertItemsBatches();
       }
     },
@@ -833,7 +884,9 @@ function insertItemsBatches() {
     dataType: "json",
     data: {},
     beforeSend: function () {
-      $(".notice-area").html("importing your file, please wait. <i class='fas fa-spinner fa-spin'></i>");
+      $(".notice-area").html(
+        "importing your file, please wait. <i class='fas fa-spinner fa-spin'></i>"
+      );
     },
     success: function (response) {
       console.log(response);
@@ -855,7 +908,9 @@ function deleteDeletedItems() {
     dataType: "json",
     data: {},
     beforeSend: function () {
-      $(".notice-area").html("importing your file, please wait. <i class='fas fa-spinner fa-spin'></i>");
+      $(".notice-area").html(
+        "importing your file, please wait. <i class='fas fa-spinner fa-spin'></i>"
+      );
     },
     success: function (response) {
       console.log(response);
@@ -871,7 +926,9 @@ function cleanTempTable() {
     dataType: "json",
     data: {},
     beforeSend: function () {
-      $(".notice-area").html("importing your file, please wait. <i class='fas fa-spinner fa-spin'></i>");
+      $(".notice-area").html(
+        "importing your file, please wait. <i class='fas fa-spinner fa-spin'></i>"
+      );
     },
     success: function (response) {
       console.log(response);
@@ -880,3 +937,61 @@ function cleanTempTable() {
     error: function () {},
   });
 }
+$(function () {
+  $(document).on("click", ".open-custom-menu", function (e) {
+    e.preventDefault();
+    $(this).hide();
+    $(".close-custom-menu").css("display", "inline-block");
+    $(".custom-menu").addClass("shown");
+  });
+  $(document).on("click", ".close-custom-menu", function (e) {
+    e.preventDefault();
+    $(this).hide();
+    $(".open-custom-menu").css("display", "inline-block");
+    $(".custom-menu").removeClass("shown");
+  });
+  let line1 = new LeaderLine(
+    document.getElementById("line1"),
+    document.getElementById("line1-1"),
+    {
+      size: 2,
+      color: "white",
+      path: "grid",
+      startPlug: "behind",
+      endPlug: "behind",
+      dash: true,
+    }
+  );
+  let line2 = new LeaderLine(
+    document.getElementById("line2"),
+    document.getElementById("line2-2"),
+    {
+      size: 2,
+      color: "white",
+      path: "grid",
+      startPlug: "behind",
+      endPlug: "behind",
+      dash: true,
+    }
+  );
+  let line3 = new LeaderLine(
+    document.getElementById("line3"),
+    document.getElementById("line3-3"),
+    {
+      size: 2,
+      color: "white",
+      path: "grid",
+      startPlug: "behind",
+      endPlug: "behind",
+      dash: true,
+      endSocket: "bottom",
+      startSocket: "bottom",
+    }
+  );
+});
+
+// let line2 = new LeaderLine(
+//   document.getElementById('line2'),
+//   document.getElementById('line2-2'),
+//   {color: 'green'}
+// );

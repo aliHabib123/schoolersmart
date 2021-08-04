@@ -10,29 +10,188 @@ use Application\Controller\HelperController;
 ?>
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <?php echo DesignController::mainTitle('SHOP BY CATEGORIES') ?>
+        <div class="col-md-12 text-center">
+            <div class="skewed"><span>WHAT DO YOU WANT TO DO <span>TODAY?</span></span></div>
         </div>
-        <div class="col-md-12">
-            <div class="categories-slider-wrapper">
-                <div id="categories-slider">
-                    <?php foreach ($this->featuredCategories as $cat) {
-                        $itemCategoryMySqlExtDAO =  new ItemCategoryMySqlExtDAO();
-                        if($cat->parentId == 0){
-                            $url = MAIN_URL . 'products/' . $cat->slug;
-                        } else {
-                            $parentCategory = $itemCategoryMySqlExtDAO->load($cat->parentId);
-                            if($parentCategory->parentId == 0){
-                                $url = MAIN_URL . 'products/' . $parentCategory->slug . '/' . $cat->slug;
+
+        <?php if (false) { ?>
+            <div class="col-md-12">
+                <?php echo DesignController::mainTitle('SHOP BY CATEGORIES') ?>
+            </div>
+            <div class="col-md-12">
+                <div class="categories-slider-wrapper">
+                    <div id="categories-slider">
+                        <?php foreach ($this->featuredCategories as $cat) {
+                            $itemCategoryMySqlExtDAO =  new ItemCategoryMySqlExtDAO();
+                            if ($cat->parentId == 0) {
+                                $url = MAIN_URL . 'products/' . $cat->slug;
                             } else {
-                                $mainCategory = $itemCategoryMySqlExtDAO->load($parentCategory->parentId);
-                                $url = MAIN_URL . 'products/' . $mainCategory->slug .'/'. $parentCategory->slug . '/' . $cat->slug;
-                            }
-                        }
-                    ?>
-                        <div>
-                            <div class="cat-img hover08"><a href="<?php echo $url; ?>"><img src="<?php echo HelperController::getImageUrl($cat->image); ?>" /></a></div>
-                            <div class="cat-title"><a href="<?php echo $url; ?>"><?php echo $cat->name; ?></a></div>
+                                $parentCategory = $itemCategoryMySqlExtDAO->load($cat->parentId);
+                                if ($parentCategory->parentId == 0) {
+                                    $url = MAIN_URL . 'products/' . $parentCategory->slug . '/' . $cat->slug;
+                                } else {
+                                    $mainCategory = $itemCategoryMySqlExtDAO->load($parentCategory->parentId);
+                                    $url = MAIN_URL . 'products/' . $mainCategory->slug . '/' . $parentCategory->slug . '/' . $cat->slug;
+                                }
+                            } ?>
+                            <div>
+                                <div class="cat-img hover08"><a href="<?php echo $url; ?>"><img src="<?php echo HelperController::getImageUrl($cat->image); ?>" /></a></div>
+                                <div class="cat-title"><a href="<?php echo $url; ?>"><?php echo $cat->name; ?></a></div>
+                            </div>
+                        <?php
+                        } ?>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+    <div class="row services-row">
+        <div class="col-md-3 text-center">
+            <div class="service-wrap">
+                <div class="service-image"><img src="img/service1.png" /></div>
+                <div class="service-title">PLAY</div>
+                <div class="service-slogan">Slogan Here</div>
+            </div>
+
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="service-wrap">
+                <div class="service-image"><img src="img/service2.png" /></div>
+                <div class="service-title">LEARN</div>
+                <div class="service-slogan">Slogan Here</div>
+            </div>
+
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="service-wrap">
+                <div class="service-image"><img src="img/service3.png" /></div>
+                <div class="service-title">GROW</div>
+                <div class="service-slogan">Slogan Here</div>
+            </div>
+
+        </div>
+
+        <div class="col-md-3 text-center">
+            <div class="service-wrap">
+                <div class="service-image"><img src="img/service4.png" /></div>
+                <div class="service-title">INSPIRE</div>
+                <div class="service-slogan">Slogan Here</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="full-width grey hot-selling-ads-wrapper">
+    <div class="container">
+        <div class="row hot-selling-ad">
+            <div class="col-md-6">
+                <div class="title">CHECKOUT OUR</div>
+                <div class="subtitle">HOT SELLNG PRODUCTS</div>
+                <div class="description">
+                    Our main products include desks and chairs for students, iron frame beds,
+                    writing chairs, desks, bookshelves and other products.<br><br>
+                    They meet the various scenarios used in schools, such as classrooms,
+                    dormitories, auditoriums, teachers’ offices, dining halls and other usage scenarios.
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="hot-selling-slider">
+                    <div>
+                        <a href="javascript:void(0);">
+                            <img src="img/hotselling.png" />
+                        </a>
+                    </div>
+                    <div>
+                        <a href="javascript:void(0);">
+                            <img src="img/hotselling.png" />
+                        </a>
+                    </div>
+                    <div>
+                        <a href="javascript:void(0);">
+                            <img src="img/hotselling.png" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="start-shopping-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <?php echo DesignController::mainTitle("START SHOPPING <span>today</span>"); ?>
+            </div>
+            <div class="col-md-12">
+                <div class="start-shopping">
+                    <div>
+                        <div class="slide-wrap">
+                            <div class="slide-wrap-img">
+                                <img src="img/slider.png" />
+                                <div class="slide-label">
+                                    <div>LEARN AT SCHOOL</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="slide-wrap">
+                            <div class="slide-wrap-img">
+                                <img src="img/slider.png" />
+                                <div class="slide-label">
+                                    <div>LEARN AT HOME</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="slide-wrap">
+                            <div class="slide-wrap-img">
+                                <img src="img/slider.png" />
+                                <div class="slide-label">
+                                    <div>SPECIALITY</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="slide-wrap">
+                            <div class="slide-wrap-img">
+                                <img src="img/slider.png" />
+                                <div class="slide-label">
+                                    <div>LEARN AT HOME</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="home-products">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <?php
+                echo DesignController::mainTitle("#SCHOOLERSMART", 'with-subtitle');
+                echo DesignController::subtitle("OUR LATEST COLLECTION AND PRODUCTS");
+                ?>
+            </div>
+        </div>
+        <?php $chunks = array_chunk($this->todaysDeals, 8); ?>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="home-products-slider">
+                    <?php foreach ($chunks as $chunk) { ?>
+                        <div class="home-products-slider-item">
+                            <div class="row">
+                                <?php foreach ($chunk as $row) {
+                                    echo '<div class="col-md-3 col-6">';
+                                    echo DesignController::item($row);
+                                    echo '</div>';
+                                } ?>
+                            </div>
                         </div>
                     <?php } ?>
                 </div>
@@ -40,44 +199,49 @@ use Application\Controller\HelperController;
         </div>
     </div>
 </div>
-<div class="full-width base-color with-slider">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="special-tags">
-                    <ul>
-                        <li class="active" id="daily-deals"><a href="#">TODAYS DEALS</a></li>
-                        <li id="picked-for-you"><a href="#">PICKED FOR YOU</a></li>
-                        <li id="best-offers"><a href="#">BEST OFFERS</a></li>
-                    </ul>
-                </div>
-                <div class="special-tags-slider-container">
-                    <div class="special-tags-slider" id="special-tags-slider-daily-deals">
-                        <?php foreach ($this->todaysDeals as $row) {
-                            echo '<div>';
-                            echo DesignController::item($row);
-                            echo '</div>';
-                        } ?>
+<?php if (SHOW_TAGS_SLIDER) { ?>
+    <div class="full-width base-color with-slider">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="special-tags">
+                        <ul>
+                            <li class="active" id="daily-deals"><a href="#">TODAYS DEALS</a></li>
+                            <li id="picked-for-you"><a href="#">PICKED FOR YOU</a></li>
+                            <li id="best-offers"><a href="#">BEST OFFERS</a></li>
+                        </ul>
                     </div>
-                    <div class="special-tags-slider" id="special-tags-slider-best-offers">
-                        <?php foreach ($this->bestOffers as $row) {
-                            echo '<div>';
-                            echo DesignController::item($row);
-                            echo '</div>';
-                        } ?>
-                    </div>
-                    <div class="special-tags-slider" id="special-tags-slider-picked-for-you">
-                        <?php foreach ($this->pickedForYou as $row) {
-                            echo '<div>';
-                            echo DesignController::item($row);
-                            echo '</div>';
-                        } ?>
+                    <div class="special-tags-slider-container">
+                        <div class="special-tags-slider" id="special-tags-slider-daily-deals">
+                            <?php foreach ($this->todaysDeals as $row) {
+                                echo '<div>';
+                                echo DesignController::item($row);
+                                echo '</div>';
+                            } ?>
+                        </div>
+                        <div class="special-tags-slider" id="special-tags-slider-best-offers">
+                            <?php foreach ($this->bestOffers as $row) {
+                                echo '<div>';
+                                echo DesignController::item($row);
+                                echo '</div>';
+                            } ?>
+                        </div>
+                        <div class="special-tags-slider" id="special-tags-slider-picked-for-you">
+                            <?php foreach ($this->pickedForYou as $row) {
+                                echo '<div>';
+                                echo DesignController::item($row);
+                                echo '</div>';
+                            } ?>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<?php if ($this->ads) {
+<?php } ?>
+
+<?php
+if (SHOW_HOME_ADS && $this->ads) {
     echo $this->partial('layout/ads');
-} ?>
+}
+?>

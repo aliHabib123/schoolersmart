@@ -1,0 +1,166 @@
+<?php
+
+use Application\Controller\HelperController;
+use Application\Controller\DesignController;
+
+//print_r($this->page);
+?>
+<div class="main-wrapper">
+    <div class="page-banner-wrap about">
+        <?php if ($this->page->image) { ?>
+            <div class="page-banner">
+                <img src="<?php echo HelperController::getImageUrl($this->page->image); ?>" alt="<?php echo $this->page->title; ?>" />
+            </div>
+        <?php } ?>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="skewed2"><span><?php echo $this->page->title; ?></span></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="row">
+                    <?php $c = 1;
+                    foreach ($this->images as $row) { ?>
+                        <div class="col-md-6">
+                            <div class="about-image <?php echo 'img' . $c; ?>">
+                                <img src="<?php echo HelperController::getImageUrl($row->imageName); ?>" />
+                            </div>
+                        </div>
+                    <?php $c++;
+                    } ?>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="page-details">
+                    <?php echo $this->page->details; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="diagonal-box blue">
+        <div class="content what-makes-wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="column1">
+                            <div class="title">WHAT</div>
+                            <div class="subtitle">MAKES US <span>SPECIAL</span></div>
+                            <div class="description">
+                                We believe every student can flourish in an environment where they feel safe and inspired to
+                                explore and grow. We empoer leaders with modern educational ecosystems that optimize student
+                                outcomes. We create HOLISTIC ENVIRONMENTS, from crayons to curriculum, furniture to technology, We
+                                empoer leaders with modern educational ecosystems that optimize student outcomes.<br><br>
+                                We create HOLISTIC ENVIRONMENTS, from crayons to curriculum, furniture to technology,
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="column2">
+                            <div class="what-makes-slider">
+                                <div>
+                                    <a href="javascript:void(0);">
+                                        <img src="img/hotselling.png" />
+                                    </a>
+                                    <div class="slider-title">AFFORDABLE QUALITY</div>
+                                </div>
+                                <div>
+                                    <a href="javascript:void(0);">
+                                        <img src="img/hotselling.png" />
+                                    </a>
+                                    <div class="slider-title">AFFORDABLE QUALITY</div>
+                                </div>
+                                <div>
+                                    <a href="javascript:void(0);">
+                                        <img src="img/hotselling.png" />
+                                    </a>
+                                    <div class="slider-title">AFFORDABLE QUALITY</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="our-team-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title-style-2">
+                        <div class="title2">MEET</div>
+                        <div class="subtitle2">OUR TEAM</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="team-member-wrap">
+                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-position">BUSINESS DEVELOPMENT</div>
+                        <div class="team-member-name">FULL NAME</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-member-wrap">
+                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-position">BUSINESS DEVELOPMENT</div>
+                        <div class="team-member-name">FULL NAME</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-member-wrap">
+                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-position">BUSINESS DEVELOPMENT</div>
+                        <div class="team-member-name">FULL NAME</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-member-wrap">
+                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-position">BUSINESS DEVELOPMENT</div>
+                        <div class="team-member-name">FULL NAME</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-member-wrap">
+                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-position">BUSINESS DEVELOPMENT</div>
+                        <div class="team-member-name">FULL NAME</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-member-wrap">
+                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-position">BUSINESS DEVELOPMENT</div>
+                        <div class="team-member-name">FULL NAME</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-member-wrap">
+                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-position">BUSINESS DEVELOPMENT</div>
+                        <div class="team-member-name">FULL NAME</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-member-wrap">
+                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-position">BUSINESS DEVELOPMENT</div>
+                        <div class="team-member-name">FULL NAME</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-member-wrap">
+                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-position">BUSINESS DEVELOPMENT</div>
+                        <div class="team-member-name">FULL NAME</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
