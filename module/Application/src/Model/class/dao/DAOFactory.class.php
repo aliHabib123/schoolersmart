@@ -34,6 +34,13 @@ class DAOFactory{
 	}
 
 	/**
+	 * @return BannerLocationDAO
+	 */
+	public static function getBannerLocationDAO(){
+		return new BannerLocationMySqlExtDAO();
+	}
+
+	/**
 	 * @return BrandCategoryMappingDAO
 	 */
 	public static function getBrandCategoryMappingDAO(){

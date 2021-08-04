@@ -1,49 +1,96 @@
 <?php
 
 use Application\Controller\DesignController;
+use Application\Controller\HelperController;
+
 ?>
 <div class="main-wrapper contact-page">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <?php echo DesignController::mainTitle('CONTACT US'); ?>
+    <div class="page-banner-wrap about">
+        <?php if ($this->banner) { ?>
+            <div class="page-banner">
+                <img src="<?php echo HelperController::getImageUrl($this->banner->imageName); ?>" alt="<?php echo $this->banner->caption1; ?>" />
             </div>
-            <div class="col-md-12">
-                <div class="map-wrapper">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13247.651295378178!2d35.554287831635335!3d33.891898940395805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151f161f0aa997e9%3A0xc2a08f3c2235094c!2sJdeideh!5e0!3m2!1sen!2slb!4v1623028754827!5m2!1sen!2slb" width="100%" height="300px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <?php } ?>
+        <div class="text-center">
+            <div class="skewed2"><span><?php echo 'CONTACT US'; ?></span></div>
+        </div>
+    </div>
+    <div class="contact-form-wrap clearfix">
+        <div class="container">
+            <div class="row">
+                <?php if (SHOW_MAP) { ?>
+                    <div class="col-md-12">
+                        <div class="map-wrapper">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13247.651295378178!2d35.554287831635335!3d33.891898940395805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151f161f0aa997e9%3A0xc2a08f3c2235094c!2sJdeideh!5e0!3m2!1sen!2slb!4v1623028754827!5m2!1sen!2slb" width="100%" height="300px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="info-wrapper">
+            <div class="info-wrap">
+                <div class="contactus-title">REACH OUT TO US</div>
+                <div class="contactus-title2 mb15">CONTACT <span>DETAILS</span></div>
+                <div class="location-wrap leb">
+                    <div class="flag-icon">
+                        <img src="img/leb1.png" />
+                    </div>
+                    <div class="location-address">
+                        a. Gulf Tower, 7th floor - Jdeideh Highway,<br>
+                        Beirut, Lebanon<br>
+                        PO Box: 34567<br><br>
+                        t. +961 1 234 235<br>
+                        m. +961 3 234 235<br>
+                    </div>
+                </div>
+                <div class="location-wrap leb">
+                    <div class="flag-icon">
+                        <img src="img/kuwait.png" />
+                    </div>
+                    <div class="location-address">
+                        a. Gulf Tower, 7th floor - Jdeideh Highway,<br>
+                        Beirut, Lebanon<br>
+                        PO Box: 34567<br><br>
+                        t. +961 1 234 235<br>
+                        m. +961 3 234 235<br>
+                    </div>
                 </div>
             </div>
-
-            <div class="col-md-12">
-                <?php echo DesignController::secondaryTitle('Contact Us Form'); ?>
-                <div class="form-wrapper">
-                    <div class="notice-area"></div>
-                    <form action="<?php echo MAIN_URL . 'contact-submit'; ?>" id="contact-submit">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="name">Full Name*</label>
-                                    <input type="text" class="form-control" placeholder="Enter Name" id="name" value="" name="full-name">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="mobile">Mobile*</label>
-                                    <input type="text" class="form-control" placeholder="Enter Mobile" id="mobile" value="" name="mobile">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="email">Email Address*</label>
-                                    <input type="email" class="form-control" placeholder="Enter Email" id="email" value="" name="email">
+        </div>
+        <div class="form-wrapper">
+            <div class="form-wrap">
+                <div class="contactus-title">GET IN TOUCH</div>
+                <div class="contactus-title2">SEND US YOUR <span>MESSAGE</span></div>
+                <div class="notice-area"></div>
+                <form action="<?php echo MAIN_URL . 'contact-submit'; ?>" id="contact-submit">
+                    <div class="form-group no-margin">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- <label for="name">Full Name*</label> -->
+                                <input type="text" class="form-control" placeholder="*First Name" id="name" value="" name="first-name">
                             </div>
+                            <div class="col-md-6">
+                                <!-- <label for="name">Full Name*</label> -->
+                                <input type="text" class="form-control" placeholder="*Last Name" id="name" value="" name="last-name">
+                            </div>
+                            <div class="col-md-6">
+                                <!-- <label for="mobile">Mobile*</label> -->
+                                <input type="text" class="form-control" placeholder="*Mobile" id="mobile" value="" name="mobile">
+                            </div>
+                            <div class="col-md-6">
+                                <!-- <label for="email">Email Address*</label> -->
+                                <input type="email" class="form-control" placeholder="*Email" id="email" value="" name="email">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Message*</label>
-                            <textarea class="form-control" style="min-height: 150px;" name="message"></textarea>
-                        </div>
-                        <div class="text-left order-complete-btn-wrap">
-                            <button type="submit" class="btn submit-btn">SEND</button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- <label for="email">Message*</label> -->
+                        <textarea class="form-control" style="min-height: 150px;" name="message" placeholder="*Message"></textarea>
+                    </div>
+                    <div class="text-left order-complete-btn-wrap">
+                        <button type="submit" class="btn submit-btn">SEND</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -7,4 +7,70 @@
     margin-top: 20px;
     margin-bottom: 30px;
   }
+  .form-group.no-margin {
+    margin-bottom: 0;
+  }
+}
+.contact-form-wrap {
+  position: relative;
+  .form-wrapper {
+    background: url(../img/contact.png) no-repeat 0px 0px;
+    background-size: cover;
+    width: 60%;
+    float: right;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    &::after {
+      clear: both;
+    }
+    .form-wrap {
+      max-width: 500px;
+      margin: auto;
+      input {
+        margin-bottom: 15px;
+      }
+    }
+  }
+  .info-wrapper {
+    background-color: #22a8dd;
+    position: absolute;
+    left: 0;
+    width: 45%;
+    width: calc(40% + 30px);
+    top: 50%;
+    transform: translateY(-50%);
+    .info-wrap {
+      width: 100%;
+      max-width: 500px;
+      float: right;
+      padding-top: 25px;
+      padding-bottom: 25px;
+    }
+  }
+  .contactus-title {
+    font-size: 20px;
+    color: #fff;
+  }
+  .contactus-title2 {
+    font-size: 30px;
+    color: #000;
+    span {
+      font-weight: bold;
+    }
+  }
+}
+.location-wrap{
+  padding-left: 80px;
+  position: relative;
+  margin-bottom: 20px;
+  .flag-icon{
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .location-address{
+    font-size: 16px;
+    color: #fff;
+    font-weight: 300;
+  }
 }

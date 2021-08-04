@@ -1,6 +1,7 @@
 <?php
 function main()
 {
+	$bannerLocationMySqlExtDAO = new BannerLocationMySqlExtDAO();
 	$bannerMySqlExtDAO = new BannerMySqlExtDAO();
 	$orderBy = "desc";
 	$fieldName = "id";
@@ -92,7 +93,7 @@ function main()
 							<td><?php echo $banner->title?></td>
 							<td><img style="max-height: 100px;" src="<?php echo IMAGES_LINK.$banner->image?>"/></td>
 							<td><?php echo $banner->active;?></td>
-							<td><?php echo $banner->location;?></td>
+							<td><?php echo $bannerLocationMySqlExtDAO->load($banner->location)->locationName;?></td>
 							<td><?php echo $banner->displayOrder;?></td>
 
 							<td>

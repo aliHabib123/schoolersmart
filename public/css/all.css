@@ -601,25 +601,21 @@ body {
 ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   color: #000;
-  font-family: "Montserrat Alternates", sans-serif;
   font-size: 16px; }
 
 ::-moz-placeholder {
   /* Firefox 19+ */
   color: #000;
-  font-family: "Montserrat Alternates", sans-serif;
   font-size: 16px; }
 
 :-ms-input-placeholder {
   /* IE 10+ */
   color: #000;
-  font-family: "Montserrat Alternates", sans-serif;
   font-size: 16px; }
 
 :-moz-placeholder {
   /* Firefox 18- */
   color: #000;
-  font-family: "Montserrat Alternates", sans-serif;
   font-size: 16px; }
 
 span.forgot {
@@ -673,9 +669,13 @@ img.centervh {
   text-align: center;
   min-height: 20px; }
   .notice-area .error {
-    color: red; }
+    color: #fff;
+    background-color: red;
+    margin-bottom: 11px; }
   .notice-area .success {
-    color: green; }
+    color: #fff;
+    background-color: green;
+    margin-bottom: 11px; }
 
 .content .page-details {
   margin-top: 10px;
@@ -913,6 +913,28 @@ div.skewed2 {
     font-size: 30px;
     color: #000;
     font-weight: 600; }
+
+.page-banner-wrap {
+  position: relative; }
+  .page-banner-wrap .page-banner {
+    margin-bottom: 20px; }
+    .page-banner-wrap .page-banner img {
+      width: 100%; }
+  .page-banner-wrap .skewed2 {
+    background-color: #fdbe2f;
+    color: #000;
+    /* display: inline-block; */
+    padding: 15px 30px;
+    transform: skewX(40deg) translateX(-50%);
+    /* margin-top: -15px; */
+    z-index: 99999999;
+    position: absolute;
+    margin-bottom: 0;
+    bottom: 0;
+    left: 50%; }
+
+.mb15 {
+  margin-bottom: 15px; }
 
 .bg-grey {
   background-color: #f3f3f3; }
@@ -2214,17 +2236,18 @@ footer {
   width: 100%; }
 
 .submit-btn {
-  background-color: #2576ba;
+  background-color: #21a9a0;
   font-family: "Montserrat Alternates", sans-serif;
   font-size: 22px;
   color: #fff;
-  border: 1px solid #2576ba;
+  border: 1px solid #21a9a0;
   line-height: 1;
-  padding: 0.7rem 4rem; }
+  padding: 0.7rem 4rem;
+  border-radius: 30px; }
   .submit-btn:hover, .submit-btn:focus,
   .submit-btn :active {
-    color: #2576ba;
-    background-color: #fff;
+    color: #21a9a0;
+    background-color: transparent;
     box-shadow: none; }
 
 .light-table thead {
@@ -3025,6 +3048,61 @@ a.list-group-item,
 .contact-page .form-wrapper {
   margin-top: 20px;
   margin-bottom: 30px; }
+
+.contact-page .form-group.no-margin {
+  margin-bottom: 0; }
+
+.contact-form-wrap {
+  position: relative; }
+  .contact-form-wrap .form-wrapper {
+    background: url(../img/contact.png) no-repeat 0px 0px;
+    background-size: cover;
+    width: 60%;
+    float: right;
+    padding-top: 50px;
+    padding-bottom: 50px; }
+    .contact-form-wrap .form-wrapper::after {
+      clear: both; }
+    .contact-form-wrap .form-wrapper .form-wrap {
+      max-width: 500px;
+      margin: auto; }
+      .contact-form-wrap .form-wrapper .form-wrap input {
+        margin-bottom: 15px; }
+  .contact-form-wrap .info-wrapper {
+    background-color: #22a8dd;
+    position: absolute;
+    left: 0;
+    width: 45%;
+    width: calc(40% + 30px);
+    top: 50%;
+    transform: translateY(-50%); }
+    .contact-form-wrap .info-wrapper .info-wrap {
+      width: 100%;
+      max-width: 500px;
+      float: right;
+      padding-top: 25px;
+      padding-bottom: 25px; }
+  .contact-form-wrap .contactus-title {
+    font-size: 20px;
+    color: #fff; }
+  .contact-form-wrap .contactus-title2 {
+    font-size: 30px;
+    color: #000; }
+    .contact-form-wrap .contactus-title2 span {
+      font-weight: bold; }
+
+.location-wrap {
+  padding-left: 80px;
+  position: relative;
+  margin-bottom: 20px; }
+  .location-wrap .flag-icon {
+    position: absolute;
+    left: 0;
+    top: 0; }
+  .location-wrap .location-address {
+    font-size: 16px;
+    color: #fff;
+    font-weight: 300; }
 
 @media (max-width: 768px) {
   .middle-menu .logo-container {
