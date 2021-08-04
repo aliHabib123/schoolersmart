@@ -1,0 +1,318 @@
+<?php
+
+use Application\Controller\FacebookController;
+use Application\Controller\HelperController;
+use Application\Controller\UserController;
+
+?>
+<!-- The Modal -->
+<div class="modal" id="login-signup-modal">
+
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <!-- <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div> -->
+
+            <!-- Modal body -->
+            <div class="modal-body no-padding">
+                <div class="row">
+                    <div class="col-md-4 modal-left">
+                        <div class="modal-logo">
+                            <img src="img/logo-light.png" />
+                        </div>
+                        <div class="modal-title">Welcome Back!</div>
+                        <div class="modal-subtitle">To stay connected with us, please login<br>with your
+                            personal information</div>
+
+                        <div class="modal-form">
+                            <form action="<?php echo MAIN_URL . 'submit-login'; ?>" id="login-form">
+                                <input type="hidden" name="redirectUrl" value="<?php echo HelperController::getCurrentUrl(); ?>" />
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Email address*" id="login-email" name="email" autocomplete="username">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Enter password" id="login-pwd" name="password" autocomplete="current-password">
+                                    <span class="forgot"><a href="<?php echo MAIN_URL . 'forgot-password/' . UserController::$CUSTOMER; ?>">Forgot password?</a></span>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="form-group form-check remember-me">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox"> Remember me
+                                    </label>
+                                </div>
+                                <div class="notice-area"></div>
+                                <div class="centered-button">
+                                    <button type="submit" class="btn light">SIGN IN</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-8 modal-right">
+
+
+                        <div class="modal-body register-modal-body">
+                            <div class="modal-title">Are you a New User?</div>
+                            <div class="modal-subtitle">
+                                Create your account today as<br>Parent or as an Educational Institute
+                            </div>
+                            <div class="tabs-register">
+                                <!-- Nav pills -->
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="pill" href="#individual">Individual / Parent</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="pill" href="#institute">Educational Institute</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane container active" id="individual">
+                                    <!-- Register Individual/Parent -->
+                                    <div class="modal-form">
+                                        <form action="<?php echo MAIN_URL . 'submit-register' ?>" autocomplete="off" id="register-form">
+                                            <input type="hidden" name="redirectUrl" value="<?php echo HelperController::getCurrentUrl(); ?>" />
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input type="password" class="form-control" name="password" placeholder="Enter password" id="signup-pwd" autocomplete="off">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="password" name="confirm-password" class="form-control confirm-password" placeholder="Confirm password" id="pwd" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" name="first-name" placeholder="First Name" autocomplete="off">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" name="last-name" placeholder="Last Name" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <input type="text" class="form-control" name="street-address" placeholder="Street Address" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <select class="form-control" id="country" name="country">
+                                                            <option value="">Country</option>
+                                                            <option value="LB">Lebanon</option>
+                                                            <option value="LB">Germany</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <select class="form-control" id="city" name="city">
+                                                            <option value="">City</option>
+                                                            <option value="LB">Lebanon</option>
+                                                            <option value="LB">Germany</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input type="email" class="form-control" name="signup-email" placeholder="*Email Address" id="signup-email" autocomplete="off">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" name="signup-mobile" placeholder="*Mobile" id="signup-mobile" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input type="date" class="form-control" name="birthday" placeholder="YYYY-MM-DD" autocomplete="off" />
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group form-check">
+                                                <label class="form-check-label">
+                                                    <input name="agree" class="form-check-input" type="checkbox"> I agree on the <a href="<?php echo MAIN_URL . 'page/term-conditions' ?>" data-toggle="modal" data-target="#terms-modal" data-dismiss="modal">Terms & Conditions</a>
+                                                </label>
+                                            </div>
+
+                                            <div class="notice-area"></div>
+
+                                            <div class="">
+                                                <button type="submit" class="btn signup-button">REGISTER</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- /Register Individual/Paret-->
+                                </div>
+                                <div class="tab-pane container fade" id="institute">
+                                    <!-- Register Educational Institute -->
+                                    <div class="modal-form">
+                                        <form action="<?php echo MAIN_URL . 'submit-register' ?>" autocomplete="off" id="register-form">
+                                            <input type="hidden" name="redirectUrl" value="<?php echo HelperController::getCurrentUrl(); ?>" />
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input type="password" class="form-control" name="password" placeholder="Enter password" id="signup-pwd" autocomplete="off">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="password" name="confirm-password" class="form-control confirm-password" placeholder="Confirm password" id="pwd" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" name="first-name" placeholder="First Name" autocomplete="off">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" name="last-name" placeholder="Last Name" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <input type="text" class="form-control" name="street-address" placeholder="Street Address" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <select class="form-control" id="country" name="country">
+                                                            <option value="">Country</option>
+                                                            <option value="LB">Lebanon</option>
+                                                            <option value="LB">Germany</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <select class="form-control" id="city" name="city">
+                                                            <option value="">City</option>
+                                                            <option value="LB">Lebanon</option>
+                                                            <option value="LB">Germany</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input type="email" class="form-control" name="signup-email" placeholder="*Email Address" id="signup-email" autocomplete="off">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" name="signup-mobile" placeholder="*Mobile" id="signup-mobile" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input type="date" class="form-control" name="birthday" placeholder="YYYY-MM-DD" autocomplete="off" />
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <input type="text" class="form-control" name="school-name" placeholder="*SCHOOL NAME" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" name="school-number" placeholder="*SCHOOL NUMBER" autocomplete="off">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" class="form-control" name="school-number=ext" placeholder="EXT" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <input type="text" class="form-control" name="school-location" placeholder="SCHOOL LOCATION" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-check">
+                                                <label class="form-check-label">
+                                                    <input name="agree" class="form-check-input" type="checkbox"> I agree on the <a href="<?php echo MAIN_URL . 'page/term-conditions' ?>" data-toggle="modal" data-target="#terms-modal" data-dismiss="modal">Terms & Conditions</a>
+                                                </label>
+                                            </div>
+
+                                            <div class="notice-area"></div>
+
+                                            <div class="">
+                                                <button type="submit" class="btn signup-button">REGISTER</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- /Register Educational Institute-->
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("#login-form").submit(function(e) {
+        var formData = new FormData(this);
+        var formUrl = $(this).attr('action');
+        $.ajax({
+            url: formUrl,
+            type: 'POST',
+            dataType: 'json',
+            data: formData,
+            mimeType: "multipart/form-data",
+            contentType: false,
+            cache: false,
+            processData: false,
+            beforeSend: function() {
+                showMsg('#login-form .notice-area', true, 'Logging you in, please wait...');
+            },
+            success: function(response) {
+                showMsg('#login-form .notice-area', response.status, response.msg);
+                if (response.status == true) {
+                    location.href = response.redirectUrl;
+                }
+            },
+            error: function() {
+                showMsg('#login-form .notice-area', false, 'An error occured, please try again!');
+            }
+        });
+        e.preventDefault();
+    });
+</script>

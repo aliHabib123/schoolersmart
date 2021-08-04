@@ -525,21 +525,30 @@ body {
   /* IE 10+ */ }
 
 .modal-title {
-  font-family: "Montserrat", sans-serif;
-  font-size: 34px;
-  font-weight: bold;
-  color: #2576ba;
+  font-family: "Notera";
+  font-size: 55px;
+  color: #fff;
   text-align: center;
   line-height: 1;
   margin-bottom: 15px; }
+  .modal-title.dark {
+    color: #000; }
 
 .modal-subtitle {
   font-family: "Montserrat Alternates", sans-serif;
   font-size: 16px;
-  color: #5a5a5a;
+  color: #fff;
   text-align: center;
   line-height: 1;
   margin-bottom: 25px; }
+  .modal-subtitle.dark {
+    color: #000; }
+
+.modal-logo {
+  text-align: center;
+  text-align: -webkit-center;
+  text-align: -moz-center;
+  margin-bottom: 30px; }
 
 .modal-header {
   padding: 0.5em 0.5rem;
@@ -560,10 +569,7 @@ body {
 .modal-form input[type="password"],
 .modal-form input[type="text"],
 .modal-form input[type="date"] {
-  border-radius: 0;
-  border-left: none;
-  border-bottom: none;
-  border-right: none; }
+  background-color: #f1f1f3; }
   .modal-form input[type="email"]:focus,
   .modal-form input[type="password"]:focus,
   .modal-form input[type="text"]:focus,
@@ -571,32 +577,47 @@ body {
     outline: none;
     border-color: initial; }
 
-.modal-form .confirm-password {
-  margin-bottom: 30px; }
+.modal-form select {
+  background-color: #f1f1f3; }
+  .modal-form select:focus {
+    outline: none;
+    border-color: initial; }
 
 .modal-form .centered-button {
   text-align: center;
   text-align: -webkit-center;
   text-align: -moz-center; }
-  .modal-form .centered-button button[type="submit"] {
-    margin-bottom: 30px;
-    width: 240px;
-    background-color: #2576ba;
-    font-family: "Montserrat Alternates", sans-serif;
-    font-size: 22px;
-    color: #fff;
-    padding: 7px 15px;
-    line-height: 1; }
-  .modal-form .centered-button button[type="submit"].signup-button {
-    background-color: #c5003c;
-    color: #fff;
-    font-size: 16px;
-    font-family: "Montserrat Alternates", sans-serif;
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
-    padding-top: 10px;
-    padding-bottom: 10px; }
+
+.modal-form button[type="submit"] {
+  margin-bottom: 30px;
+  width: 240px;
+  background-color: #2576ba;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-size: 22px;
+  color: #fff;
+  padding: 7px 15px;
+  line-height: 1; }
+
+.modal-form button[type="submit"].signup-button {
+  background-color: #21a9a0;
+  border: 1px solid #21a9a0;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 30px;
+  width: auto;
+  border-radius: 30px; }
+
+.modal-form button[type="submit"].light {
+  font-family: "Montserrat", sans-serif;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  font-size: 16px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 30px;
+  width: auto;
+  padding: 10px 40px; }
 
 ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
@@ -619,11 +640,12 @@ body {
   font-size: 16px; }
 
 span.forgot {
-  float: right; }
+  float: right;
+  margin-top: 5px; }
   span.forgot a {
-    color: #5a5a5a; }
+    color: #fff; }
     span.forgot a:hover {
-      color: #2576ba; }
+      color: #58BDE6; }
 
 .have-account {
   text-align: center;
@@ -935,6 +957,38 @@ div.skewed2 {
 
 .mb15 {
   margin-bottom: 15px; }
+
+.modal-left {
+  background-color: #1ba79f;
+  /* padding-top: 5rem; */
+  /* padding-bottom: 5rem; */
+  padding: 5rem 3rem; }
+
+.modal-body.no-padding {
+  padding: 0; }
+
+.remember-me {
+  color: #fff; }
+
+.register-modal-body .modal-title {
+  color: #000; }
+
+.register-modal-body .modal-subtitle {
+  color: #000; }
+
+.tabs-register {
+  padding-left: 15px;
+  margin-bottom: 20px; }
+  .tabs-register .nav-pills .nav-link.active,
+  .tabs-register .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #21a9a0; }
+  .tabs-register .nav-pills .nav-link {
+    background-color: rgba(33, 169, 160, 0.12);
+    color: rgba(0, 0, 0, 0.5);
+    border-radius: 0;
+    font-weight: bold;
+    font-size: 16px; }
 
 .bg-grey {
   background-color: #f3f3f3; }

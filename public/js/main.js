@@ -18,7 +18,7 @@ $(function () {
     });
   }
   // what-makes-slider
-  const whatMakesSlider = '.what-makes-slider'; 
+  const whatMakesSlider = ".what-makes-slider";
   if ($(whatMakesSlider).length > 0) {
     $(whatMakesSlider).bxSlider({
       //mode: "fade",
@@ -379,7 +379,7 @@ $(".sidebar-brand-menu").on("click", "span", function (e) {
 
 //cart-wrapper
 $(document).on("click", ".cart-wrapper > a", function (e) {
-  console.log($(this))
+  console.log($(this));
   e.preventDefault();
   $(this).parent().toggleClass("open");
 });
@@ -950,44 +950,51 @@ $(function () {
     $(".open-custom-menu").css("display", "inline-block");
     $(".custom-menu").removeClass("shown");
   });
-  let line1 = new LeaderLine(
-    document.getElementById("line1"),
-    document.getElementById("line1-1"),
-    {
-      size: 2,
-      color: "white",
-      path: "grid",
-      startPlug: "behind",
-      endPlug: "behind",
-      dash: true,
-    }
-  );
-  let line2 = new LeaderLine(
-    document.getElementById("line2"),
-    document.getElementById("line2-2"),
-    {
-      size: 2,
-      color: "white",
-      path: "grid",
-      startPlug: "behind",
-      endPlug: "behind",
-      dash: true,
-    }
-  );
-  let line3 = new LeaderLine(
-    document.getElementById("line3"),
-    document.getElementById("line3-3"),
-    {
-      size: 2,
-      color: "white",
-      path: "grid",
-      startPlug: "behind",
-      endPlug: "behind",
-      dash: true,
-      endSocket: "bottom",
-      startSocket: "bottom",
-    }
-  );
+
+  if ($("#line1").length > 0) {
+    let line1 = new LeaderLine(
+      document.getElementById("line1"),
+      document.getElementById("line1-1"),
+      {
+        size: 2,
+        color: "white",
+        path: "grid",
+        startPlug: "behind",
+        endPlug: "behind",
+        dash: true,
+      }
+    );
+  }
+  if ($("#line2").length > 0) {
+    let line2 = new LeaderLine(
+      document.getElementById("line2"),
+      document.getElementById("line2-2"),
+      {
+        size: 2,
+        color: "white",
+        path: "grid",
+        startPlug: "behind",
+        endPlug: "behind",
+        dash: true,
+      }
+    );
+  }
+  if ($("#line3").length > 0) {
+    let line3 = new LeaderLine(
+      document.getElementById("line3"),
+      document.getElementById("line3-3"),
+      {
+        size: 2,
+        color: "white",
+        path: "grid",
+        startPlug: "behind",
+        endPlug: "behind",
+        dash: true,
+        endSocket: "bottom",
+        startSocket: "bottom",
+      }
+    );
+  }
 });
 
 // let line2 = new LeaderLine(
