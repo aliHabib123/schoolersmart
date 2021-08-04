@@ -745,25 +745,25 @@ body {
 ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   color: #000;
-  font-family: $fontsecondary;
+  //font-family: $fontsecondary;
   font-size: 16px;
 }
 ::-moz-placeholder {
   /* Firefox 19+ */
   color: #000;
-  font-family: $fontsecondary;
+  //font-family: $fontsecondary;
   font-size: 16px;
 }
 :-ms-input-placeholder {
   /* IE 10+ */
   color: #000;
-  font-family: $fontsecondary;
+  //font-family: $fontsecondary;
   font-size: 16px;
 }
 :-moz-placeholder {
   /* Firefox 18- */
   color: #000;
-  font-family: $fontsecondary;
+  //font-family: $fontsecondary;
   font-size: 16px;
 }
 span.forgot {
@@ -824,10 +824,14 @@ img.centervh {
   text-align: center;
   min-height: 20px;
   .error {
-    color: red;
+    color: #fff;
+    background-color: red;
+    margin-bottom: 11px;
   }
   .success {
-    color: green;
+    color: #fff;
+    background-color: green;
+    margin-bottom: 11px;
   }
 }
 .content {
@@ -1134,4 +1138,29 @@ div.skewed2 {
     color: #000;
     font-weight: 600;
   }
+}
+.page-banner-wrap {
+  position: relative;
+  .page-banner {
+    margin-bottom: 20px;
+    img {
+      width: 100%;
+    }
+  }
+  .skewed2 {
+    background-color: #fdbe2f;
+    color: #000;
+    /* display: inline-block; */
+    padding: 15px 30px;
+    transform: skewX(40deg) translateX(-50%);
+    /* margin-top: -15px; */
+    z-index: 99999999;
+    position: absolute;
+    margin-bottom: 0;
+    bottom: 0;
+    left: 50%;
+  }
+}
+.mb15{
+  margin-bottom: 15px;
 }

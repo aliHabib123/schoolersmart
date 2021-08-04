@@ -243,18 +243,19 @@
   width: 100%;
 }
 .submit-btn {
-  background-color: $base-color;
+  background-color: $eastern-blue;
   font-family: $fontsecondary;
   font-size: 22px;
   color: #fff;
-  border: 1px solid $base-color;
+  border: 1px solid $eastern-blue;
   line-height: 1;
   padding: 0.7rem 4rem;
+  border-radius: 30px;
   &:hover,
   &:focus,
   :active {
-    color: $base-color;
-    background-color: #fff;
+    color: $eastern-blue;
+    background-color: transparent;
     box-shadow: none;
   }
 }
