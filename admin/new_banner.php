@@ -1,4 +1,6 @@
 <?php function main(){
+	$bannerLocationMySqlExtDAO = new BannerLocationMySqlExtDAO();
+	$bannnerLocations = $bannerLocationMySqlExtDAO->queryAll();
 //print_r($_SESSION['companyId']);?>
 
 
@@ -50,18 +52,9 @@
 		<div class="col-md-4">
 			<select  class="form-control select2me" data-placeholder="Select..." name="location" id="location">
 			<option selected="selected" value="0">--- Select Location ---</option>
-			<?php 
-			/*
-			<?php
-			$sql="select * from section";
-			$result=mysqli_query ($_SESSION["db_conn"], $sql);
-			while($page=mysqli_fetch_array($result)){?>
-			<option value="<?php echo $page['section_id']?>"><?php echo $page["section_name"]?></option>
-		   	<?php }?>
-			*/
-			?>
-			   <option value="1">Home Page</option>
-			   <option value="2">Another Location</option>
+			   <?php foreach($bannnerLocations as $location){?>
+				<option value="<?php echo $location->id?>"><?php echo $location->locationName;?></option>
+				<?php }?>
 			</select>
 		</div>
 	</div>
