@@ -58,7 +58,7 @@ class CurrencyMySqlDAO implements CurrencyDAO{
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($currency->currencyName);
-		$sqlQuery->setNumber($currency->currencySymbol);
+		$sqlQuery->set($currency->currencySymbol);
 		$sqlQuery->setNumber($currency->conversionRate);
 		$sqlQuery->setNumber($currency->displayOrder);
 		$sqlQuery->setNumber($currency->active);
@@ -78,7 +78,7 @@ class CurrencyMySqlDAO implements CurrencyDAO{
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($currency->currencyName);
-		$sqlQuery->setNumber($currency->currencySymbol);
+		$sqlQuery->set($currency->currencySymbol);
 		$sqlQuery->setNumber($currency->conversionRate);
 		$sqlQuery->setNumber($currency->displayOrder);
 		$sqlQuery->setNumber($currency->active);
@@ -106,7 +106,7 @@ class CurrencyMySqlDAO implements CurrencyDAO{
 	public function queryByCurrencySymbol($value){
 		$sql = 'SELECT * FROM currency WHERE currency_symbol = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->setNumber($value);
+		$sqlQuery->set($value);
 		return $this->getList($sqlQuery);
 	}
 
@@ -142,7 +142,7 @@ class CurrencyMySqlDAO implements CurrencyDAO{
 	public function deleteByCurrencySymbol($value){
 		$sql = 'DELETE FROM currency WHERE currency_symbol = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->setNumber($value);
+		$sqlQuery->set($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 
