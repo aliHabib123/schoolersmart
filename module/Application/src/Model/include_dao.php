@@ -53,6 +53,14 @@
 	require_once('class/dto/Country.class.php');
 	require_once('class/mysql/CountryMySqlDAO.class.php');
 	require_once('class/mysql/ext/CountryMySqlExtDAO.class.php');
+	require_once('class/dao/CurrencyDAO.class.php');
+	require_once('class/dto/Currency.class.php');
+	require_once('class/mysql/CurrencyMySqlDAO.class.php');
+	require_once('class/mysql/ext/CurrencyMySqlExtDAO.class.php');
+	require_once('class/dao/CurrencyCountryDAO.class.php');
+	require_once('class/dto/CurrencyCountry.class.php');
+	require_once('class/mysql/CurrencyCountryMySqlDAO.class.php');
+	require_once('class/mysql/ext/CurrencyCountryMySqlExtDAO.class.php');
 	require_once('class/dao/DeliveryDAO.class.php');
 	require_once('class/dto/Delivery.class.php');
 	require_once('class/mysql/DeliveryMySqlDAO.class.php');
