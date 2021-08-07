@@ -142,7 +142,7 @@ function main()
 						<div class="col-md-6">
 							<label class="control-label">Category</label>
 							<select class="form-control select2me" data-placeholder="Select Supplier..." name="category_id" id="category_id">
-								<option selected="selected" value="">--- Select Supplier ---</option>
+								<option selected="selected" value="">--- Select Category ---</option>
 								<?php
 								foreach ($level1Categories as $row) {
 									//echo $row->id."<br>";

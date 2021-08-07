@@ -24,15 +24,98 @@ use UserMySqlExtDAO;
 
 class ProductController extends AbstractActionController
 {
-    public static $TODAYS_DEALS = 1;
+    public static $BEST_DEALS = 1;
     public static $LATEST_ARRIVALS = 2;
     public static $PICKED_FOR_YOU = 3;
     //public static $DAILY_DEALS = 4;
     public static $BEST_OFFERS = 5;
-    public static $SPOTLIGHT = 6;
+    public static $HOT_SELLING_PRODUCTS = 6;
     public static $PROMOTIONS = 7;
 
     public function indexAction()
+    {
+        $prefixUrl = MAIN_URL . 'products/';
+        $page = 1;
+        $limit = 12;
+        $offset = 0;
+        if (isset($_GET['page']) && $_GET['page'] != "") {
+            $page = $_GET['page'];
+            $offset = ($page - 1) * $limit;
+        }
+        $search = (isset($_GET['search']) && $_GET['search'] != "") ? $_GET['search'] : "";
+        $brandId = (isset($_GET['brand']) && $_GET['brand'] != "") ? $_GET['brand'] : "";
+        $minPrice = (isset($_GET['min-price']) && $_GET['min-price'] != "") ? $_GET['min-price'] : "";
+        $maxPrice = (isset($_GET['max-price']) && $_GET['max-price'] != "") ? $_GET['max-price'] : "";
+        $categoriesFiltered = (isset($_GET['c']) && $_GET['c'] != "") ? $_GET['c'] : [];
+        $subCategoriesFiltered = (isset($_GET['sc']) && $_GET['sc'] != "") ? $_GET['sc'] : [];
+        $brandsFiltered = (isset($_GET['b']) && $_GET['b'] != "") ? $_GET['b'] : [];
+
+
+        $categoryArray = [];
+        $brandsArray = [];
+
+        // Get Brands
+        $itemBrandMySqlExtDAO = new ItemBrandMySqlExtDAO();
+        $brandsList = $itemBrandMySqlExtDAO->queryAll();
+
+        // Get Categories
+        $itemCategoryMySqlExtDAO = new ItemCategoryMySqlExtDAO();
+        $categoryList = $itemCategoryMySqlExtDAO->select('parent_id = 0 ORDER BY name ASC');
+
+
+        foreach ($categoriesFiltered as $row) {
+            $subCategories = $itemCategoryMySqlExtDAO->select("parent_id = $row");
+            if ($subCategories) {
+                foreach ($subCategories as $subRow) {
+                    array_push($categoryArray, $subRow->id);
+                }
+            }
+        }
+
+        foreach ($subCategoriesFiltered as $row1) {
+            array_push($categoryArray, $row1);
+        }
+
+        foreach ($brandsFiltered as $row2) {
+            array_push($brandsArray, $row2);
+        }
+
+        sort($categoryArray);
+        $categoryArray = array_unique($categoryArray);
+        $items = self::getItems($categoryArray, $search, $brandsArray, $minPrice, $maxPrice, false, "", $limit, $offset);
+        $itemsCount = count(self::getItems($categoryArray, $search, $brandsArray, $minPrice, $maxPrice, false));
+        $totalPages = ceil($itemsCount / $limit);
+
+        $isSearchPage = $search != "" ? true : false;
+
+        $banners = ContentController::getBanners(4);
+
+
+        // get Best Deals
+        $bestDeals = self::getItems(false, false, "", "", "", self::$BEST_DEALS, "", 4, 0);
+        //print_r($bestDeals);
+        $this->layout()->withBanner = true;
+        $this->layout()->banners = $banners;
+        $data = [
+            'items' => $items,
+            'totalPages' => $totalPages,
+            'currentPage' => $page,
+            'isSearch' => $isSearchPage,
+            'search' => $search,
+            'prefixUrl' => $prefixUrl,
+            'brandsList' => $brandsList,
+            'brandId' => $brandId,
+            'minPrice' => $minPrice,
+            'maxPrice' => $maxPrice,
+            'categoryList' => $categoryList,
+            'categoriesFiltered' => $categoriesFiltered,
+            'subCategoriesFiltered' => $subCategoriesFiltered,
+            'brandsFiltered' => $brandsFiltered,
+            'bestDeals' => $bestDeals,
+        ];
+        return new ViewModel($data);
+    }
+    public function index1Action()
     {
         $itemCategoryMySqlExtDAO = new ItemCategoryMySqlExtDAO();
         $prefixUrl = MAIN_URL . 'products/';
@@ -161,6 +244,10 @@ class ProductController extends AbstractActionController
 
         $isSearchPage = $search != "" ? true : false;
 
+        $banners = ContentController::getBanners(4);
+        $this->layout()->withBanner = true;
+        $this->layout()->banners = $banners;
+        print_r($categoryList);
         $data = [
             'items' => $items,
             'totalPages' => $totalPages,
@@ -224,7 +311,7 @@ class ProductController extends AbstractActionController
             'relatedProducts' => $relatedProducts,
         ]);
     }
-    public function todaysDealsAction()
+    public function bestDealsAction()
     {
         $page = 1;
         $limit = 12;
@@ -235,21 +322,17 @@ class ProductController extends AbstractActionController
         }
         $search = (isset($_GET['search']) && $_GET['search'] != "") ? $_GET['search'] : false;
         $itemTagMySqlExtDAO = new ItemTagMySqlExtDAO();
-        $tagInfo = $itemTagMySqlExtDAO->queryBySlug('todays-deals');
-        $tagId = $tagInfo[0]->id;
-        $items = self::getItems(false, false, "", "", "", $tagId, "", $limit, $offset);
-        $spotLight = self::getItems(false, false, "", "", "", self::$SPOTLIGHT, "RAND(),", 1, $offset);
-        $itemsCount = count(self::getItems(false, false, "", "", "", $tagId));
+        $items = self::getItems(false, false, "", "", "", self::$BEST_DEALS, "", $limit, $offset);
+        $itemsCount = count(self::getItems(false, false, "", "", "", self::$BEST_DEALS));
         $totalPages = ceil($itemsCount / $limit);
+        $banners = ContentController::getBanners(5);
         $data = [
             'items' => $items,
             'totalPages' => $totalPages,
             'currentPage' => $page,
             'spotlight' => false,
+            'banner' => $banners[0],
         ];
-        if ($spotLight) {
-            $data['spotlight'] = $spotLight[0];
-        }
         return new ViewModel($data);
     }
     public function latestArrivalsAction()
@@ -520,7 +603,7 @@ class ProductController extends AbstractActionController
         `stock`, `price`, `special_price`, `warranty`, `exchange`,
         `title_ar`, `description_ar`, `specs_ar`,
         `color_ar`, `size_ar`, `dimensions_ar`, `warranty_ar`, `exchange_ar`, `supplier_id`, `processed`) VALUES " . implode(',', $data);
-        
+
         if (!$conn->query($sql)) {
             $res = false;
             $msg = $conn->error;
@@ -633,7 +716,7 @@ class ProductController extends AbstractActionController
                         $albumObj = $albumMySqlExtDAO->load($itemExists[0]->albumId);
                         if ($albumObj) {
                             $albumId = $albumObj->id;
-                            if($albumId != 0){
+                            if ($albumId != 0) {
                                 $albumImages = $albumImageMySqlExtDAO->queryByAlbumId($albumId);
 
                                 //Delete deleted images
@@ -642,14 +725,14 @@ class ProductController extends AbstractActionController
                                         HelperController::deleteImage($row1->imageName);
                                     }
                                 }
-    
+
                                 $oldImagesNames = array_map(function ($e) {
                                     return $e->imageName;
                                 }, $albumImages);
-    
+
                                 //error_log(json_encode($oldImagesNames));
-                                
-                                //update album 
+
+                                //update album
                                 foreach ($imagesArray as $albumImageItem) {
                                     if (!in_array($albumImageItem, $oldImagesNames)) {
                                         $albumImageObj = new Image();
@@ -710,7 +793,6 @@ class ProductController extends AbstractActionController
                     }
                 }
             } else {
-
                 if ($imagesArray) {
                     $albumObj = new Album();
                     $albumObj->displayOrder = 0;

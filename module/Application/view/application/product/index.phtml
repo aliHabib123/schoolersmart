@@ -1,5 +1,6 @@
 <?php
 
+use Application\Controller\CategoryController;
 use Application\Controller\DesignController;
 use Application\Controller\HelperController;
 use Application\Controller\ProductController;
@@ -31,32 +32,87 @@ if ($this->isSearch) {
 
 ?>
 <div class="main-wrapper pb30">
-    <div class="small-banner-container with-breadcrumb">
-        <div class="small-banner_img">
-            <img src="<?php echo ProductController::getCategoryBanner($this->cat1, $this->cat2, $this->cat3, $categoryInfo, $categoryInfo2, $categoryInfo3); ?>" />
-        </div>
-<?php /*        <div class="small-banner-caption-container">
+    <?php if (SHOW_CATGEORY_BANNER) { ?>
+        <div class="small-banner-container with-breadcrumb">
+            <div class="small-banner_img">
+                <img src="<?php echo ProductController::getCategoryBanner($this->cat1, $this->cat2, $this->cat3, $categoryInfo, $categoryInfo2, $categoryInfo3); ?>" />
+            </div>
+            <?php /*        <div class="small-banner-caption-container">
             <div class="container">
                 <div class="banner-title"><?php echo $categoryName; ?></div>
                 <div class="banner-brief"><?php echo $description; ?></div>
             </div>
         </div> */ ?>
-        <div class="banner-breadcrumb">
-            <div class="container">
-                <ul>
-                    <li><a href="<?php echo MAIN_URL; ?>"><span><img src="img/home-icon.jpg" /></span>Home</a></li>
-                    <li><a><?php echo $categoryName; ?></a></li>
-                </ul>
+            <div class="banner-breadcrumb">
+                <div class="container">
+                    <ul>
+                        <li><a href="<?php echo MAIN_URL; ?>"><span><img src="img/home-icon.jpg" /></span>Home</a></li>
+                        <li><a><?php echo $categoryName; ?></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="breadcrumb-c d-block d-sm-none">
+            <div class="breadcrumb-c-inner">
+                <div class="container">
+                    <ul>
+                        <li><a href="<?php echo MAIN_URL; ?>"><span><img src="img/home-icon.jpg" /></span>Home</a></li>
+                        <li><a><?php echo $categoryName; ?></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <?php echo DesignController::mainTitle("LETS START <span>shopping</span>"); ?>
             </div>
         </div>
     </div>
-    <div class="breadcrumb-c d-block d-sm-none">
-        <div class="breadcrumb-c-inner">
+    <div class="hot-selling-products-wrap diagonal-box grey">
+        <div class="content">
             <div class="container">
-                <ul>
-                    <li><a href="<?php echo MAIN_URL; ?>"><span><img src="img/home-icon.jpg" /></span>Home</a></li>
-                    <li><a><?php echo $categoryName; ?></a></li>
-                </ul>
+                <div class="hot-selling-custom-controls">
+                    <span id="custom-prev"></span>
+                    <span id="custom-next"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php echo DesignController::mainTitle("HOT SELLING <span class='bold'>PRODUCTS</span>", 'style-2'); ?>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="hot-selling-products-slider">
+                            <?php foreach ($this->bestDeals as $row) {
+                                echo '<div>';
+                                echo DesignController::item($row);
+                                echo '</div>';
+                            } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="best-deals-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <?php echo DesignController::mainTitle("BEST <span class='bold'>DEALS</span>", 'style-2'); ?>
+                </div>
+            </div>
+            <div class="row">
+                <?php foreach ($this->bestDeals as $row) {
+                    echo '<div class="col-md-3">';
+                    echo DesignController::item($row);
+                    echo '</div>';
+                } ?>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <a class="btn-style-1" href="<?php echo MAIN_URL . 'best-deals'; ?>">VIEW ALL DEALS</a>
+                </div>
             </div>
         </div>
     </div>
@@ -64,29 +120,49 @@ if ($this->isSearch) {
         <div class="row">
             <div class="col-md-3">
                 <div class="accordion-c">
-                    <div class="accordion_title">Filter by</div>
+                    <!-- <div class="accordion_title">Filter by</div> -->
                     <div id="accordion">
                         <form action="<?php echo MAIN_URL . 'products' . $this->completeSlug; ?>" method="get" id="sidebar-filter">
                             <?php if (!$this->cat3) { ?>
                                 <div class="card">
                                     <div class="card-header">
                                         <a class="card-link" data-toggle="collapse" href="#collapseOne">
-                                            Category<i class="fas fa-plus"></i>
+                                            Category<i class="fas fa-chevron-down"></i>
                                         </a>
                                     </div>
                                     <div id="collapseOne" class="collapse" data-parent="#accordion">
                                         <div class="card-body">
                                             <div class="sidebar-category-menu">
-                                                <?php foreach ($this->categoryList as $row) { 
+                                                <?php foreach ($this->categoryList as $row) {
                                                     $checked = "";
-                                                    if(in_array($row->id, $this->categoriesFiltered)){
+                                                    if (in_array($row->id, $this->categoriesFiltered)) {
                                                         $checked = "checked";
-                                                    }?>
+                                                    } ?>
                                                     <div class="forms-check">
+                                                        <input <?php echo $checked; ?> name="c[]" class="forms-check-input" type="checkbox" value="<?php echo $row->id; ?>" id="<?php echo $row->id; ?>">
                                                         <label class="form-scheck-label" for="<?php echo $row->id; ?>">
                                                             <?php echo $row->name; ?>
                                                         </label>
-                                                        <input <?php echo $checked;?> name="categories[]" class="forms-check-input" type="checkbox" value="<?php echo $row->id;?>" id="<?php echo $row->id; ?>">
+
+                                                        <?php $subCategories = CategoryController::getCategories("parent_id = $row->id"); ?>
+                                                        <?php if ($subCategories) { ?>
+                                                            <div class="sidebar-subcategory-menu">
+                                                                <?php foreach ($subCategories as $subCat) {
+                                                                    //print_r($subCat);
+                                                                    $checked = "";
+                                                                    if (in_array($subCat->id, $this->subCategoriesFiltered)) {
+                                                                        $checked = "checked";
+                                                                    } ?>
+                                                                    <div class="forms-check">
+                                                                        <input <?php echo $checked; ?> name="sc[]" class="forms-check-input" type="checkbox" value="<?php echo $subCat->id; ?>" id="<?php echo $subCat->id; ?>">
+                                                                        <label class="form-scheck-label" for="<?php echo $subCat->id; ?>">
+                                                                            <?php echo $subCat->name; ?>
+                                                                        </label>
+
+                                                                    </div>
+                                                                <?php } ?>
+                                                            </div>
+                                                        <?php } ?>
                                                     </div>
                                                 <?php } ?>
                                             </div>
@@ -98,7 +174,7 @@ if ($this->isSearch) {
                             <div class="card">
                                 <div class="card-header">
                                     <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
-                                        Price<i class="fas fa-plus"></i>
+                                        Price<i class="fas fa-chevron-down"></i>
                                     </a>
                                 </div>
                                 <div id="collapseTwo" class="collapse" data-parent="#accordion">
@@ -114,21 +190,27 @@ if ($this->isSearch) {
                             <div class="card">
                                 <div class="card-header">
                                     <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
-                                        Brand<i class="fas fa-plus"></i>
+                                        Brand<i class="fas fa-chevron-down"></i>
                                     </a>
                                 </div>
                                 <div id="collapseThree" class="collapse" data-parent="#accordion">
                                     <div class="card-body">
-                                        <div class="sidebar-brand-menu">
-                                            <div class="d-flex-inline">
-                                                <?php foreach ($this->brandsList as $row) { ?>
-                                                    <span id="<?php echo $row->id; ?>">
-                                                        <img src="<?php echo HelperController::getImageUrl($row->image); ?>" />
-                                                    </span>
+                                        <?php if ($this->brandsList) { ?>
+                                            <div class="sidebar-brand-menu">
+                                                <?php foreach ($this->brandsList as $brand) {
+                                                    $checked = "";
+                                                    if (in_array($brand->id, $this->brandsFiltered)) {
+                                                        $checked = "checked";
+                                                    } ?>
+                                                    <div class="forms-check">
+                                                        <input <?php echo $checked; ?> name="b[]" class="forms-check-input" type="checkbox" value="<?php echo $brand->id; ?>" id="<?php echo $brand->id; ?>">
+                                                        <label class="form-scheck-label" for="<?php echo $brand->id; ?>">
+                                                            <?php echo $brand->name; ?>
+                                                        </label>
+                                                    </div>
                                                 <?php } ?>
                                             </div>
-                                            <input type="hidden" name="brand" value="<?php echo $this->brandId; ?>" id="brand_id">
-                                        </div>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
@@ -152,7 +234,7 @@ if ($this->isSearch) {
                 <div class="row">
                     <?php if ($this->items) { ?>
                         <?php foreach ($this->items as $item) { ?>
-                            <div class="col-md-3 col-6 item-col">
+                            <div class="col-md-4 col-6 item-col">
                                 <?php echo DesignController::item($item); ?>
                             </div>
                         <?php } ?>
@@ -170,18 +252,6 @@ if ($this->isSearch) {
     </div>
 </div>
 <?php
-// $append = [
-//     'brand' => $this->brandId,
-//     'min-price' => $this->minPrice,
-//     'max-price' => $this->maxPrice,
-// ];
-// $append = http_build_query(array_filter($append));
-// if ($append != "") {
-//     $append = '&' . $append;
-// } else {
-//     $append = "";
-// }
-
 $url = HelperController::getCurrentUrl();
 $t = parse_url($url, PHP_URL_QUERY); # output "myqueryhash"
 parse_str($t, $output);
@@ -194,7 +264,7 @@ if ($output) {
 ?>
 <script type="text/javascript">
     const append = '<?php echo $append; ?>';
-    const currentPageUrl = '<?php echo MAIN_URL . 'products' . $this->completeSlug; ?>';
+    const currentPageUrl = '<?php echo MAIN_URL . 'products'; ?>';
     $(function() {
         $("#product-pagination").twbsPagination({
             totalPages: <?php echo $this->totalPages; ?>,

@@ -271,6 +271,8 @@ class UserController extends AbstractActionController
             $cond = "b.`id` IN ($list)";
             $wishlist = $itemMySqlExtDAO->select($cond);
         }
+        $this->layout()->htmlClass = 'header-style-2';
+            $this->layout()->header2 = true;
         return new ViewModel([
             'wishlist' => $wishlist,
             'saleOrdersCount' => count($saleOrders),

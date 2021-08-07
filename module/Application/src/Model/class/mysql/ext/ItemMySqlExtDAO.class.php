@@ -24,8 +24,7 @@ class ItemMySqlExtDAO extends ItemMySqlDAO
     {
         $sql = "SELECT
                     a.*,
-                    b.category_id,
-                    e.usd_exchange_rate";
+                    b.category_id";
         if ($tagId) {
             $sql .= ",c.`tag_id`";
         }
@@ -37,9 +36,6 @@ class ItemMySqlExtDAO extends ItemMySqlDAO
                     LEFT OUTER JOIN `item_category_mapping` b
                     ON a.`id` = b.`item_id`";
 
-        $sql .= "LEFT OUTER JOIN `user` e
-                    ON a.`supplier_id` = e.`id`";
-
         if ($tagId) {
             $sql .= " LEFT OUTER JOIN `item_tag_mapping` c
                         ON a.`id` = c.`item_id`";
@@ -50,14 +46,15 @@ class ItemMySqlExtDAO extends ItemMySqlDAO
                         ON a.`id` = d.`item_id`";
         }
 
-        $sql .= " WHERE a.`image` != ''";
+        //$sql .= " WHERE a.`image` != ''";
 
+        $sql .= " WHERE 1";
         if ($minPrice != "") {
-            $sql .= " AND a.`regular_price` * e.`usd_exchange_rate` >= $minPrice";
+            $sql .= " AND a.`regular_price`";
         }
 
         if ($maxPrice != "") {
-            $sql .= " AND a.`regular_price` * e.`usd_exchange_rate` <= $maxPrice";
+            $sql .= " AND a.`regular_price`";
         }
 
         if (is_array($categoryId)) {
@@ -73,12 +70,22 @@ class ItemMySqlExtDAO extends ItemMySqlDAO
         if ($tagId) {
             $sql .= " AND c.`tag_id` = $tagId";
         }
-        if ($brandId != "") {
-            $sql .= " AND d.`brand_id` = $brandId";
+
+        if (is_array($brandId)) {
+            if (count($brandId) > 0) {
+                $brandId = implode(',', $brandId);
+                $sql .= " AND d.`brand_id` IN ($brandId)";
+            }
+        } else {
+            if ($brandId != "") {
+                $sql .= " AND d.`brand_id` = $brandId";
+            }
         }
+
         if ($search != "") {
             $sql .= " AND (a.`title` LIKE '%$search%' OR a.`description` LIKE '%$search%' OR a.`specification` LIKE '%$search%')";
         }
+
         $sql .= " ORDER BY";
 
         if ($orderBy != "") {
@@ -89,7 +96,7 @@ class ItemMySqlExtDAO extends ItemMySqlDAO
         if ($limit != 0) {
             $sql .= " LIMIT $limit OFFSET $offset";
         }
-        
+        //echo $sql . '<br>';
         $sqlQuery = new SqlQuery($sql);
         return $this->getList($sqlQuery);
     }
