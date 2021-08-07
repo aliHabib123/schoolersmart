@@ -72,10 +72,10 @@ return [
             'todaysDeals' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route'    => '/todays-deals[/]',
+                    'route'    => '/best-deals[/]',
                     'defaults' => [
                         'controller' => Controller\ProductController::class,
-                        'action'     => 'todaysDeals',
+                        'action'     => 'bestDeals',
                     ],
                     'constraints' => [
                         'year' => '\d{4}',
@@ -674,6 +674,16 @@ return [
                     'defaults' => [
                         'controller' => Controller\CareerController::class,
                         'action'     => 'details',
+                    ],
+                ],
+            ],
+            'setSession' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/setSession',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'setSession',
                     ],
                 ],
             ],

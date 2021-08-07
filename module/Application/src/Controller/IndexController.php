@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Controller;
 
 use ContentMySqlExtDAO;
+use CurrencyMySqlExtDAO;
 use ImageMySqlExtDAO;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
@@ -22,9 +23,9 @@ class IndexController extends AbstractActionController
         $featuredCategories = CategoryController::getCategories("is_featured = 1");
 
         //Todays DEALS, PICKED FOR YOU and BEST OFFERS
-        $todaysDeals = ProductController::getItems(false, false, "", "", "", ProductController::$TODAYS_DEALS, "", 30, 0);
-        $pickedForYou = ProductController::getItems(false, false,  "", "", "", ProductController::$PICKED_FOR_YOU, "", 10, 0);
-        $bestOffers = ProductController::getItems(false, false,  "", "", "", ProductController::$BEST_OFFERS, "", 10, 0);
+        $todaysDeals = ProductController::getItems(false, false, "", "", "", ProductController::$BEST_DEALS, "", 30, 0);
+        $pickedForYou = ProductController::getItems(false, false, "", "", "", ProductController::$PICKED_FOR_YOU, "", 10, 0);
+        $bestOffers = ProductController::getItems(false, false, "", "", "", ProductController::$BEST_OFFERS, "", 10, 0);
 
         $this->layout()->withBanner = true;
         $this->layout()->banners = $banners;
@@ -57,7 +58,6 @@ class IndexController extends AbstractActionController
             $view->setTemplate('application/index/about');
             return $view;
         } else {
-            
             $page = $contentMySqlExtDAO->queryBySlug($slug);
             $this->layout()->htmlClass = 'content header-style-2';
             $this->layout()->header2 = true;
@@ -71,5 +71,13 @@ class IndexController extends AbstractActionController
         $view = new ViewModel();
         $view->setTerminal(true);
         return $view;
+    }
+    public function setSessionAction()
+    {
+        $_SESSION['currency'] = $_POST['currency'];
+        $_SESSION['rate'] = $_POST['rate'];
+        $response = ['currency' => $_SESSION['currency'], 'rate' => $_SESSION['rate']];
+        print_r($response);
+        return $this->response;
     }
 }

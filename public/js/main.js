@@ -17,6 +17,29 @@ $(function () {
       pager: false,
     });
   }
+  //hot-selling-slider-products
+  if ($(".hot-selling-products-slider").length > 0) {
+    let width = $(".hot-selling-products-slider").width();
+    let slideWidth = width / 3;
+    if ($(window).width() < 768) {
+      slideWidth = width / 2;
+    }
+    slideWidth = slideWidth + "px";
+    $(".hot-selling-products-slider").bxSlider({
+      //mode: "fade",
+      captions: false,
+      adaptiveHeight: true,
+      controls: true,
+      pager: false,
+      minSlides: 3,
+      maxSlides: 3,
+      slideWidth: slideWidth,
+      nextSelector: '#custom-next',
+      prevSelector: '#custom-prev',
+      nextText: "<img src='img/arrow-yellow-next.png'/>",
+      prevText: "<img src='img/arrow-yellow-prev.png'/>"
+    });
+  }
   // what-makes-slider
   const whatMakesSlider = ".what-makes-slider";
   if ($(whatMakesSlider).length > 0) {
@@ -33,10 +56,25 @@ $(function () {
   if ($(startShopping).length > 0) {
     $(startShopping).slick({
       centerMode: true,
-      centerPadding: "100px",
+      centerPadding: "0px",
       slidesToShow: 3,
       dots: true,
       arrows: false,
+      infinite: true,
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            infinite: true,
+            dots: true,
+            centerMode: false,
+            arrows: false,
+            centerPadding: "0px",
+          },
+        },
+      ],
     });
   }
   //home-products-slider
@@ -73,6 +111,20 @@ $(function () {
       type: "image",
       // other options
     });
+  });
+  //currency-item
+  $(document).on("click", ".currency-item", function (e) {
+    e.preventDefault();
+    const currency = $(this).data("currency");
+    const rate = $(this).data("rate");
+    //$.post(mainUrl + "setSession", { currency: currency });
+    $.post(
+      mainUrl + "setSession",
+      { currency: currency, rate: rate },
+      function (data) {
+        location.reload();
+      }
+    );
   });
   //.input-wrapper
   $(document).on("click", ".input-wrapper i", function (e) {
@@ -951,49 +1003,55 @@ $(function () {
     $(".custom-menu").removeClass("shown");
   });
 
-  if ($("#line1").length > 0) {
-    let line1 = new LeaderLine(
-      document.getElementById("line1"),
-      document.getElementById("line1-1"),
-      {
-        size: 2,
-        color: "white",
-        path: "grid",
-        startPlug: "behind",
-        endPlug: "behind",
-        dash: true,
-      }
-    );
-  }
-  if ($("#line2").length > 0) {
-    let line2 = new LeaderLine(
-      document.getElementById("line2"),
-      document.getElementById("line2-2"),
-      {
-        size: 2,
-        color: "white",
-        path: "grid",
-        startPlug: "behind",
-        endPlug: "behind",
-        dash: true,
-      }
-    );
-  }
-  if ($("#line3").length > 0) {
-    let line3 = new LeaderLine(
-      document.getElementById("line3"),
-      document.getElementById("line3-3"),
-      {
-        size: 2,
-        color: "white",
-        path: "grid",
-        startPlug: "behind",
-        endPlug: "behind",
-        dash: true,
-        endSocket: "bottom",
-        startSocket: "bottom",
-      }
-    );
+  setTimeout(function () {
+    showLeaderLines();
+  }, 500);
+
+  function showLeaderLines() {
+    if ($("#line1").length > 0) {
+      let line1 = new LeaderLine(
+        document.getElementById("line1"),
+        document.getElementById("line1-1"),
+        {
+          size: 2,
+          color: "white",
+          path: "grid",
+          startPlug: "behind",
+          endPlug: "behind",
+          dash: true,
+        }
+      );
+    }
+    if ($("#line2").length > 0) {
+      let line2 = new LeaderLine(
+        document.getElementById("line2"),
+        document.getElementById("line2-2"),
+        {
+          size: 2,
+          color: "white",
+          path: "grid",
+          startPlug: "behind",
+          endPlug: "behind",
+          dash: true,
+        }
+      );
+    }
+    if ($("#line3").length > 0) {
+      let line3 = new LeaderLine(
+        document.getElementById("line3"),
+        document.getElementById("line3-3"),
+        {
+          size: 2,
+          color: "white",
+          path: "grid",
+          startPlug: "behind",
+          endPlug: "behind",
+          dash: true,
+          endSocket: "bottom",
+          startSocket: "bottom",
+        }
+      );
+    }
   }
 });
 

@@ -58,9 +58,9 @@ $image = ($item->image != "" && $item->image != null) ? HelperController::getIma
                 <div class="col-md-7">
                     <div class="product-details-side">
                         <?php if ($item->salePrice) { ?>
-                            <div class="price1"><?php echo number_format($item->regularPrice * $item->usdExchangeRate); ?> LBP</div>
+                            <div class="price1"><?php echo number_format($item->regularPrice * $_SESSION['rate']); ?> <?php echo $_SESSION['currency'];?></div>
                         <?php } ?>
-                        <div class="price2"><?php echo ProductController::getFinalPrice($item->regularPrice * $item->usdExchangeRate, $item->salePrice * $item->usdExchangeRate); ?><span>LBP</span></div>
+                        <div class="price2"><?php echo ProductController::getFinalPrice($item->regularPrice * $_SESSION['rate'], $item->salePrice * $_SESSION['rate']); ?><span><?php echo $_SESSION['currency'];?></span></div>
                         <div class="title"><?php echo $item->title; ?></div>
                         <div class="sku"><b>SKU: </b><?php echo $item->sku; ?></div>
                         <?php if ($item->warranty) { ?>

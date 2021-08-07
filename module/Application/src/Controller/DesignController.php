@@ -28,20 +28,22 @@ class DesignController extends AbstractActionController
     }
     public static function item(object $item)
     {
+        $rate = $_SESSION['rate'];
+        $currencySymbol = $_SESSION['currency'];
         $hasDiscount = false;
         //print_r();
         $customerId = 0;
         if (isset($_SESSION['user'])) {
             $customerId = $_SESSION['user']->id;
         }
-        $price = ProductController::getFinalPrice(floatval($item->regularPrice) * $item->usdExchangeRate, floatval($item->salePrice) * $item->usdExchangeRate);
-        $rawPrice = ProductController::getFinalPrice(floatval($item->regularPrice) * $item->usdExchangeRate, floatval($item->salePrice) * $item->usdExchangeRate, true);
+        $price = ProductController::getFinalPrice(floatval($item->regularPrice) * $rate, floatval($item->salePrice) * $rate);
+        $rawPrice = ProductController::getFinalPrice(floatval($item->regularPrice) * $rate, floatval($item->salePrice) * $rate, true);
         if ($price != "n/a") {
             if ($item->salePrice) {
                 $hasDiscount = true;
                 $discount  = ceil(100 - (floatval($item->salePrice) / floatval($item->regularPrice) * 100));
             }
-            $price .= " LBP";
+            $price .= " " . $currencySymbol;
         }
         $image = ($item->image != "" && $item->image != null) ? HelperController::getImageUrl($item->image) : PRODUCT_PLACEHOLDER_IMAGE_URL;
         $url = MAIN_URL . 'product/' . $item->slug;
@@ -53,19 +55,19 @@ class DesignController extends AbstractActionController
 
 
 
-        $html = "<div class='item-wrapper' data-rate='$item->usdExchangeRate'>";
+        $html = "<div class='item-wrapper' data-rate='$rate'>";
         if ($hasDiscount) {
             $html .= "<span class=\"badge\">$discount%</span>";
         }
         $html .= "<div class='item-wrapper_img'>";
 
         $html .= "<a href='$url'>
-                        <img class='' src='$image' />
-                    </a>
+                    <img class='' src='$image' />
+                  </a>
                 </div>
                 <div class='item-wrapper_price'>";
         if ($hasDiscount) {
-            $html .= "<div class='main-price'>" . number_format(floatval($item->regularPrice) * $item->usdExchangeRate) . " LBP</div>";
+            $html .= "<div class='main-price'>" . number_format(floatval($item->regularPrice) * $rate) . " " . $currencySymbol . "</div>";
         }
 
         $html .= "<div class='final-price'>
@@ -302,10 +304,10 @@ class DesignController extends AbstractActionController
                 $price = ProductController::getFinalPrice($row->regularPrice * $row->usdExchangeRate, $row->salePrice * $row->usdExchangeRate);
                 $html .= "<div class=\"compact-cart-item\" id='product_$id'>
                             <div class=\"row\">
-                                <div class=\"col-md-3 compact-cart-img\">
+                                <div class=\"col-md-3 col-3 compact-cart-img\">
                                     <img src=\"$cartItemImage\" />
                                 </div>
-                                <div class=\"col-md-9\">
+                                <div class=\"col-md-9 col-9\">
                                     <div class=\"compact-cart-title\">
                                         $title
                                     </div>

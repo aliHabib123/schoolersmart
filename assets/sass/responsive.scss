@@ -145,6 +145,17 @@
         }
       }
     }
+    .navbar-brand {
+      img {
+        height: 27px;
+      }
+    }
+    .navbar-dark.navbar-custom {
+      background-color: $amaranth;
+      .nav-link {
+        color: #fff;
+      }
+    }
   }
   .main-title {
     font-size: 25px;
@@ -449,5 +460,58 @@
     .vendor-pl0 {
       padding-left: 15px;
     }
+  }
+  div.skewed span {
+    font-size: 12px;
+  }
+  header.main-header {
+    position: relative;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .hot-selling-ads-wrapper .hot-selling-slider > div {
+    img {
+      max-width: 70%;
+    }
+  }
+  .upper-menu {
+    background-color: $eastern-blue;
+    .buttons-container {
+      span {
+        position: relative;
+        display: inline-block;
+        margin-left: 15px;
+        &.badge {
+          color: #fff;
+          background-color: $amaranth;
+          position: absolute;
+          width: 18px;
+          height: 18px;
+          right: -4px;
+          border-radius: 50%;
+        }
+      }
+      .wishlist-wrapper {
+        float: right;
+      }
+      .cart-wrapper {
+        float: right;
+      }
+      .dropdown-wrap {
+        margin-left: 0;
+        button.dropdown-toggle {
+          border: 1px solid #fff;
+          padding: 0px 10px;
+          color: #fff;
+          border-radius: 0;
+          margin-top: 0.3rem;
+          margin-bottom: 0.3rem;
+        }
+      }
+    }
+  }
+  .compact-cart-wrapper {
+    width: 300px;
+    z-index: 9999999;
   }
 }

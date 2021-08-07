@@ -7,6 +7,8 @@ use Application\Controller\ProductController;
 use Application\Controller\UserController;
 use Application\Controller\OptionsController;
 
+global $cartCount;
+global $cartItems;
 $searchWord = isset($_GET['search']) && $_GET['search'] ? $_GET['search'] : "";
 $cartCount = 0;
 $cartItems = [];
@@ -36,10 +38,23 @@ foreach ($level1Categories as $row) {
     }
     $c++;
 }
+
+// Get Currencies
+global $currencies;
+global $selectedCurrency;
+$currencyMySqlExtDAO = new CurrencyMySqlExtDAO();
+$currencies = $currencyMySqlExtDAO->queryAllOrderBy('display_order ASC');
+$selectedCurrency = isset($_SESSION['currency']) ? $_SESSION['currency'] : 'USD';
+if (!isset($_SESSION['rate'])) {
+    $selectedCurrencyInfo = $currencyMySqlExtDAO->queryByCurrencyName($selectedCurrency);
+    $_SESSION['rate'] = $selectedCurrencyInfo[0]->conversionRate;
+    header('Location: ' . HelperController::getCurrentUrl());
+    exit();
+}
 ?>
 <header class="main-header">
     <div class="container-fluid">
-        <div class="middle-menu clearfix">
+        <div class="middle-menu d-none d-sm-block clearfix">
             <div class="logo-container">
                 <a href="<?php echo MAIN_URL ?>"><img src="img/logo.png?v=1.0.0" /></a>
             </div>
@@ -47,45 +62,45 @@ foreach ($level1Categories as $row) {
                 <span class="dropdown-wrap">
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select Currency
+                            Select Currency: <?php echo $selectedCurrency; ?>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <?php foreach ($currencies as $currency) { ?>
+                                <a class="dropdown-item currency-item" href="javascript:void(0);" data-currency="<?php echo $currency->currencyName; ?>" data-rate="<?php echo $currency->conversionRate; ?>"><?php echo $currency->currencyName; ?></a>
+                            <?php } ?>
                         </div>
                     </div>
                 </span>
                 <span>
-                    <a href="<?php echo MAIN_URL . 'my-wishlist';?>"><img src="img/heart<?php echo !empty($this->header2) ? '-dark' : '';?>.png" /></a>
+                    <a href="<?php echo MAIN_URL . 'my-wishlist'; ?>"><img src="img/heart<?php echo !empty($this->header2) ? '-dark' : ''; ?>.png" /></a>
                     <span class="badge"><?php echo $wishlistCount; ?></span>
                 </span>
                 <span class="cart-wrapper">
                     <a href="javascript:void(0);">
-                        <img src="img/bag<?php echo !empty($this->header2) ? '-dark' : '';?>.png" />
+                        <img src="img/bag<?php echo !empty($this->header2) ? '-dark' : ''; ?>.png" />
                     </a>
                     <span class="badge"><?php echo $cartCount; ?></span>
                     <div class="compact-cart-wrapper">
-                        <?php echo DesignController::compactCartItems($cartItems);?>
+                        <?php echo DesignController::compactCartItems($cartItems); ?>
                     </div>
                 </span>
                 <span>
-                    <a href="javascript:void(0);"><img src="img/search-icon<?php echo !empty($this->header2) ? '-dark' : '';?>.png" /></a>
+                    <a href="javascript:void(0);"><img src="img/search-icon<?php echo !empty($this->header2) ? '-dark' : ''; ?>.png" /></a>
                 </span>
                 <span class="custom-menu-closed">
-                    <a class="open-custom-menu" href="javascript:void(0);"><img src="img/menu-toggle<?php echo !empty($this->header2) ? '-dark' : '';?>.png" /></a>
+                    <a class="open-custom-menu" href="javascript:void(0);"><img src="img/menu-toggle<?php echo !empty($this->header2) ? '-dark' : ''; ?>.png" /></a>
                     <a class="close-custom-menu" href="javascript:void(0);"><img src="img/menu-toggle-closed.png" /></a>
                 </span>
                 <div class="custom-menu">
                     <div class="custom-menu-nav">
                         <ul>
-                            <li><a href="#">HOME</a></li>
-                            <li><a href="#">ABOUT US</a></li>
-                            <li><a href="#">IDEAS & RESOURCES</a></li>
-                            <li><a href="#">CONTACT US</a></li>
+                            <li><a href="<?php echo MAIN_URL; ?>">HOME</a></li>
+                            <li><a href="<?php echo MAIN_URL . 'page/about-us' ?>">ABOUT US</a></li>
+                            <li><a href="javascript:void(0);">IDEAS & RESOURCES</a></li>
+                            <li><a href="<?php echo MAIN_URL . 'contact-us' ?>">CONTACT US</a></li>
                         </ul>
                     </div>
-                    <div class="shop-btn"><a href="#">SHOP</a></div>
+                    <div class="shop-btn"><a href="<?php echo MAIN_URL . 'products' ?>">SHOP</a></div>
                     <div class="social-media">
                         <a href="<?php echo $facebook->customUrl; ?>" target="_blank"><i class="fab fa-facebook-f"></i></a>
                         <a href="<?php echo $instagram->customUrl; ?>" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -100,6 +115,6 @@ foreach ($level1Categories as $row) {
     </div>
     <?php //echo $this->partial('layout/menu/desktop-menu') 
     ?>
-    <?php //echo $this->partial('layout/menu/mobile-menu') 
+    <?php echo $this->partial('layout/menu/mobile-menu') 
     ?>
 </header>
