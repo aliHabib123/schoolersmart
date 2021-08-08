@@ -273,13 +273,19 @@ if (isset($_REQUEST['act'])) {
 						<span class="title">Sale Orders</span>
 					</a>
 				</li>
-
+				<li class="">
+					<a href="display_currency.php">
+						<i class="fas fa-cogs"></i>
+						<span class="title">Currencies</span>
+					</a>
+				</li>
 				<li class="">
 					<a href="display_options.php">
 						<i class="fas fa-cogs"></i>
 						<span class="title">Options</span>
 					</a>
 				</li>
+
 			</ul>
 
 			<!-- END SIDEBAR MENU -->

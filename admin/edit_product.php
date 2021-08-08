@@ -21,6 +21,9 @@ function main()
 		return $a->brandId;
 	}, $itemBrandMapping);
 
+	$ageRangeMySqlExtDAO = new AgeRangeMySqlExtDAO();
+	$ageRanges = $ageRangeMySqlExtDAO->queryAllOrderBy('display_order ASC');
+
 
 	$queryString = $_SERVER['QUERY_STRING'];
 
@@ -45,6 +48,8 @@ function main()
 		}
 	}
 	$item = $itemMySqlExtDAO->load($id);
+
+	$itemAgeRanges = array_filter(explode(',', $item->ageRangeId));
 ?>
 	<link href="css/css.css" rel="stylesheet" type="text/css" />
 	<script language="JavaScript" type="text/javascript" src="javascript/pop_up.js"></script>
@@ -213,6 +218,23 @@ function main()
 									</div>
 								<?php } ?>
 							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-3 control-label">Age Range</label>
+						<div class="col-md-9">
+						<select class="form-control select2me" data-placeholder="Select..." name="age[]" id="age" multiple>
+								<?php
+								foreach ($ageRanges as $range) {
+									$sel = "";
+									if (in_array($range->id, $itemAgeRanges)) {
+										$sel = "selected";
+									} ?>
+									<option value="<?php echo $range->id; ?>" <?php echo $sel; ?>><?php echo $range->name; ?></option>
+								<?php
+								} ?>
+							</select>
 						</div>
 					</div>
 
