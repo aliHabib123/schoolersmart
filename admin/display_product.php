@@ -8,7 +8,7 @@ function main()
 	global $currentPageUrl;
 	$currentPageUrl = ADMIN_LINK . 'display_product.php';
 
-	$limit = 25;
+	$limit = 10;
 	$offset = 0;
 	$orderBy = "desc";
 	$fieldName = "a.`id`";
@@ -29,7 +29,8 @@ function main()
 
 	$level1Categories = $categoryMySqlExtDAO->select('parent_id = 0 ORDER BY display_order ASC, name ASC, id DESC');
 
-	$condition = " b.`status` IN ('active', 'inactive') AND";
+	//$condition = " b.`status` IN ('active', 'inactive') AND";
+	$condition = " 1 AND";
 	if (isset($_GET["orderBy"])) {
 		$orderBy = $_GET["orderBy"];
 		$fieldName = $_GET["fieldName"];
@@ -210,8 +211,8 @@ function main()
 							<!-- primary key -->
 							<td><?php echo $row->id; ?></td>
 							<td><?php echo $row->title ?></td>
-							<td align="center"><?php echo number_format(floatval($row->regularPrice)) . " $"; ?></td>
-							<td align="center"><?php echo $row->salePrice != 0 ? $row->salePrice : '<i style="color:red;" class="fas fa-times"></i>'; ?></td>
+							<td align="center"><?php echo number_format(floatval($row->regularPrice)) . "$"; ?></td>
+							<td align="center"><?php echo $row->salePrice != 0 ? number_format(floatval($row->salePrice)) . '$' : '<i style="color:red;" class="fas fa-times"></i>'; ?></td>
 							<td><img style="max-height: 70px;" src="<?php echo IMAGES_LINK . $row->image ?>" /></td>
 							<?php if (IS_MULTI_VENDOR) { ?>
 								<td><?php echo $row->companyName; ?></td>

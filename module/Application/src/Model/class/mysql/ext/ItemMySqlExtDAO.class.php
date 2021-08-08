@@ -140,14 +140,10 @@ class ItemMySqlExtDAO extends ItemMySqlDAO
     {
         $sql = "SELECT
                 a.*,
-                b.company_name,
-                b.status,
                 c.tag_id,
                 d.category_id
             FROM
                 item a
-                LEFT OUTER JOIN `user` b
-                ON a.`supplier_id` = b.`id`
                 LEFT OUTER JOIN item_tag_mapping c
                 ON a.`id` = c.`item_id`
                 LEFT OUTER JOIN item_category_mapping d

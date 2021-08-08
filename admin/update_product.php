@@ -49,6 +49,7 @@ $item->sku = $sku;
 $item->color = $color;
 $item->warranty = $warranty;
 $item->exchange = $exchange;
+$item->ageRangeId = implode(',', $_POST['age']);
 
 $update = $itemMySqlExtDAO->update($item);
 

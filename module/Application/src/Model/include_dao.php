@@ -9,6 +9,10 @@
 	require_once('class/core/ArrayList.class.php');
 	require_once('class/dao/DAOFactory.class.php');
  	
+	require_once('class/dao/AgeRangeDAO.class.php');
+	require_once('class/dto/AgeRange.class.php');
+	require_once('class/mysql/AgeRangeMySqlDAO.class.php');
+	require_once('class/mysql/ext/AgeRangeMySqlExtDAO.class.php');
 	require_once('class/dao/AlbumDAO.class.php');
 	require_once('class/dto/Album.class.php');
 	require_once('class/mysql/AlbumMySqlDAO.class.php');
