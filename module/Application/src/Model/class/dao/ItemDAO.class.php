@@ -98,6 +98,8 @@ interface ItemDAO{
 
 	public function queryBySlug($value);
 
+	public function queryByAgeRangeId($value);
+
 	public function queryByCreatedAt($value);
 
 	public function queryByUpdatedAt($value);
@@ -152,6 +154,8 @@ interface ItemDAO{
 	public function deleteByAlbumId($value);
 
 	public function deleteBySlug($value);
+
+	public function deleteByAgeRangeId($value);
 
 	public function deleteByCreatedAt($value);
 

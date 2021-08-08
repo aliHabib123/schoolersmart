@@ -56,6 +56,8 @@
 
 		var $slug;
 
+		var $ageRangeId;
+
 		var $createdAt;
 
 		var $updatedAt;

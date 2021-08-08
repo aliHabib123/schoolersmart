@@ -6,6 +6,13 @@
 class DAOFactory{
 	
 	/**
+	 * @return AgeRangeDAO
+	 */
+	public static function getAgeRangeDAO(){
+		return new AgeRangeMySqlExtDAO();
+	}
+
+	/**
 	 * @return AlbumDAO
 	 */
 	public static function getAlbumDAO(){
@@ -80,6 +87,20 @@ class DAOFactory{
 	 */
 	public static function getCountryDAO(){
 		return new CountryMySqlExtDAO();
+	}
+
+	/**
+	 * @return CurrencyDAO
+	 */
+	public static function getCurrencyDAO(){
+		return new CurrencyMySqlExtDAO();
+	}
+
+	/**
+	 * @return CurrencyCountryDAO
+	 */
+	public static function getCurrencyCountryDAO(){
+		return new CurrencyCountryMySqlExtDAO();
 	}
 
 	/**
