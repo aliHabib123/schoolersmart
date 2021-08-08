@@ -1,4 +1,5 @@
 <?php
+
 require "session_start.php";
 include("fckeditor/fckeditor.php");
 include "connect.php";
@@ -195,8 +196,8 @@ if (isset($_REQUEST['act'])) {
 
 				<li>
 					<a class="active" href="javascript:;">
-					<i class="fas fa-ad"></i>
-					<span class="title">Ads</span>
+						<i class="fas fa-ad"></i>
+						<span class="title">Ads</span>
 						<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
@@ -206,12 +207,12 @@ if (isset($_REQUEST['act'])) {
 							</a>
 						</li> -->
 						<li>
-						<a href="display_ad.php">
+							<a href="display_ad.php">
 								Homepage Ads
 							</a>
 						</li>
 						<li>
-						<a href="display_ad1.php">
+							<a href="display_ad1.php">
 								Inner Ads
 							</a>
 						</li>
@@ -219,16 +220,33 @@ if (isset($_REQUEST['act'])) {
 					</ul>
 				</li>
 
+				<?php if (IS_MULTI_VENDOR) { ?>
+					<li class="">
+						<a href="display_supplier.php">
+							<i class="fas fa-users"></i>
+							<span class="title">Suppliers</span>
+						</a>
+					</li>
+					<li>
+						<a class="active" href="javascript:;">
+							<i class="fas fa-dollar-sign"></i>
+							<span class="title">Accounting</span>
+							<span class="arrow "></span>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="display_reports.php">
+									Reports
+								</a>
+							</li>
+
+						</ul>
+					</li>
+				<?php } ?>
 				<li class="">
 					<a href="display_social_media.php">
 						<i class="fas fa-share-alt"></i>
 						<span class="title">Social Media</span>
-					</a>
-				</li>
-				<li class="">
-					<a href="display_supplier.php">
-						<i class="fas fa-users"></i>
-						<span class="title">Suppliers</span>
 					</a>
 				</li>
 				<li class="">
@@ -254,26 +272,6 @@ if (isset($_REQUEST['act'])) {
 						<i class="fas fa-file-invoice-dollar"></i>
 						<span class="title">Sale Orders</span>
 					</a>
-				</li>
-				<li>
-					<a class="active" href="javascript:;">
-						<i class="fas fa-dollar-sign"></i>
-						<span class="title">Accounting</span>
-						<span class="arrow "></span>
-					</a>
-					<ul class="sub-menu">
-						<!-- <li>
-							<a href="accounting_dashboard.php">
-								Dashboard
-							</a>
-						</li> -->
-						<li>
-							<a href="display_reports.php">
-								Reports
-							</a>
-						</li>
-
-					</ul>
 				</li>
 
 				<li class="">

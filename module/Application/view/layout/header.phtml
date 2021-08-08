@@ -45,9 +45,10 @@ global $selectedCurrency;
 $currencyMySqlExtDAO = new CurrencyMySqlExtDAO();
 $currencies = $currencyMySqlExtDAO->queryAllOrderBy('display_order ASC');
 $selectedCurrency = isset($_SESSION['currency']) ? $_SESSION['currency'] : 'USD';
-if (!isset($_SESSION['rate'])) {
+if (!isset($_SESSION['rate']) || !isset($_SESSION['currency'])) {
     $selectedCurrencyInfo = $currencyMySqlExtDAO->queryByCurrencyName($selectedCurrency);
     $_SESSION['rate'] = $selectedCurrencyInfo[0]->conversionRate;
+    $_SESSION['currency'] = $selectedCurrency;
     header('Location: ' . HelperController::getCurrentUrl());
     exit();
 }
@@ -59,6 +60,22 @@ if (!isset($_SESSION['rate'])) {
                 <a href="<?php echo MAIN_URL ?>"><img src="img/logo.png?v=1.0.0" /></a>
             </div>
             <div class="buttons-container">
+               <?php if(isset($_SESSION['user'])){?>
+                <span class="dropdown-wrap">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Welcome <?php echo $_SESSION['user']->firstName;?>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="<?php echo MAIN_URL .'my-orders';?>">My Orders</a>
+                            <a class="dropdown-item" href="<?php echo MAIN_URL .'my-wishlist';?>">My Wishlist</a>
+                            <a class="dropdown-item" href="<?php echo MAIN_URL .'logout';?>">Logout</a>
+                        </div>
+                    </div>
+                </span>
+               <?php } else {?>
+                <span class="login-logout-wrap"><a href="javascript:void(0);" data-toggle="modal" data-target="#login-signup-modal">Login / Register</a></span>
+                <?php }?>
                 <span class="dropdown-wrap">
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -115,6 +132,6 @@ if (!isset($_SESSION['rate'])) {
     </div>
     <?php //echo $this->partial('layout/menu/desktop-menu') 
     ?>
-    <?php echo $this->partial('layout/menu/mobile-menu') 
+    <?php echo $this->partial('layout/menu/mobile-menu')
     ?>
 </header>

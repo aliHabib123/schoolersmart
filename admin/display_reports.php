@@ -2,6 +2,15 @@
 
 function main()
 {
+	if (!IS_MULTI_VENDOR) {
+		$URL = ADMIN_LINK . 'main.php';
+		if (headers_sent()) {
+			echo ("<script>location.href='$URL'</script>");
+		} else {
+			header("Location: $URL");
+		}
+		exit;
+	}
 	global $currentPage;
 	global $totalPages;
 	global $currentPageUrl;
@@ -112,7 +121,7 @@ function main()
 							<td><?php echo number_format(floatval($ordersTotalCommission)) . " LBP"; ?></td>
 							<td><?php echo number_format(floatval($ordersTotalPrice) - floatval($ordersTotalCommission)) . " LBP"; ?></td>
 							<td>
-								<a class="btn btn-xs yellow" href="<?php echo ADMIN_LINK .'display_orders.php?status=paid&supplier_id='.$row->id.'&from_date='.$displayFromDate.'&to_date='.$displayToDate.'&from_reports=1';?>">
+								<a class="btn btn-xs yellow" href="<?php echo ADMIN_LINK . 'display_orders.php?status=paid&supplier_id=' . $row->id . '&from_date=' . $displayFromDate . '&to_date=' . $displayToDate . '&from_reports=1'; ?>">
 									View Orders
 								</a>
 							</td>

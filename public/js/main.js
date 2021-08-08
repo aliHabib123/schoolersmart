@@ -494,7 +494,7 @@ $("html").on("click", ".wishlist-add", function (e) {
 $("html").on("click", ".cart-add", function (e) {
   alertify.set("notifier", "position", "top-right");
   if (isLoggedIn == "" || userType != 3) {
-    $("#login-modal").modal("show");
+    $("#login-signup-modal").modal("show");
     return false;
   }
   let itemId = $(this).data("itemId");
