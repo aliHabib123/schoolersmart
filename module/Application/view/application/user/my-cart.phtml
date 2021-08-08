@@ -30,7 +30,7 @@ use Application\Controller\DesignController;
                 <tfoot>
                     <tr>
                         <td class="text-right cart-total" colspan="5">Total</td>
-                        <td class="text-right" id="cart-total"><?php echo number_format($total)." LBP";?></td>
+                        <td class="text-right" id="cart-total"><?php echo number_format($total)." ". $_SESSION['currency'];?></td>
                     </tr>
                 </tfoot>
             </table>

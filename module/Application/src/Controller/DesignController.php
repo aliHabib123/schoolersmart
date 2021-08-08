@@ -220,12 +220,14 @@ class DesignController extends AbstractActionController
     public static function cartItem($item)
     {
         $customerId = $_SESSION['user']->id;
-        $price = ProductController::getFinalPrice(floatval($item->regularPrice) * $item->usdExchangeRate, floatval($item->salePrice) * $item->usdExchangeRate);
-        $rawPrice = ProductController::getFinalPrice(floatval($item->regularPrice) * $item->usdExchangeRate, floatval($item->salePrice) * $item->usdExchangeRate, true);
+        $rate = $_SESSION['rate'];
+        $currency = $_SESSION['currency'];
+        $price = ProductController::getFinalPrice(floatval($item->regularPrice) * $rate, floatval($item->salePrice) * $rate);
+        $rawPrice = ProductController::getFinalPrice(floatval($item->regularPrice) * $rate, floatval($item->salePrice) * $rate, true);
         $subtotalRaw = $rawPrice * $item->cartQty;
-        $subtotal = number_format($subtotalRaw) . " LBP";
+        $subtotal = number_format($subtotalRaw) . " ". $currency;
         if ($price != "n/a") {
-            $price .= " LBP";
+            $price .= " ". $currency;
         }
         $image = ($item->image != "" && $item->image != null) ? HelperController::getImageUrl($item->image) : PRODUCT_PLACEHOLDER_IMAGE_URL;
         //$url = MAIN_URL . 'product/' . $item->slug;
@@ -290,6 +292,7 @@ class DesignController extends AbstractActionController
 
     public static function compactCartItems($cartItems = [])
     {
+        $rate = $_SESSION['rate'];
         $html = "";
         if (count($cartItems) > 0) {
             $cartUrl =  MAIN_URL . 'my-cart';
@@ -301,7 +304,7 @@ class DesignController extends AbstractActionController
                 }
                 $title = substr($row->title, 0, 500);
                 $id = $row->id;
-                $price = ProductController::getFinalPrice($row->regularPrice * $row->usdExchangeRate, $row->salePrice * $row->usdExchangeRate);
+                $price = ProductController::getFinalPrice($row->regularPrice * $rate, $row->salePrice * $rate);
                 $html .= "<div class=\"compact-cart-item\" id='product_$id'>
                             <div class=\"row\">
                                 <div class=\"col-md-3 col-3 compact-cart-img\">

@@ -1,7 +1,5 @@
 <?php
 
-use Application\Controller\FacebookController;
-use Application\Controller\HelperController;
 use Application\Controller\UserController;
 
 ?>
@@ -32,29 +30,13 @@ use Application\Controller\UserController;
                                 </label>
                             </div>
 
-
-                            <!-- <div class="form-group">
-                            <div id="my-signin2"></div>
-                        </div>
-                        <div class="form-group" id="fb-login-button">
-                            <div class="fb-login-button" data-width="" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
-                        </div> -->
-
                             <div class="centered-button">
                                 <button type="submit" class="btn">SIGN IN</button>
-                            </div>
-                            <?php
-                            $redirectUrl = HelperController::getCurrentUrl();
-                            if (strpos($redirectUrl, 'login-required') !== false) {
-                                $redirectUrl = $_GET['redirectUrl'];
-                            } ?>
-                            <div class="fb-button-wrapper">
-                                <a href="<?php echo FacebookController::getLoginUrl($redirectUrl); ?>"><i class="fab fa-facebook-f"></i> Login with facebook</a>
                             </div>
                             <div class="have-account">
                                 <p>Don't have an account yet</p>
                                 <!-- Button to Open the Modal -->
-                                <a class="modal-register" data-toggle="modal" data-target="#signup-modal" data-dismiss="modal">
+                                <a class="modal-register" data-toggle="modal" data-target="#login-signup-modal" data-dismiss="modal">
                                     Register
                                 </a>
                             </div>

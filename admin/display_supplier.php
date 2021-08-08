@@ -1,6 +1,16 @@
 <?php
 function main()
 {
+	if (!IS_MULTI_VENDOR) {
+		$URL = ADMIN_LINK . 'main.php';
+		if (headers_sent()) {
+			echo ("<script>location.href='$URL'</script>");
+		} else {
+			header("Location: $URL");
+		}
+		exit;
+	}
+
 	$userMySqlExtDAO = new UserMySqlExtDAO();
 	$orderBy = "desc";
 	$fieldName = "id";
@@ -93,7 +103,7 @@ function main()
 							<td><?php echo $row->lastName; ?></td>
 							<td><?php echo $row->companyName; ?></td>
 							<td><?php echo $row->email; ?></td>
-							<td class="<?php echo 'user-'.$row->status;?>"><?php echo ucfirst($row->status); ?></td>
+							<td class="<?php echo 'user-' . $row->status; ?>"><?php echo ucfirst($row->status); ?></td>
 							<td>
 								<a class="btn btn-xs yellow" href="supplier.php?action=edit&id=<?php echo $row->id; ?>">
 									Edit

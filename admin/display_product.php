@@ -1,6 +1,8 @@
 <?php
 function main()
 {
+	$queryString = $_SERVER['QUERY_STRING'];
+
 	global $currentPage;
 	global $totalPages;
 	global $currentPageUrl;
@@ -107,22 +109,24 @@ function main()
 			<div class="search-form">
 				<form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 					<div class="form-group">
-						<div class="col-md-3">
-							<label class="control-label">Supplier</label>
-							<select class="form-control select2me" data-placeholder="Select Supplier..." name="supplier_id" id="supplier_id">
-								<option selected="selected" value="">--- Select Supplier ---</option>
-								<?php
-								foreach ($suppliers as $row) {
-									//echo $row->id."<br>";
-									$sel = "";
-									if ($row->id == $supplierId) {
-										$sel = "selected";
+						<?php if (IS_MULTI_VENDOR) { ?>
+							<div class="col-md-3">
+								<label class="control-label">Supplier</label>
+								<select class="form-control select2me" data-placeholder="Select Supplier..." name="supplier_id" id="supplier_id">
+									<option selected="selected" value="">--- Select Supplier ---</option>
+									<?php
+									foreach ($suppliers as $row) {
+										//echo $row->id."<br>";
+										$sel = "";
+										if ($row->id == $supplierId) {
+											$sel = "selected";
+										} ?>
+										<option value="<?php echo $row->id; ?>" <?php echo $sel; ?>><?php echo $row->companyName; ?></option>
+									<?php
 									} ?>
-									<option value="<?php echo $row->id; ?>" <?php echo $sel; ?>><?php echo $row->companyName; ?></option>
-								<?php
-								} ?>
-							</select>
-						</div>
+								</select>
+							</div>
+						<?php } ?>
 						<div class="col-md-3">
 							<label class="control-label">Tag</label>
 							<select class="form-control select2me" data-placeholder="Select Tag..." name="tag_id" id="tag_id">
@@ -190,7 +194,9 @@ function main()
 						<th><?php echo "Price"; ?></th>
 						<th><?php echo "Sale Price"; ?></th>
 						<th><?php echo "Image"; ?></th>
-						<th><?php echo "Supplier"; ?></th>
+						<?php if (IS_MULTI_VENDOR) { ?>
+							<th><?php echo "Supplier"; ?></th>
+						<?php } ?>
 						<th></th>
 					</tr>
 				</thead>
@@ -204,12 +210,14 @@ function main()
 							<!-- primary key -->
 							<td><?php echo $row->id; ?></td>
 							<td><?php echo $row->title ?></td>
-							<td align="center"><?php echo number_format(floatval($row->regularPrice)). " LBP"; ?></td>
-							<td align="center"><?php echo $row->salePrice != 0 ? $row->salePrice : '<i style="color:red;" class="fas fa-times"></i>';?></td>
+							<td align="center"><?php echo number_format(floatval($row->regularPrice)) . " $"; ?></td>
+							<td align="center"><?php echo $row->salePrice != 0 ? $row->salePrice : '<i style="color:red;" class="fas fa-times"></i>'; ?></td>
 							<td><img style="max-height: 70px;" src="<?php echo IMAGES_LINK . $row->image ?>" /></td>
-							<td><?php echo $row->companyName; ?></td>
+							<?php if (IS_MULTI_VENDOR) { ?>
+								<td><?php echo $row->companyName; ?></td>
+							<?php } ?>
 							<td>
-								<a class="btn btn-xs yellow" href="edit_product.php?id=<?php echo $row->id; ?>">
+								<a class="btn btn-xs yellow" href="edit_product.php?id=<?php echo $row->id . '&' . $queryString; ?>">
 									Edit
 									<i class="fa fa-edit"></i>
 								</a>

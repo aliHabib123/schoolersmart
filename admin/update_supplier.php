@@ -1,4 +1,13 @@
 <?php
+if (!IS_MULTI_VENDOR) {
+    $URL = ADMIN_LINK . 'main.php';
+    if (headers_sent()) {
+        echo ("<script>location.href='$URL'</script>");
+    } else {
+        header("Location: $URL");
+    }
+    exit;
+}
 
 use Application\Controller\MailController;
 
@@ -32,7 +41,7 @@ $user->companyCommission = $commission;
 $user->status = $status;
 $user->usdExchangeRate = $usd_exchange_rate;
 
-if ($company_name == "" || $commission == "" || $first_name == "" || $last_name == "" || $email == ""|| $usd_exchange_rate == "") {
+if ($company_name == "" || $commission == "" || $first_name == "" || $last_name == "" || $email == "" || $usd_exchange_rate == "") {
     $msg = "Please fill all required fields marked with *";
 } elseif (
     ($action == 'new' && $userMysqlExtDAO->queryByEmail($email)) ||

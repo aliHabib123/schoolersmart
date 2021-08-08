@@ -254,6 +254,8 @@ class UserController extends AbstractActionController
         $cities = $cityMySqlExtDAO->queryAllOrderBy('city ASC');
         $userMysqlExtDAO = new UserMySqlExtDAO();
         $userInfo = $userMysqlExtDAO->load($_SESSION['user']->id);
+        $this->layout()->htmlClass = 'header-style-2';
+        $this->layout()->header2 = true;
         return new ViewModel([
             'cities' => $cities,
             'userInfo' => $userInfo,
@@ -268,11 +270,11 @@ class UserController extends AbstractActionController
         $wishlist = [];
         if (count($_SESSION['user']->wishlist)) {
             $list = implode(',', $_SESSION['user']->wishlist);
-            $cond = "b.`id` IN ($list)";
+            $cond = "a.`id` IN ($list)";
             $wishlist = $itemMySqlExtDAO->select($cond);
         }
         $this->layout()->htmlClass = 'header-style-2';
-            $this->layout()->header2 = true;
+        $this->layout()->header2 = true;
         return new ViewModel([
             'wishlist' => $wishlist,
             'saleOrdersCount' => count($saleOrders),
@@ -373,8 +375,8 @@ class UserController extends AbstractActionController
         } else {
             $shipping = OptionsController::getOption(OptionsController::$SHIPPING_OUTSIDE_BEIRUT);
         }
-        $shippingLabel = number_format(floatval($shipping)) . " LBP";
-        $total = number_format(floatval($productsTotal) + floatval($shipping)) . " LBP";
+        $shippingLabel = number_format(floatval($shipping)) . " " . $_SESSION['currency'];
+        $total = number_format(floatval($productsTotal) + floatval($shipping)) . " " . $_SESSION['currency'];
         $response = json_encode([
             'shipping' => $shipping,
             'label' => $shippingLabel,
@@ -412,7 +414,7 @@ class UserController extends AbstractActionController
                     <tr>
                         <td class=\"text-right cart-total\">Total</td>
                         <td class=\"text-right\" id=\"cart-total\">";
-        $html .= number_format($total) . " LBP";
+        $html .= number_format($total) . " " . $_SESSION['currency'];
         $html .= "</td>
                 </tr>
             </tfoot>
@@ -451,7 +453,7 @@ class UserController extends AbstractActionController
             'status' => $result,
             'msg' => $msg,
             'haveItems' => $haveItems,
-            'total' => number_format($total) . " LBP",
+            'total' => number_format($total) . " " . $_SESSION['currency'],
         ]);
         print_r($response);
         return $this->response;
@@ -459,6 +461,7 @@ class UserController extends AbstractActionController
 
     public function updateCartAction()
     {
+        $rate = $_SESSION['rate'];
         $result = false;
         $msg = "Error";
         $total = 0;
@@ -475,11 +478,11 @@ class UserController extends AbstractActionController
             $itemMySqlExtDAO = new ItemMySqlExtDAO();
             $items = $itemMySqlExtDAO->getCartItemsByUserId($_SESSION['user']->id);
             foreach ($items as $item) {
-                $rawPrice = ProductController::getFinalPrice($item->regularPrice * $item->usdExchangeRate, $item->salePrice * $item->usdExchangeRate, true);
+                $rawPrice = ProductController::getFinalPrice($item->regularPrice * $rate, $item->salePrice * $rate, true);
                 $subtotalRaw = $rawPrice * $item->cartQty;
                 $total += $subtotalRaw;
                 if ($item->id == $itemId) {
-                    $subtotal = number_format($subtotalRaw) . " LBP";
+                    $subtotal = number_format($subtotalRaw) . " " . $_SESSION['currency'];
                 }
             }
             $result = true;
@@ -488,7 +491,7 @@ class UserController extends AbstractActionController
         $response = json_encode([
             'status' => $result,
             'msg' => $msg,
-            'total' => number_format($total) . " LBP",
+            'total' => number_format($total) . " " . $_SESSION['currency'],
             'subtotal' => $subtotal,
             'qty' => $cartQty,
         ]);
@@ -527,7 +530,8 @@ class UserController extends AbstractActionController
         self::checkCustomerLoggedIn();
         $itemMySqlExtDAO = new ItemMySqlExtDAO();
         $cartItems = $itemMySqlExtDAO->getCartItemsByUserId($_SESSION['user']->id);
-
+        $this->layout()->htmlClass = 'header-style-2';
+        $this->layout()->header2 = true;
         return new ViewModel([
             'items' => $cartItems,
         ]);
@@ -549,6 +553,8 @@ class UserController extends AbstractActionController
         }
 
         $saleOrders = self::getOrders($fromDate, $toDate, $status);
+        $this->layout()->htmlClass = 'header-style-2';
+        $this->layout()->header2 = true;
         return new ViewModel([
             'saleOrders' => $saleOrders,
             'status' => $status,
@@ -903,6 +909,8 @@ class UserController extends AbstractActionController
 
     public function loginRequiredAction()
     {
+        $this->layout()->htmlClass = 'header-style-2';
+        $this->layout()->header2 = true;
         return new ViewModel();
     }
 

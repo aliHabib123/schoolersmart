@@ -10,7 +10,7 @@ class ItemMySqlExtDAO extends ItemMySqlDAO
 {
     public function select($condition = '1', $limit = 0, $offset = 0)
     {
-        $sql = "SELECT a.*, b.usd_exchange_rate FROM item a LEFT OUTER JOIN user b ON a.`supplier_id` = b.`id` WHERE $condition";
+        $sql = "SELECT a.* FROM item a WHERE $condition";
 
         if ($limit != 0) {
             $sql .= " LIMIT $limit OFFSET $offset";
@@ -86,6 +86,7 @@ class ItemMySqlExtDAO extends ItemMySqlDAO
             $sql .= " AND (a.`title` LIKE '%$search%' OR a.`description` LIKE '%$search%' OR a.`specification` LIKE '%$search%')";
         }
 
+        $sql .= " GROUP BY id";
         $sql .= " ORDER BY";
 
         if ($orderBy != "") {
@@ -96,7 +97,7 @@ class ItemMySqlExtDAO extends ItemMySqlDAO
         if ($limit != 0) {
             $sql .= " LIMIT $limit OFFSET $offset";
         }
-        //echo $sql . '<br>';
+
         $sqlQuery = new SqlQuery($sql);
         return $this->getList($sqlQuery);
     }
@@ -106,14 +107,11 @@ class ItemMySqlExtDAO extends ItemMySqlDAO
         $sql = "SELECT
                 a.*,
                 b.id AS cart_id,
-                b.qty AS cart_qty,
-                c.usd_exchange_rate
+                b.qty AS cart_qty
             FROM
                 item a
                 LEFT OUTER JOIN cart b
                 ON a.`id` = b.`item_id`
-                LEFT OUTER JOIN `user` c
-                ON a.`supplier_id` = c.`id`
             WHERE b.`user_id` = ?";
         $sqlQuery = new SqlQuery($sql);
         $sqlQuery->set($userId);

@@ -1,5 +1,15 @@
 <?php function main()
 {
+	if (!IS_MULTI_VENDOR) {
+		$URL = ADMIN_LINK . 'main.php';
+		if (headers_sent()) {
+			echo ("<script>location.href='$URL'</script>");
+		} else {
+			header("Location: $URL");
+		}
+		exit;
+	}
+	
 	$userMySqlExtDAO = new UserMySqlExtDAO();
 	$id = isset($_GET['id']) ? filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) : 0;
 	$action = filter_var($_GET['action'], FILTER_SANITIZE_STRING);

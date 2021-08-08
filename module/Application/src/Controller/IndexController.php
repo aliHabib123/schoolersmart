@@ -24,8 +24,8 @@ class IndexController extends AbstractActionController
 
         //Todays DEALS, PICKED FOR YOU and BEST OFFERS
         $todaysDeals = ProductController::getItems(false, false, "", "", "", ProductController::$BEST_DEALS, "", 30, 0);
-        $pickedForYou = ProductController::getItems(false, false, "", "", "", ProductController::$PICKED_FOR_YOU, "", 10, 0);
-        $bestOffers = ProductController::getItems(false, false, "", "", "", ProductController::$BEST_OFFERS, "", 10, 0);
+        // $pickedForYou = ProductController::getItems(false, false, "", "", "", ProductController::$PICKED_FOR_YOU, "", 10, 0);
+        // $bestOffers = ProductController::getItems(false, false, "", "", "", ProductController::$BEST_OFFERS, "", 10, 0);
 
         $this->layout()->withBanner = true;
         $this->layout()->banners = $banners;
@@ -34,8 +34,8 @@ class IndexController extends AbstractActionController
             'ads' => $ads,
             'featuredCategories' => $featuredCategories,
             'todaysDeals' => $todaysDeals,
-            'pickedForYou' => $pickedForYou,
-            'bestOffers' => $bestOffers,
+            // 'pickedForYou' => $pickedForYou,
+            // 'bestOffers' => $bestOffers,
         ];
         return new ViewModel($data);
     }

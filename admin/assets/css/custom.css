@@ -44,3 +44,12 @@
   padding-right: 15px;
   margin-top: 5px;
 }
+.catgeories-wrap {
+  margin-bottom: 20px;
+}
+.category-title {
+  font-weight: bold;
+}
+.catgeories-wrap label{
+  width: 100%;
+}
