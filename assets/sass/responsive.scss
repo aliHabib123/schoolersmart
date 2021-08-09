@@ -493,9 +493,11 @@
       }
       .wishlist-wrapper {
         float: right;
+        margin-top: 3px;
       }
       .cart-wrapper {
         float: right;
+        margin-top: 3px;
       }
       .dropdown-wrap {
         margin-left: 0;
@@ -513,5 +515,14 @@
   .compact-cart-wrapper {
     width: 300px;
     z-index: 9999999;
+  }
+  .item-wrapper {
+    padding-bottom: 20px;
+    .item-wrapper_img {
+      margin-bottom: 15px;
+      height: 100px;
+      overflow: hidden;
+      position: relative;
+    }
   }
 }

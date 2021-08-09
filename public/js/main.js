@@ -493,7 +493,7 @@ $("html").on("click", ".wishlist-add", function (e) {
 
 $("html").on("click", ".cart-add", function (e) {
   alertify.set("notifier", "position", "top-right");
-  if (isLoggedIn == "" || userType != 3) {
+  if (isLoggedIn == "") {
     $("#login-signup-modal").modal("show");
     return false;
   }

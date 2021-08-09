@@ -32,7 +32,7 @@ class ProductController extends AbstractActionController
     {
         $prefixUrl = MAIN_URL . 'products/';
         $page = 1;
-        $limit = 12;
+        $limit = 9;
         $offset = 0;
         if (isset($_GET['page']) && $_GET['page'] != "") {
             $page = $_GET['page'];

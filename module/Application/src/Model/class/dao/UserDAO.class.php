@@ -72,6 +72,14 @@ interface UserDAO{
 
 	public function queryByCompanyName($value);
 
+	public function queryByCompanyAddress($value);
+
+	public function queryByCompanyNumber($value);
+
+	public function queryByCompanyExt($value);
+
+	public function queryByPreferredCurrency($value);
+
 	public function queryByCompanyCommission($value);
 
 	public function queryByContactPerson($value);
@@ -130,6 +138,14 @@ interface UserDAO{
 	public function deleteByTel2($value);
 
 	public function deleteByCompanyName($value);
+
+	public function deleteByCompanyAddress($value);
+
+	public function deleteByCompanyNumber($value);
+
+	public function deleteByCompanyExt($value);
+
+	public function deleteByPreferredCurrency($value);
 
 	public function deleteByCompanyCommission($value);
 

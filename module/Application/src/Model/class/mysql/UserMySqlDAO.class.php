@@ -54,7 +54,7 @@ class UserMySqlDAO implements UserDAO{
  	 * @param UserMySql user
  	 */
 	public function insert($user){
-		$sql = 'INSERT INTO user (first_name, middle_name, last_name, full_name, nice_name, email, dob, password, mobile, tel_1, tel_2, company_name, company_commission, contact_person, activation_code, status, country, city, state, postcode, user_type, address_1, address_2, address_3, uploaded_file, usd_exchange_rate, deleted, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO user (first_name, middle_name, last_name, full_name, nice_name, email, dob, password, mobile, tel_1, tel_2, company_name, company_address, company_number, company_ext, preferred_currency, company_commission, contact_person, activation_code, status, country, city, state, postcode, user_type, address_1, address_2, address_3, uploaded_file, usd_exchange_rate, deleted, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($user->firstName);
@@ -69,6 +69,10 @@ class UserMySqlDAO implements UserDAO{
 		$sqlQuery->set($user->tel1);
 		$sqlQuery->set($user->tel2);
 		$sqlQuery->set($user->companyName);
+		$sqlQuery->set($user->companyAddress);
+		$sqlQuery->set($user->companyNumber);
+		$sqlQuery->set($user->companyExt);
+		$sqlQuery->set($user->preferredCurrency);
 		$sqlQuery->set($user->companyCommission);
 		$sqlQuery->set($user->contactPerson);
 		$sqlQuery->set($user->activationCode);
@@ -98,7 +102,7 @@ class UserMySqlDAO implements UserDAO{
  	 * @param UserMySql user
  	 */
 	public function update($user){
-		$sql = 'UPDATE user SET first_name = ?, middle_name = ?, last_name = ?, full_name = ?, nice_name = ?, email = ?, dob = ?, password = ?, mobile = ?, tel_1 = ?, tel_2 = ?, company_name = ?, company_commission = ?, contact_person = ?, activation_code = ?, status = ?, country = ?, city = ?, state = ?, postcode = ?, user_type = ?, address_1 = ?, address_2 = ?, address_3 = ?, uploaded_file = ?, usd_exchange_rate = ?, deleted = ?, created_at = ?, updated_at = ? WHERE id = ?';
+		$sql = 'UPDATE user SET first_name = ?, middle_name = ?, last_name = ?, full_name = ?, nice_name = ?, email = ?, dob = ?, password = ?, mobile = ?, tel_1 = ?, tel_2 = ?, company_name = ?, company_address = ?, company_number = ?, company_ext = ?, preferred_currency = ?, company_commission = ?, contact_person = ?, activation_code = ?, status = ?, country = ?, city = ?, state = ?, postcode = ?, user_type = ?, address_1 = ?, address_2 = ?, address_3 = ?, uploaded_file = ?, usd_exchange_rate = ?, deleted = ?, created_at = ?, updated_at = ? WHERE id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($user->firstName);
@@ -113,6 +117,10 @@ class UserMySqlDAO implements UserDAO{
 		$sqlQuery->set($user->tel1);
 		$sqlQuery->set($user->tel2);
 		$sqlQuery->set($user->companyName);
+		$sqlQuery->set($user->companyAddress);
+		$sqlQuery->set($user->companyNumber);
+		$sqlQuery->set($user->companyExt);
+		$sqlQuery->set($user->preferredCurrency);
 		$sqlQuery->set($user->companyCommission);
 		$sqlQuery->set($user->contactPerson);
 		$sqlQuery->set($user->activationCode);
@@ -223,6 +231,34 @@ class UserMySqlDAO implements UserDAO{
 
 	public function queryByCompanyName($value){
 		$sql = 'SELECT * FROM user WHERE company_name = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByCompanyAddress($value){
+		$sql = 'SELECT * FROM user WHERE company_address = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByCompanyNumber($value){
+		$sql = 'SELECT * FROM user WHERE company_number = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByCompanyExt($value){
+		$sql = 'SELECT * FROM user WHERE company_ext = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByPreferredCurrency($value){
+		$sql = 'SELECT * FROM user WHERE preferred_currency = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		return $this->getList($sqlQuery);
@@ -432,6 +468,34 @@ class UserMySqlDAO implements UserDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 
+	public function deleteByCompanyAddress($value){
+		$sql = 'DELETE FROM user WHERE company_address = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByCompanyNumber($value){
+		$sql = 'DELETE FROM user WHERE company_number = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByCompanyExt($value){
+		$sql = 'DELETE FROM user WHERE company_ext = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByPreferredCurrency($value){
+		$sql = 'DELETE FROM user WHERE preferred_currency = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
 	public function deleteByCompanyCommission($value){
 		$sql = 'DELETE FROM user WHERE company_commission = ?';
 		$sqlQuery = new SqlQuery($sql);
@@ -574,6 +638,10 @@ class UserMySqlDAO implements UserDAO{
 		$user->tel1 = $row['tel_1'];
 		$user->tel2 = $row['tel_2'];
 		$user->companyName = $row['company_name'];
+		$user->companyAddress = $row['company_address'];
+		$user->companyNumber = $row['company_number'];
+		$user->companyExt = $row['company_ext'];
+		$user->preferredCurrency = $row['preferred_currency'];
 		$user->companyCommission = $row['company_commission'];
 		$user->contactPerson = $row['contact_person'];
 		$user->activationCode = $row['activation_code'];

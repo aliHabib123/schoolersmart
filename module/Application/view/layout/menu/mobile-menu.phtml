@@ -10,10 +10,26 @@ use Application\Controller\DesignController;
 <div class="upper-menu d-block d-sm-none">
     <div class="container">
         <div class="buttons-container">
+            <?php if (isset($_SESSION['user'])) { ?>
+                <span class="dropdown-wrap">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Hi <?php echo $_SESSION['user']->firstName; ?>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="<?php echo MAIN_URL . 'my-orders'; ?>">My Orders</a>
+                            <a class="dropdown-item" href="<?php echo MAIN_URL . 'my-wishlist'; ?>">My Wishlist</a>
+                            <a class="dropdown-item" href="<?php echo MAIN_URL . 'logout'; ?>">Logout</a>
+                        </div>
+                    </div>
+                </span>
+            <?php } else { ?>
+                <span class="login-logout-wrap"><a href="javascript:void(0);" data-toggle="modal" data-target="#login-signup-modal">Login / Register</a></span>
+            <?php } ?>
             <span class="dropdown-wrap">
                 <div class="dropdown">
                     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Currency: <?php echo $selectedCurrency; ?>
+                        <?php echo $selectedCurrency; ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <?php foreach ($currencies as $currency) { ?>

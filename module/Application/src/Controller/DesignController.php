@@ -145,6 +145,7 @@ class DesignController extends AbstractActionController
 
     public static function customerOrderItem($saleOrder, $saleOrderItems)
     {
+        $currency = $_SESSION['currency'];
         $status = $saleOrder->status;
         $label = strtoupper(str_replace('-', ' ', $status));
         $orderId = $saleOrder->id;
@@ -167,7 +168,7 @@ class DesignController extends AbstractActionController
                         </div>
                         <div class='col-md-3'>
                             <div class='final-amount-label'>Final Amount</div>
-                            <div class='final-amount'>LBP $saleOrder->netTotal</div>
+                            <div class='final-amount'>$currency $saleOrder->netTotal</div>
                             <div class='order-status $status'>$label</div>
                         </div>
                     </div>
@@ -230,9 +231,7 @@ class DesignController extends AbstractActionController
             $price .= " ". $currency;
         }
         $image = ($item->image != "" && $item->image != null) ? HelperController::getImageUrl($item->image) : PRODUCT_PLACEHOLDER_IMAGE_URL;
-        //$url = MAIN_URL . 'product/' . $item->slug;
         $title = $item->title;
-        //print_r($item);
 
         $html = "<tr id='cart-item-$item->id'>
                     <td>
@@ -264,13 +263,15 @@ class DesignController extends AbstractActionController
 
     public static function checkOutItem($item)
     {
+        $rate = $_SESSION['rate'];
+        $currency = $_SESSION['currency'];
         $customerId = $_SESSION['user']->id;
-        $price = ProductController::getFinalPrice($item->regularPrice * $item->usdExchangeRate, $item->salePrice * $item->usdExchangeRate);
-        $rawPrice = ProductController::getFinalPrice($item->regularPrice * $item->usdExchangeRate, $item->salePrice * $item->usdExchangeRate, true);
+        $price = ProductController::getFinalPrice($item->regularPrice * $rate, $item->salePrice * $rate);
+        $rawPrice = ProductController::getFinalPrice($item->regularPrice * $rate, $item->salePrice * $rate, true);
         $subtotalRaw = $rawPrice * $item->cartQty;
-        $subtotal = number_format($subtotalRaw) . " LBP";
+        $subtotal = number_format($subtotalRaw) . " ". $currency;
         if ($price != "n/a") {
-            $price .= " LBP";
+            $price .= " ". $currency;
         }
         $image = ($item->image != "" && $item->image != null) ? HelperController::getImageUrl($item->image) : PRODUCT_PLACEHOLDER_IMAGE_URL;
         //$url = MAIN_URL . 'product/' . $item->slug;

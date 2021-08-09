@@ -4,6 +4,9 @@ use Application\Controller\FacebookController;
 use Application\Controller\HelperController;
 use Application\Controller\UserController;
 
+$countryMySqlExtDAO = new CountryMySqlExtDAO();
+$countries = $countryMySqlExtDAO->queryAllOrderBy('name ASC');
+
 ?>
 <!-- The Modal -->
 <div class="modal" id="login-signup-modal">
@@ -75,32 +78,43 @@ use Application\Controller\UserController;
                                 <div class="tab-pane container active" id="individual">
                                     <!-- Register Individual/Parent -->
                                     <div class="modal-form">
-                                        <form action="<?php echo MAIN_URL . 'submit-register' ?>" autocomplete="off" id="register-form">
+                                        <form action="<?php echo MAIN_URL . 'submit-register' ?>" autocomplete="off" id="individual-register-form">
                                             <input type="hidden" name="redirectUrl" value="<?php echo HelperController::getCurrentUrl(); ?>" />
+                                            <input type="hidden" name="user-type" value="<?php echo UserController::$INDIVIDUAL; ?>" />
+                                            <!-- <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" name="username" placeholder="*Username" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div> -->
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="off">
+                                                        <input type="email" class="form-control" name="email" placeholder="*Email Address" id="individual-signup-email" autocomplete="off">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" name="mobile" placeholder="*Mobile" id="individual-signup-mobile" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <input type="password" class="form-control" name="password" placeholder="Enter password" id="signup-pwd" autocomplete="off">
+                                                        <input type="password" class="form-control" name="password" placeholder="*Enter password" id="individual-signup-pwd" autocomplete="off">
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="password" name="confirm-password" class="form-control confirm-password" placeholder="Confirm password" id="pwd" autocomplete="off">
+                                                        <input type="password" name="confirm-password" class="form-control confirm-password" placeholder="*Confirm password" id="individual-confirm-pwd" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <input type="text" class="form-control" name="first-name" placeholder="First Name" autocomplete="off">
+                                                        <input type="text" class="form-control" name="first-name" placeholder="*First Name" autocomplete="off">
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="text" class="form-control" name="last-name" placeholder="Last Name" autocomplete="off">
+                                                        <input type="text" class="form-control" name="last-name" placeholder="*Last Name" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -114,31 +128,19 @@ use Application\Controller\UserController;
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <select class="form-control" id="country" name="country">
+                                                        <select class="form-control" id="individual-country" name="country">
                                                             <option value="">Country</option>
-                                                            <option value="LB">Lebanon</option>
-                                                            <option value="LB">Germany</option>
+                                                            <?php foreach ($countries as $country) { ?>
+                                                                <option value="<?php echo $country->iso; ?>"><?php echo $country->name; ?></option>
+                                                            <?php } ?>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <select class="form-control" id="city" name="city">
-                                                            <option value="">City</option>
-                                                            <option value="LB">Lebanon</option>
-                                                            <option value="LB">Germany</option>
-                                                        </select>
+                                                        <input type="text" class="form-control" name="city" placeholder="City" id="individual-city" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <input type="email" class="form-control" name="signup-email" placeholder="*Email Address" id="signup-email" autocomplete="off">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <input type="text" class="form-control" name="signup-mobile" placeholder="*Mobile" id="signup-mobile" autocomplete="off">
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -165,32 +167,43 @@ use Application\Controller\UserController;
                                 <div class="tab-pane container fade" id="institute">
                                     <!-- Register Educational Institute -->
                                     <div class="modal-form">
-                                        <form action="<?php echo MAIN_URL . 'submit-register' ?>" autocomplete="off" id="register-form">
+                                        <form action="<?php echo MAIN_URL . 'submit-register' ?>" autocomplete="off" id="institute-register-form">
                                             <input type="hidden" name="redirectUrl" value="<?php echo HelperController::getCurrentUrl(); ?>" />
+                                            <input type="hidden" name="user-type" value="<?php echo UserController::$EDUCATIONAL_INSTITUE; ?>" />
+                                            <!-- <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" name="username" placeholder="*Username" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div> -->
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="off">
+                                                        <input type="email" class="form-control" name="email" placeholder="*Email Address" id="signup-email" autocomplete="off">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" name="mobile" placeholder="*Mobile" id="signup-mobile" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <input type="password" class="form-control" name="password" placeholder="Enter password" id="signup-pwd" autocomplete="off">
+                                                        <input type="password" class="form-control" name="password" placeholder="*Enter password" id="signup-pwd" autocomplete="off">
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="password" name="confirm-password" class="form-control confirm-password" placeholder="Confirm password" id="pwd" autocomplete="off">
+                                                        <input type="password" name="confirm-password" class="form-control confirm-password" placeholder="*Confirm password" id="pwd" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <input type="text" class="form-control" name="first-name" placeholder="First Name" autocomplete="off">
+                                                        <input type="text" class="form-control" name="first-name" placeholder="*First Name" autocomplete="off">
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="text" class="form-control" name="last-name" placeholder="Last Name" autocomplete="off">
+                                                        <input type="text" class="form-control" name="last-name" placeholder="*Last Name" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -203,36 +216,23 @@ use Application\Controller\UserController;
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-6">
-                                                        <select class="form-control" id="country" name="country">
+                                                <div class="col-md-6">
+                                                        <select class="form-control" id="institute-country" name="country">
                                                             <option value="">Country</option>
-                                                            <option value="LB">Lebanon</option>
-                                                            <option value="LB">Germany</option>
+                                                            <?php foreach ($countries as $country) { ?>
+                                                                <option value="<?php echo $country->iso; ?>"><?php echo $country->name; ?></option>
+                                                            <?php } ?>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <select class="form-control" id="city" name="city">
-                                                            <option value="">City</option>
-                                                            <option value="LB">Lebanon</option>
-                                                            <option value="LB">Germany</option>
-                                                        </select>
+                                                        <input type="text" class="form-control" name="city" placeholder="City" id="institute-city" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <input type="email" class="form-control" name="signup-email" placeholder="*Email Address" id="signup-email" autocomplete="off">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <input type="text" class="form-control" name="signup-mobile" placeholder="*Mobile" id="signup-mobile" autocomplete="off">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <input type="date" class="form-control" name="birthday" placeholder="YYYY-MM-DD" autocomplete="off" />
+                                                        <input type="date" class="form-control" name="birthday" placeholder="DATE OF BIRTH" autocomplete="off" />
                                                     </div>
                                                 </div>
 
@@ -250,7 +250,7 @@ use Application\Controller\UserController;
                                                         <input type="text" class="form-control" name="school-number" placeholder="*SCHOOL NUMBER" autocomplete="off">
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <input type="text" class="form-control" name="school-number=ext" placeholder="EXT" autocomplete="off">
+                                                        <input type="text" class="form-control" name="school-number-ext" placeholder="EXT" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -291,6 +291,7 @@ use Application\Controller\UserController;
     $("#login-form").submit(function(e) {
         var formData = new FormData(this);
         var formUrl = $(this).attr('action');
+
         $.ajax({
             url: formUrl,
             type: 'POST',
@@ -311,6 +312,36 @@ use Application\Controller\UserController;
             },
             error: function() {
                 showMsg('#login-form .notice-area', false, 'An error occured, please try again!');
+            }
+        });
+        e.preventDefault();
+    });
+</script>
+<script type="text/javascript">
+    $("#individual-register-form, #institute-register-form").submit(function(e) {
+        var formData = new FormData(this);
+        var formUrl = $(this).attr('action');
+        let noticeArea = $(this).find('.notice-area');
+        $.ajax({
+            url: formUrl,
+            type: 'POST',
+            dataType: 'json',
+            data: formData,
+            mimeType: "multipart/form-data",
+            contentType: false,
+            cache: false,
+            processData: false,
+            beforeSend: function() {
+                showMsg(noticeArea, true, 'Registering your account, please wait...');
+            },
+            success: function(response) {
+                showMsg(noticeArea, response.status, response.msg);
+                if (response.status == true) {
+                    location.href = response.redirectUrl;
+                }
+            },
+            error: function() {
+                showMsg(noticeArea, false, 'An error occured, please try again!');
             }
         });
         e.preventDefault();

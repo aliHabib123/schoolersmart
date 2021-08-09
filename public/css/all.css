@@ -3506,9 +3506,11 @@ a.list-group-item,
         right: -4px;
         border-radius: 50%; }
     .upper-menu .buttons-container .wishlist-wrapper {
-      float: right; }
+      float: right;
+      margin-top: 3px; }
     .upper-menu .buttons-container .cart-wrapper {
-      float: right; }
+      float: right;
+      margin-top: 3px; }
     .upper-menu .buttons-container .dropdown-wrap {
       margin-left: 0; }
       .upper-menu .buttons-container .dropdown-wrap button.dropdown-toggle {
@@ -3520,4 +3522,11 @@ a.list-group-item,
         margin-bottom: 0.3rem; }
   .compact-cart-wrapper {
     width: 300px;
-    z-index: 9999999; } }
+    z-index: 9999999; }
+  .item-wrapper {
+    padding-bottom: 20px; }
+    .item-wrapper .item-wrapper_img {
+      margin-bottom: 15px;
+      height: 100px;
+      overflow: hidden;
+      position: relative; } }
