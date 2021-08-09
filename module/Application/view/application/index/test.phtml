@@ -1,13 +1,43 @@
 <?php
 $conn = ConnectionFactory::getConnection();
+global $cities_array;
+print_r($cities_array[0]);
+$cityMySqlExtDAO = new CityMySqlExtDAO();
+// $sql = "select sku from items_temp where supplier_id = 44";
 
-$sql = "select sku from items_temp where supplier_id = 44";
+// $result = $conn->query($sql);
+// if ($result->num_rows > 0) {
+//   $newItemsSKUList = [];
+//   while ($row = $result->fetch_assoc()) {
+//     array_push($newItemsSKUList, $row['sku']); 
+//   }
+// }
+// print_r(implode(',', $newItemsSKUList));
+// city               varchar(17)   utf8mb4_unicode_ci  NO      PRI     (NULL)           select,insert,update,references           
+// lat                decimal(7,4)  (NULL)              NO              (NULL)           select,insert,update,references           
+// lng                decimal(7,4)  (NULL)              NO              (NULL)           select,insert,update,references           
+// country            varchar(7)    utf8mb4_unicode_ci  NO              (NULL)           select,insert,update,references           
+// iso2               varchar(2)    utf8mb4_unicode_ci  NO              (NULL)           select,insert,update,references           
+// admin_name         varchar(14)   utf8mb4_unicode_ci  NO              (NULL)           select,insert,update,references           
+// capital            varchar(7)    utf8mb4_unicode_ci  NO              (NULL)           select,insert,update,references           
+// population         int(11)       (NULL)              YES             (NULL)           select,insert,update,references           
+// population_proper  int(11)       (NULL)              YES             (NULL)           select,insert,update,references   
+foreach ($cities_array as $row) {
+  $city = $row["city"];
+  $lat = $row["lat"];
+  $lng = $row["lng"];
+  $country = $row["country"];
+  $iso2 = $row["iso2"];
+  $admin_name = $row["admin_name"];
+  $capital = $row["capital"];
+  $population = $row["population"];
+  $population_proper = $row["population_proper"];
+  $sql = "INSERT INTO city (city, lat, lng, country, iso2, admin_name, capital, `population`, population_proper)
+VALUES ('$city', '$lat', '$lng', '$country', '$iso2', '$admin_name', '$admin_name', '$population', '$population_proper')";
 
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-  $newItemsSKUList = [];
-  while ($row = $result->fetch_assoc()) {
-    array_push($newItemsSKUList, $row['sku']); 
+if (mysqli_query($conn, $sql)) {
+    echo $row['city'] . ' inserted<br>';
+  } else {
+    echo $row['city'] . ' mot inserted<br>';
   }
 }
-print_r(implode(',', $newItemsSKUList));

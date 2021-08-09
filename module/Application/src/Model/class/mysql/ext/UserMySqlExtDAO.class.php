@@ -59,12 +59,11 @@ class UserMySqlExtDAO extends UserMySqlDAO
 
 		return $this->executeUpdate($sqlQuery);
 	}
-	public function getUserByEmailAndType($value, $type = 3)
+	public function getUserByEmailAndType($value)
 	{
-		$sql = 'SELECT * FROM user WHERE email = ? AND user_type = ?';
+		$sql = 'SELECT * FROM user WHERE email = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
-		$sqlQuery->set($type);
 		return $this->getRow($sqlQuery);
 	}
 

@@ -49,7 +49,7 @@ $singleItemId = $isSingleItemCheckout == 1 ? $this->singleItemId : 0;
                                     </select>
                                 </div>
                                 <input type="hidden" id="shipping_price" value="">
-                                <div class="col-md-6">
+                                <?php /*<div class="col-md-6">
                                     <label for="mobile">City *</label>
                                     <select class="form-control" id="city" name="city">
                                         <option>Select City</option>
@@ -61,7 +61,7 @@ $singleItemId = $isSingleItemCheckout == 1 ? $this->singleItemId : 0;
                                             <option value="<?php echo $city->city ?>" <?php echo $selected; ?>><?php echo $city->city ?></option>
                                         <?php } ?>
                                     </select>
-                                </div>
+                                </div>*/ ?>
                             </div>
                         </div>
                         <div class="form-group">
@@ -96,12 +96,12 @@ $singleItemId = $isSingleItemCheckout == 1 ? $this->singleItemId : 0;
                         <input type="hidden" name="products_total" id="products_total" value="<?php echo $total ?>">
                         <input type="hidden" name="is_single_item_checkout" value="<?php echo $isSingleItemCheckout; ?>">
                         <input type="hidden" name="single_item_id" value="<?php echo $singleItemId; ?>">
-                        
+
                         <tfoot>
-                            <tr>
+                            <!-- <tr>
                                 <td class="text-right cart-total">Delivery</td>
                                 <td class="text-right" id="shipping-total">Select City</td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <td class="text-right cart-total">Total</td>
                                 <td class="text-right" id="cart-total"><?php echo number_format($total) . " LBP"; ?></td>
@@ -116,11 +116,13 @@ $singleItemId = $isSingleItemCheckout == 1 ? $this->singleItemId : 0;
                                 <input type="radio" class="form-check-input" name="payment-method" value="<?php echo PaymentController::$PAYMENT_CASH_ON_DELIVERY; ?>">Cash On Delivery
                             </label>
                         </div>
-                        <div class="form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="payment-method" value="<?php echo PaymentController::$PAYMENT_ONLINE; ?>">Pay Online
-                            </label>
-                        </div>
+                        <?php if (ENABLE_BOB_PAYMENT) { ?>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="payment-method" value="<?php echo PaymentController::$PAYMENT_ONLINE; ?>">Pay Online
+                                </label>
+                            </div>
+                        <?php } ?>
                     </div>
 
                     <div class="text-right order-complete-btn-wrap">

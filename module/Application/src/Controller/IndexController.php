@@ -23,7 +23,7 @@ class IndexController extends AbstractActionController
         $featuredCategories = CategoryController::getCategories("is_featured = 1");
 
         //Todays DEALS, PICKED FOR YOU and BEST OFFERS
-        $todaysDeals = ProductController::getItems(false, false, "", "", "", ProductController::$BEST_DEALS, "", 30, 0);
+        $featuredItems = ProductController::getItems(false, false, "", "", "", ProductController::$FEATURED, "", 24, 0);
         // $pickedForYou = ProductController::getItems(false, false, "", "", "", ProductController::$PICKED_FOR_YOU, "", 10, 0);
         // $bestOffers = ProductController::getItems(false, false, "", "", "", ProductController::$BEST_OFFERS, "", 10, 0);
 
@@ -33,7 +33,7 @@ class IndexController extends AbstractActionController
         $data = [
             'ads' => $ads,
             'featuredCategories' => $featuredCategories,
-            'todaysDeals' => $todaysDeals,
+            'featuredItems' => $featuredItems,
             // 'pickedForYou' => $pickedForYou,
             // 'bestOffers' => $bestOffers,
         ];
