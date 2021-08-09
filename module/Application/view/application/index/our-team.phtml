@@ -1,0 +1,38 @@
+<?php
+
+use Application\Controller\HelperController;
+use Application\Controller\DesignController;
+use Laminas\DevelopmentMode\Help;
+
+?>
+<div class="main-wrapper">
+    <div class="page-banner-wrap">
+        <?php if ($this->banner->imageName) { ?>
+            <div class="page-banner">
+                <img src="<?php echo HelperController::getImageUrl($this->banner->imageName); ?>" alt="" />
+            </div>
+        <?php } ?>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="skewed2"><span><?php echo 'OUR TEAM'; ?></span></div>
+            </div>
+        </div>
+        <div class="our-team-wrap">
+
+        <div class="row">
+            <?php foreach ($this->team as $row) { ?>
+                <div class="col-md-4">
+                    <div class="team-member-wrap">
+                        <div class="team-member-img"><img src="<?php echo HelperController::getImageUrl($row->image); ?>" /></div>
+                        <div class="team-member-position"><?php echo $row->subtitle; ?></div>
+                        <div class="team-member-name"><?php echo $row->title; ?></div>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+        </div>
+        
+    </div>
+</div>

@@ -182,6 +182,12 @@ if (isset($_REQUEST['act'])) {
 					</a>
 				</li>
 				<li class="">
+					<a href="display_team.php">
+						<i class="fas fa-pager"></i>
+						<span class="title">Team</span>
+					</a>
+				</li>
+				<li class="">
 					<a href="display_album.php">
 						<i class="fas fa-columns"></i>
 						<span class="title">Albums</span>

@@ -647,6 +647,16 @@ return [
                     ],
                 ],
             ],
+            'ourteam' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/our-team',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'ourTeam',
+                    ],
+                ],
+            ],
             'contactSubmit' => [
                 'type'    => Literal::class,
                 'options' => [

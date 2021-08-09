@@ -66,6 +66,17 @@ class IndexController extends AbstractActionController
             ]);
         }
     }
+    public function ourTeamAction()
+    {
+        $team = ContentController::getContent("type = 'team' ORDER BY display_order asc");
+        $bannerLocation = 6;
+        $banners = ContentController::getBanners($bannerLocation);
+        $view = new ViewModel([
+            'banner' => $banners[0],
+            'team' => $team,
+        ]);
+        return $view;
+    }
     public function testAction()
     {
         $view = new ViewModel();
