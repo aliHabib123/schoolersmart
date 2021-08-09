@@ -170,10 +170,20 @@ $countries = $countryMySqlExtDAO->queryAllOrderBy('name ASC');
                                         <form action="<?php echo MAIN_URL . 'submit-register' ?>" autocomplete="off" id="institute-register-form">
                                             <input type="hidden" name="redirectUrl" value="<?php echo HelperController::getCurrentUrl(); ?>" />
                                             <input type="hidden" name="user-type" value="<?php echo UserController::$EDUCATIONAL_INSTITUE; ?>" />
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <input type="text" class="form-control" name="username" placeholder="*Username" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input type="email" class="form-control" name="email" placeholder="*Email Address" id="signup-email" autocomplete="off">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" name="mobile" placeholder="*Mobile" id="signup-mobile" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -206,29 +216,16 @@ $countries = $countryMySqlExtDAO->queryAllOrderBy('name ASC');
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-6">
-                                                        <select class="form-control" id="country" name="country">
+                                                <div class="col-md-6">
+                                                        <select class="form-control" id="institute-country" name="country">
                                                             <option value="">Country</option>
-                                                            <option value="LB">Lebanon</option>
-                                                            <option value="LB">Germany</option>
+                                                            <?php foreach ($countries as $country) { ?>
+                                                                <option value="<?php echo $country->iso; ?>"><?php echo $country->name; ?></option>
+                                                            <?php } ?>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <select class="form-control" id="institute-city" name="city">
-                                                            <option value="">City</option>
-                                                            <option value="LB">Lebanon</option>
-                                                            <option value="LB">Germany</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <input type="email" class="form-control" name="signup-email" placeholder="*Email Address" id="signup-email" autocomplete="off">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <input type="text" class="form-control" name="signup-mobile" placeholder="*Mobile" id="signup-mobile" autocomplete="off">
+                                                        <input type="text" class="form-control" name="city" placeholder="City" id="institute-city" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -253,7 +250,7 @@ $countries = $countryMySqlExtDAO->queryAllOrderBy('name ASC');
                                                         <input type="text" class="form-control" name="school-number" placeholder="*SCHOOL NUMBER" autocomplete="off">
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <input type="text" class="form-control" name="school-number=ext" placeholder="EXT" autocomplete="off">
+                                                        <input type="text" class="form-control" name="school-number-ext" placeholder="EXT" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>

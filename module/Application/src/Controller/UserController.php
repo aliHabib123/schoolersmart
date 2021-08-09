@@ -112,10 +112,22 @@ class UserController extends AbstractActionController
         $city = HelperController::filterInput($this->getRequest()->getPost('city'));
         $userType = HelperController::filterInput($this->getRequest()->getPost('user-type'));
 
+        // School
+        //school-name
+        $schoolName = HelperController::filterInput($this->getRequest()->getPost('school-name'));
+        $schoolNumber = HelperController::filterInput($this->getRequest()->getPost('school-number'));
+        $schoolNumberExt = HelperController::filterInput($this->getRequest()->getPost('school-number-ext'));
+        $schoolLocation = HelperController::filterInput($this->getRequest()->getPost('school-location'));
+
+        if($userType != UserController::$EDUCATIONAL_INSTITUE){
+            $schoolNumber = "na";
+            $schoolName = "na";
+        }
+        // /var_dump($schoolNumber == "" || $schoolName == "");
         $agree = HelperController::filterInput($this->getRequest()->getPost('agree'));
         $redirectUrl = HelperController::filterInput($this->getRequest()->getPost('redirectUrl'));
-
-        if ($firstName == "" || $lastName == "" || $mobile == "" || $email == "" || $password == "" || $confirmPassword == "") {
+        
+        if ($schoolNumber == "" || $schoolName == "" || $firstName == "" || $lastName == "" || $mobile == "" || $email == "" || $password == "" || $confirmPassword == "") {
             $msg = "Please fill all inputs";
         } elseif ($password != $confirmPassword) {
             $msg = "Passwords do not match";
@@ -142,6 +154,12 @@ class UserController extends AbstractActionController
                 $userObj->userType = $userType;
                 $userObj->createdAt = $date;
                 $userObj->updatedAt = $date;
+                if ($userType == UserController::$EDUCATIONAL_INSTITUE) {
+                    $userObj->companyName = $schoolName;
+                    $userObj->companyAddress = $schoolLocation;
+                    $userObj->companyNumber = $schoolNumber;
+                    $userObj->companyExt = $schoolNumberExt;
+                }
                 $userObj->password = password_hash($password, PASSWORD_DEFAULT);
 
                 $user = $userMySqlExtDAO->insert($userObj);
