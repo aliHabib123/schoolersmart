@@ -871,6 +871,8 @@ div.skewed2 {
     background-color: #f4f3f2;
     padding-top: 0;
     padding-bottom: 0; }
+  .diagonal-box.mt20 {
+    margin-top: 20px; }
   .diagonal-box .content {
     transform: skewY(3deg); }
     .diagonal-box .content .column1 {

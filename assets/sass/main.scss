@@ -1090,6 +1090,9 @@ div.skewed2 {
     padding-top: 0;
     padding-bottom: 0;
   }
+  &.mt20{
+    margin-top: 20px;
+  }
   .content {
     transform: skewY(3deg);
     .column1 {
