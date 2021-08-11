@@ -1126,6 +1126,9 @@ header.main-header {
   .header-style-2 header.main-header .middle-menu .buttons-container > span.dropdown-wrap .dropdown button {
     color: #000; }
 
+.header-style-2 .login-logout-wrap a {
+  color: #000; }
+
 .grid-item.card {
   border: none; }
 
