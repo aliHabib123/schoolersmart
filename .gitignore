@@ -13,7 +13,6 @@ admin/sessions/*
 public/uploads/*
 error_log.log
 module/Application/src/Model/class/sql/ConnectionProperty.class.php
-module/Application/view-copy/*
 admin/config.php
 admin/connect.php
 .htaccess
