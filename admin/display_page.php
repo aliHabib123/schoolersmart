@@ -9,7 +9,7 @@ function main()
 		$orderBy = $_REQUEST["orderBy"];
 		$fieldName = $_REQUEST["fieldName"];
 	}
-	$condition = " type = '$contentType' and lang = 1 and ";
+	$condition = " type = '$contentType' and ";
 	if (isset($_REQUEST["keywords"]) && !empty($_REQUEST["keywords"])) {
 		$keywords = trim($_REQUEST["keywords"]);
 		$condition .= " title like '%$keywords%' and ";
@@ -76,7 +76,9 @@ function main()
 						<th><?php echo "Title"; ?></th>
 						<th><?php echo "Image"; ?></th>
 						<th><?php echo "Text"; ?></th>
-						<th><?php echo "Lang"; ?></th>
+						<?php if (MULTI_LANG) { ?>
+							<th><?php echo "Lang"; ?></th>
+						<?php } ?>
 						<th><?php echo "Display Order"; ?></th>
 						<th></th>
 						<th></th>
@@ -102,13 +104,15 @@ function main()
 							</td>
 							<td><?php echo substr(strip_tags($row->details), 0, 30);
 								if (strlen($row->details) > 30) echo "...";  ?></td>
-							<td>
-								<?php if ($row->lang == 1) {
-									echo 'English';
-								} else {
-									echo 'Arabic';
-								} ?>
-							</td>
+							<?php if (MULTI_LANG) { ?>
+								<td>
+									<?php if ($row->lang == 1) {
+										echo 'English';
+									} else {
+										echo 'Arabic';
+									} ?>
+								</td>
+							<?php } ?>
 							<td><?php echo $row->displayOrder; ?></td>
 
 							<td>
@@ -125,21 +129,24 @@ function main()
 									</a>
 								<?php } ?>
 							</td>
-							<?php if (!$row->translationId) { ?>
-								<td>
-									<a class="btn btn-xs green" href="new_page.php?id=<?php echo $row->id; ?>">
-										<i class="fa fa-picture-o"></i>
-										Translate
-									</a>
-								</td>
-							<?php } else { ?>
-								<td>
-									<a class="btn btn-xs green" href="edit_page.php?id=<?php echo $row->translationId; ?>">
-										<i class="fa fa-picture-o"></i>
-										Edit Translation
-									</a>
-								</td>
-							<?php } ?>
+							<?php
+							if (MULTI_LANG) {
+								if (!$row->translationId) { ?>
+									<td>
+										<a class="btn btn-xs green" href="new_page.php?id=<?php echo $row->id; ?>">
+											<i class="fa fa-picture-o"></i>
+											Translate
+										</a>
+									</td>
+								<?php } else { ?>
+									<td>
+										<a class="btn btn-xs green" href="edit_page.php?id=<?php echo $row->translationId; ?>">
+											<i class="fa fa-picture-o"></i>
+											Edit Translation
+										</a>
+									</td>
+							<?php }
+							} ?>
 						</tr>
 					<?php
 					}

@@ -119,22 +119,24 @@ function main()
 								</div>
 							</div>
 
-							<div class="col-md-3">
-								<label class="control-label">Supplier</label>
-								<select class="form-control select2me" data-placeholder="Select Supplier..." name="supplier_id" id="supplier_id">
-									<option selected="selected" value="">--- Select Supplier ---</option>
-									<?php
-									foreach ($suppliers as $row) {
-										//echo $row->id."<br>";
-										$sel = "";
-										if ($row->id == $supplierId) {
-											$sel = "selected";
+							<?php if (IS_MULTI_VENDOR) { ?>
+								<div class="col-md-3">
+									<label class="control-label">Supplier</label>
+									<select class="form-control select2me" data-placeholder="Select Supplier..." name="supplier_id" id="supplier_id">
+										<option selected="selected" value="">--- Select Supplier ---</option>
+										<?php
+										foreach ($suppliers as $row) {
+											//echo $row->id."<br>";
+											$sel = "";
+											if ($row->id == $supplierId) {
+												$sel = "selected";
+											} ?>
+											<option value="<?php echo $row->id; ?>" <?php echo $sel; ?>><?php echo $row->companyName; ?></option>
+										<?php
 										} ?>
-										<option value="<?php echo $row->id; ?>" <?php echo $sel; ?>><?php echo $row->companyName; ?></option>
-									<?php
-									} ?>
-								</select>
-							</div>
+									</select>
+								</div>
+							<?php } ?>
 
 							<div class="col-md-3">
 								<div class="form-dgroup">

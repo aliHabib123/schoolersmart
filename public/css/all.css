@@ -1873,9 +1873,9 @@ header.main-header {
       .product-details-side .buttons a.add-to-cart:hover img {
         filter: brightness(0) invert(1); }
   .product-details-side .buttons a.buy-now {
-    background-color: #c3023b;
+    background-color: #58BDE6;
     color: #fff !important;
-    border: 1px solid #c3023b;
+    border: 1px solid #58BDE6;
     padding: 13px 20px;
     font-weight: bold; }
     .product-details-side .buttons a.buy-now img {
@@ -1883,7 +1883,7 @@ header.main-header {
       margin-right: 10px; }
     .product-details-side .buttons a.buy-now:hover {
       background-color: #fff;
-      color: #c3023b !important; }
+      color: #58BDE6 !important; }
 
 .specifications {
   margin-top: 50px;

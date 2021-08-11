@@ -10,14 +10,13 @@ $image = ($item->image != "" && $item->image != null) ? HelperController::getIma
 <div class="main-wrapper">
     <div class="small-banner-container with-breadcrumb">
         <div class="small-banner_img">
-            <img src="<?php echo ProductController::getCategoryBanner(true, true, true, [$this->itemCategory], [$this->parentCategory], [$this->mainCategory]); ?>" />
+            <img src="<?php echo ProductController::getCategoryBanner(true, true, false, [$this->itemCategoryInfo], [$this->parentCategory], [$this->mainCategory]); ?>" />
         </div>
         <div class="banner-breadcrumb">
             <div class="container">
                 <ul>
                     <li><a href="<?php echo MAIN_URL; ?>"><span><img src="img/home-icon.jpg" /></span>Home</a></li>
-                    <li><a href="<?php echo MAIN_URL . 'products/' . $this->mainCategory->slug; ?>"><?php echo $this->mainCategory->name; ?></a></li>
-                    <li><a href="<?php echo MAIN_URL . 'products/' . $this->mainCategory->slug . "/" . $this->parentCategory->slug; ?>"><?php echo $this->parentCategory->name; ?></a></li>
+                    <li><a href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => [$this->parentCategory->id]])?>"><?php echo $this->parentCategory->name; ?></a></li>
                     <li><a><?php echo $this->itemCategory->categoryName; ?></a></li>
                 </ul>
             </div>
@@ -28,8 +27,7 @@ $image = ($item->image != "" && $item->image != null) ? HelperController::getIma
             <div class="container">
                 <ul>
                     <li><a href="<?php echo MAIN_URL; ?>"><span><img src="img/home-icon.jpg" /></span>Home</a></li>
-                    <li><a href="<?php echo MAIN_URL . 'products/' . $this->mainCategory->slug; ?>"><?php echo $this->mainCategory->name; ?></a></li>
-                    <li><a href="<?php echo MAIN_URL . 'products/' . $this->mainCategory->slug . "/" . $this->parentCategory->slug; ?>"><?php echo $this->parentCategory->name; ?></a></li>
+                    <li><a href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => [$this->parentCategory->id]])?>"><?php echo $this->parentCategory->name; ?></a></li>
                     <li><a><?php echo $this->itemCategory->categoryName; ?></a></li>
                 </ul>
             </div>
