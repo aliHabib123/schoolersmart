@@ -286,9 +286,9 @@
         }
       }
       &.buy-now {
-        background-color: $base-purple;
+        background-color: $blue;
         color: #fff !important;
-        border: 1px solid $base-purple;
+        border: 1px solid $blue;
         padding: 13px 20px;
         font-weight: bold;
         img {
@@ -297,7 +297,7 @@
         }
         &:hover {
           background-color: #fff;
-          color: $base-purple !important;
+          color: $blue !important;
         }
       }
     }

@@ -146,17 +146,12 @@ $(function () {
   });
 
   if ($(".related-slider").length > 0) {
-    let width = $(".related").width();
-    let slideWidth = width / 5;
-    if ($(window).width() < 768) {
-      slideWidth = width / 2;
-    }
-    slideWidth = slideWidth + "px";
     $(".related-slider").bxSlider({
       minSlides: 1,
       maxSlides: 4,
-      adaptiveHeight: true,
-      slideWidth: "250px",
+      adaptiveHeight: false,
+      slideWidth: "300px",
+      slideMargin: '30',
       pager: false,
       controls: true,
     });
