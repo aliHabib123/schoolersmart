@@ -183,7 +183,7 @@ if (isset($_REQUEST['act'])) {
 				</li>
 				<li class="">
 					<a href="display_team.php">
-						<i class="fas fa-pager"></i>
+						<i class="fas fa-users"></i>
 						<span class="title">Team</span>
 					</a>
 				</li>
@@ -193,38 +193,28 @@ if (isset($_REQUEST['act'])) {
 						<span class="title">Albums</span>
 					</a>
 				</li>
-				<!-- <li class="">
-					<a href="display_ad.php">
-						<i class="fas fa-ad"></i>
-						<span class="title">Ads</span>
-					</a>
-				</li> -->
+				<?php if (ENABLE_ADS_MANAGEMENT) { ?>
+					<li>
+						<a class="active" href="javascript:;">
+							<i class="fas fa-ad"></i>
+							<span class="title">Ads</span>
+							<span class="arrow "></span>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="display_ad.php">
+									Homepage Ads
+								</a>
+							</li>
+							<li>
+								<a href="display_ad1.php">
+									Inner Ads
+								</a>
+							</li>
 
-				<li>
-					<a class="active" href="javascript:;">
-						<i class="fas fa-ad"></i>
-						<span class="title">Ads</span>
-						<span class="arrow "></span>
-					</a>
-					<ul class="sub-menu">
-						<!-- <li>
-							<a href="accounting_dashboard.php">
-								Dashboard
-							</a>
-						</li> -->
-						<li>
-							<a href="display_ad.php">
-								Homepage Ads
-							</a>
-						</li>
-						<li>
-							<a href="display_ad1.php">
-								Inner Ads
-							</a>
-						</li>
-
-					</ul>
-				</li>
+						</ul>
+					</li>
+				<?php } ?>
 
 				<?php if (IS_MULTI_VENDOR) { ?>
 					<li class="">
@@ -281,7 +271,7 @@ if (isset($_REQUEST['act'])) {
 				</li>
 				<li class="">
 					<a href="display_currency.php">
-						<i class="fas fa-cogs"></i>
+						<i class="far fa-money-bill-alt"></i>
 						<span class="title">Currencies</span>
 					</a>
 				</li>
