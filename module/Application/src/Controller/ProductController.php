@@ -276,8 +276,8 @@ class ProductController extends AbstractActionController
         $itemCategory = $itemCategoryMappingMySqlExtDAO->getItemCategory($item->id);
         $itemCategoryMySqlExtDAO = new ItemCategoryMySqlExtDAO();
         $parentCategory = $itemCategoryMySqlExtDAO->load($itemCategory->parentId);
-        $mainCategory = $itemCategoryMySqlExtDAO->load($parentCategory->parentId);
-
+        //$mainCategory = $itemCategoryMySqlExtDAO->load($parentCategory->parentId);
+        $itemCategoryInfo = $itemCategoryMySqlExtDAO->load($itemCategory->categoryId);
         //Get Brand
         $itemBrandMappingMySqlExtDAO = new ItemBrandMappingMySqlExtDAO();
         $itemBrand = $itemBrandMappingMySqlExtDAO->getItemBrand($item->id);
@@ -301,10 +301,11 @@ class ProductController extends AbstractActionController
             'item' => $item,
             'itemCategory' => $itemCategory,
             'parentCategory' => $parentCategory,
-            'mainCategory' => $mainCategory,
+            //'mainCategory' => $mainCategory,
             'itemBrand' => $itemBrand,
             'images' => $images,
             'relatedProducts' => $relatedProducts,
+            'itemCategoryInfo' => $itemCategoryInfo,
         ]);
     }
     public function bestDealsAction()
