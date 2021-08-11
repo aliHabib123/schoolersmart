@@ -21,6 +21,7 @@ class OptionsController extends AbstractActionController
     public static $HEADER_OPENING_HOURS = 'header_opening_hours';
     public static $ADMIN_EMAIL_ADDRESS = 'admin_email_address';
     public static $ECOMMERCE_MANAGER_EMAIL_ADDRESS = 'ecommerce_manager_email_address';
+    public static $HR_EMAIL_ADDRESS = 'hr_email_address';
 
     public static function getOption($adminName)
     {

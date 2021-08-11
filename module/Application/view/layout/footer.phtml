@@ -102,7 +102,9 @@ $instagram = $contentMySqlExtDAO->queryBySlug('instagram')[0];
             </div>
         </div>
     </div>
-    <div class="floating-wpp"></div>
+    <?php if (SHOW_WHATSAPP) { ?>
+        <div class="floating-wpp"></div>
+    <?php } ?>
 </footer>
 <?php /*<pre>
     <?php print_r($_SESSION); ?>

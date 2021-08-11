@@ -42,8 +42,10 @@ if (isset($_SESSION['user'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
     <!-- Intl tel number CSS-->
     <link rel="stylesheet" href="js/intl-tel-input-master/css/intlTelInput.css">
-    <!-- Whatsapp CSS-->
-    <link rel="stylesheet" href="js/whatsapp/floating-wpp.min.css">
+    <?php if (SHOW_WHATSAPP) { ?>
+        <!-- Whatsapp CSS-->
+        <link rel="stylesheet" href="js/whatsapp/floating-wpp.min.css">
+    <?php } ?>
     <!-- Alertify CSS -->
     <link rel="stylesheet" href="js/alertifyjs/css/alertify.min.css">
     <!-- Slick Slider CSS -->
@@ -88,8 +90,10 @@ if (isset($_SESSION['user'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="js/intl-tel-input-master/js/intlTelInput-jquery.min.js"></script>
-    <!-- Whatsapp JS-->
-    <script src="js/whatsapp/floating-wpp.min.js"></script>
+    <?php if (SHOW_WHATSAPP) { ?>
+        <!-- Whatsapp JS-->
+        <script src="js/whatsapp/floating-wpp.min.js"></script>
+    <?php } ?>
     <!-- Alertify JS-->
     <script src="js/alertifyjs/alertify.min.js"></script>
     <!-- LEADER LINE -->

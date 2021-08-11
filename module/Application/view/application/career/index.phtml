@@ -61,108 +61,38 @@ use Application\Controller\HelperController;
                     </form> -->
 
                     <div class="filter-result">
-                        <p class="mb-30 ff-montserrat">Total Job Openings : 4</p>
-
-                        <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
-                            <div class="job-left my-4 mr-4 d-md-flex align-items-center flex-wrap">
-                                <!-- <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
+                        <p class="mb-30 ff-montserrat">Total Job Openings : <?php echo count($this->careers); ?></p>
+                        <?php foreach ($this->careers as $row) { ?>
+                            <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
+                                <div class="job-left my-4 mr-4 d-md-flex align-items-center flex-wrap">
+                                    <!-- <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
                                     FD
                                 </div> -->
-                                <div class="job-content">
-                                    <h5 class="text-center text-md-left">Frontend Developer</h5>
-                                    <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
-                                        <li class="mr-md-4">
-                                            Full Time
-                                        </li>
-                                    </ul>
-                                    <div class="d-md-flex flex-wrap">
-                                    Lorem ipsum dolor sit detudzdae amet, rcquisc adipiscing elit. Aenean socada commodo
-                                        ligaui egets dolor. Nullam quis ante tiam sit ame orci eget erovtiu faucid.
+                                    <div class="job-content">
+                                        <h5 class="text-center text-md-left"><?php echo $row->title; ?></h5>
+                                        <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
+                                            <li class="mr-md-4">
+                                                <?php echo $row->title; ?>
+                                            </li>
+                                        </ul>
+                                        <div class="d-md-flex flex-wrap">
+                                            <?php
+                                            echo substr(strip_tags($row->details), 0, 205);
+                                            if (strlen(strip_tags($row->details)) > 205) {
+                                                echo "...";
+                                            }
+                                            ?>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="job-right my-4 flex-shrink-0">
-                                <a href="<?php echo MAIN_URL.'career/1'?>" class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
-                            </div>
-                        </div>
-
-                        <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
-                            <div class="job-left my-4 mr-4 d-md-flex align-items-center flex-wrap">
-                                <!-- <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                    FD
-                                </div> -->
-                                <div class="job-content">
-                                    <h5 class="text-center text-md-left">Frontend Developer</h5>
-                                    <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
-                                        <li class="mr-md-4">
-                                            Part Time
-                                        </li>
-                                    </ul>
-                                    <div class="d-md-flex flex-wrap">
-                                    Lorem ipsum dolor sit detudzdae amet, rcquisc adipiscing elit. Aenean socada commodo
-                                        ligaui egets dolor. Nullam quis ante tiam sit ame orci eget erovtiu faucid.
-                                    </div>
+                                <div class="job-right my-4 flex-shrink-0">
+                                    <a href="<?php echo MAIN_URL . 'career/' . $row->id; ?>" class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
                                 </div>
                             </div>
-                            <div class="job-right my-4 flex-shrink-0">
-                                <a href="<?php echo MAIN_URL.'career/1'?>" class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
-                            </div>
-                        </div>
-
-                        <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
-                            <div class="job-left my-4 mr-4 d-md-flex align-items-center flex-wrap">
-                                <!-- <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                    FD
-                                </div> -->
-                                <div class="job-content">
-                                    <h5 class="text-center text-md-left">UX Designer</h5>
-                                    <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
-                                        <li class="mr-md-4">
-                                            Full Time
-                                        </li>
-                                    </ul>
-                                    <div class="d-md-flex flex-wrap">
-                                    Lorem ipsum dolor sit detudzdae amet, rcquisc adipiscing elit. Aenean socada commodo
-                                        ligaui egets dolor. Nullam quis ante tiam sit ame orci eget erovtiu faucid.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="job-right my-4 flex-shrink-0">
-                                <a href="<?php echo MAIN_URL.'career/1'?>" class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
-                            </div>
-                        </div>
-
-                        <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
-                            <div class="job-left my-4 mr-4 d-md-flex align-items-center flex-wrap">
-                                <!-- <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                    FD
-                                </div> -->
-                                <div class="job-content">
-                                    <h5 class="text-center text-md-left">Content Creator</h5>
-                                    <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
-                                        <li class="mr-md-4">
-                                            Full Time
-                                        </li>
-                                    </ul>
-                                    <div class="d-md-flex flex-wrap">
-                                    Lorem ipsum dolor sit detudzdae amet, rcquisc adipiscing elit. Aenean socada commodo
-                                        ligaui egets dolor. Nullam quis ante tiam sit ame orci eget erovtiu faucid.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="job-right my-4 flex-shrink-0">
-                                <a href="<?php echo MAIN_URL.'career/1'?>" class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
-                            </div>
-                        </div>
-
+                        <?php } ?>
                     </div>
                 </div>
-
-                <!-- Pagination -->
-
-                <!-- end pagination -->
             </div>
         </div>
-
     </div>
 </div>
