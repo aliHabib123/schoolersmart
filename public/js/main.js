@@ -430,6 +430,12 @@ $(document).on("click", ".cart-wrapper > a", function (e) {
   e.preventDefault();
   $(this).parent().toggleClass("open");
 });
+//cart-wrapper
+$(document).on("click", ".search-wrapper > a", function (e) {
+  console.log($(this));
+  e.preventDefault();
+  $(this).parent().toggleClass("open");
+});
 if ($(".sidebar-brand-menu").length > 0) {
   if ($("#brand_id").val() != "") {
     $(".sidebar-brand-menu")

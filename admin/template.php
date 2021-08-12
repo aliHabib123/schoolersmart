@@ -189,7 +189,7 @@ if (isset($_REQUEST['act'])) {
 				</li>
 				<li class="">
 					<a href="display_service.php">
-						<i class="fas fa-users"></i>
+						<i class="fas fa-cubes"></i>
 						<span class="title">Services</span>
 					</a>
 				</li>

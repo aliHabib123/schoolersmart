@@ -1095,6 +1095,33 @@ div.skewed2 {
     }
   }
 }
+.search-wrapper {
+  position: relative;
+  .search-wrapper-inner {
+    position: absolute;
+    background-color: #fff;
+    right: 0;
+    width: 350px;
+    bottom: -88px;
+    padding: 15px;
+    visibility: hidden;
+    text-align: left;
+    .btn {
+      background-color: $blue;
+      i {
+        color: #fff;
+      }
+    }
+  }
+  &.open {
+    .search-wrapper-inner {
+      visibility: visible;
+      bottom: auto;
+      top: 120%;
+      top: calc(100% + 20px);
+    }
+  }
+}
 .about-image {
   &.img1 {
     padding-top: 30px;
@@ -1305,4 +1332,13 @@ div.skewed2 {
 }
 .modal {
   z-index: 999999999999999999999999999999;
+}
+#login-signup-modal {
+  .modal-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999999999999999;
+  }
 }

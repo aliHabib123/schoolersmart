@@ -36,7 +36,7 @@
               display: inline-block;
               text-align: center;
               margin-bottom: 5px;
-              &:hover{
+              &:hover {
                 background-color: $eastern-blue;
                 color: #fff;
               }
@@ -60,6 +60,10 @@
           line-height: 1;
           &.blue {
             background: linear-gradient(-35deg, transparent 15px, $blue 15px);
+            &:hover {
+              background: linear-gradient(-35deg, transparent 15px, #fff 15px);
+              color: $blue;
+            }
           }
           &.purple {
             background: linear-gradient(
@@ -67,9 +71,17 @@
               transparent 15px,
               $amaranth 15px
             );
+            &:hover {
+              background: linear-gradient(-35deg, transparent 15px, #fff 15px);
+              color: $amaranth;
+            }
           }
           &.green {
             background: linear-gradient(-35deg, transparent 15px, $sushi 15px);
+            &:hover {
+              background: linear-gradient(-35deg, transparent 15px, #fff 15px);
+              color: $sushi;
+            }
           }
           span {
             font-size: 36px;
