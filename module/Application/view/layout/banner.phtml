@@ -14,24 +14,30 @@ if ($this->banners) { ?>
                   <div class="start-here">start here</div>
                   <ul>
                     <li><a class="categories-title" href="#">OUR CATEGORIES</a></li>
-                    <li id="line1"><a href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => ['1']])?>">SCHOOL FURNITURE</a></li>
-                    <li id="line2"><a href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => ['17']])?>">OUTDOOR SUPPLIES</a></li>
-                    <li><a href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => ['19']])?>">LEARNING TOYS</a></li>
-                    <li><a href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => ['18']])?>">SMALL SUPPLIES</a></li>
-                    <li><a id="line3" href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => ['20']])?>">SPECIALITY ITEMS</a></li>
+                    <li id="line1"><a href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => ['1']]) ?>">SCHOOL FURNITURE</a></li>
+                    <li id="line2"><a href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => ['17']]) ?>">OUTDOOR SUPPLIES</a></li>
+                    <li><a href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => ['19']]) ?>">LEARNING TOYS</a></li>
+                    <li><a href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => ['18']]) ?>">SMALL SUPPLIES</a></li>
+                    <li><a id="line3" href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => ['20']]) ?>">SPECIALITY ITEMS</a></li>
                   </ul>
                 </div>
               </div>
               <div class="col-md-6 text-left left-column">
                 <div class="categories-labels">
                   <div>
-                    <div id="line1-1" class="label purple">ARE YOU A<br><span>SCHOOL?</span></div>
+                    <a href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => ['1']]) ?>">
+                      <div id="line1-1" class="label purple">ARE YOU A<br><span>SCHOOL?</span></div>
+                    </a>
                   </div>
                   <div>
-                    <div id="line2-2" class="label blue">ARE YOU A<br><span>PARENT?</span></div>
+                    <a href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => ['17']]) ?>">
+                      <div id="line2-2" class="label blue">ARE YOU A<br><span>PARENT?</span></div>
+                    </a>
                   </div>
                   <div>
-                    <div id="line3-3" class="label green">TAKE A LOOK<br><span>AROUND</span></div>
+                    <a href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => ['20']]) ?>">
+                      <div id="line3-3" class="label green">TAKE A LOOK<br><span>AROUND</span></div>
+                    </a>
                   </div>
                 </div>
               </div>

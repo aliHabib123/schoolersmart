@@ -60,22 +60,22 @@ if (!isset($_SESSION['rate']) || !isset($_SESSION['currency'])) {
                 <a href="<?php echo MAIN_URL ?>"><img src="img/logo.png?v=1.0.0" /></a>
             </div>
             <div class="buttons-container">
-               <?php if(isset($_SESSION['user'])){?>
-                <span class="dropdown-wrap">
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Welcome <?php echo $_SESSION['user']->firstName;?>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="<?php echo MAIN_URL .'my-orders';?>">My Orders</a>
-                            <a class="dropdown-item" href="<?php echo MAIN_URL .'my-wishlist';?>">My Wishlist</a>
-                            <a class="dropdown-item" href="<?php echo MAIN_URL .'logout';?>">Logout</a>
+                <?php if (isset($_SESSION['user'])) { ?>
+                    <span class="dropdown-wrap">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Welcome <?php echo $_SESSION['user']->firstName; ?>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="<?php echo MAIN_URL . 'my-orders'; ?>">My Orders</a>
+                                <a class="dropdown-item" href="<?php echo MAIN_URL . 'my-wishlist'; ?>">My Wishlist</a>
+                                <a class="dropdown-item" href="<?php echo MAIN_URL . 'logout'; ?>">Logout</a>
+                            </div>
                         </div>
-                    </div>
-                </span>
-               <?php } else {?>
-                <span class="login-logout-wrap"><a href="javascript:void(0);" data-toggle="modal" data-target="#login-signup-modal">Login / Register</a></span>
-                <?php }?>
+                    </span>
+                <?php } else { ?>
+                    <span class="login-logout-wrap"><a href="javascript:void(0);" data-toggle="modal" data-target="#login-signup-modal">Login / Register</a></span>
+                <?php } ?>
                 <span class="dropdown-wrap">
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -101,8 +101,20 @@ if (!isset($_SESSION['rate']) || !isset($_SESSION['currency'])) {
                         <?php echo DesignController::compactCartItems($cartItems); ?>
                     </div>
                 </span>
-                <span>
+                <span class="search-wrapper">
                     <a href="javascript:void(0);"><img src="img/search-icon<?php echo !empty($this->header2) ? '-dark' : ''; ?>.png" /></a>
+                    <div class="search-wrapper-inner">
+                        <form method="GET" action="<?php echo MAIN_URL.'products'?>">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search ..." name="search">
+                                <div class="input-group-append">
+                                    <button class="btn" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </span>
                 <span class="custom-menu-closed">
                     <a class="open-custom-menu" href="javascript:void(0);"><img src="img/menu-toggle<?php echo !empty($this->header2) ? '-dark' : ''; ?>.png" /></a>

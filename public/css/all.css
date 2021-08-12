@@ -869,6 +869,27 @@ div.skewed2 {
     top: 120%;
     top: calc(100% + 20px); }
 
+.search-wrapper {
+  position: relative; }
+  .search-wrapper .search-wrapper-inner {
+    position: absolute;
+    background-color: #fff;
+    right: 0;
+    width: 350px;
+    bottom: -88px;
+    padding: 15px;
+    visibility: hidden;
+    text-align: left; }
+    .search-wrapper .search-wrapper-inner .btn {
+      background-color: #58BDE6; }
+      .search-wrapper .search-wrapper-inner .btn i {
+        color: #fff; }
+  .search-wrapper.open .search-wrapper-inner {
+    visibility: visible;
+    bottom: auto;
+    top: 120%;
+    top: calc(100% + 20px); }
+
 .about-image {
   margin-bottom: 25px; }
   .about-image.img1 {
@@ -1032,6 +1053,13 @@ div.skewed2 {
 
 .modal {
   z-index: 999999999999999999999999999999; }
+
+#login-signup-modal .modal-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999999999999999; }
 
 .bg-grey {
   background-color: #f3f3f3; }
@@ -1512,10 +1540,19 @@ header.main-header {
         line-height: 1; }
         .main-banner-container .main-banner-overlay .banner-menu .categories-labels .label.blue {
           background: linear-gradient(-35deg, transparent 15px, #58BDE6 15px); }
+          .main-banner-container .main-banner-overlay .banner-menu .categories-labels .label.blue:hover {
+            background: linear-gradient(-35deg, transparent 15px, #fff 15px);
+            color: #58BDE6; }
         .main-banner-container .main-banner-overlay .banner-menu .categories-labels .label.purple {
           background: linear-gradient(-35deg, transparent 15px, #E91C6C 15px); }
+          .main-banner-container .main-banner-overlay .banner-menu .categories-labels .label.purple:hover {
+            background: linear-gradient(-35deg, transparent 15px, #fff 15px);
+            color: #E91C6C; }
         .main-banner-container .main-banner-overlay .banner-menu .categories-labels .label.green {
           background: linear-gradient(-35deg, transparent 15px, #8EC54D 15px); }
+          .main-banner-container .main-banner-overlay .banner-menu .categories-labels .label.green:hover {
+            background: linear-gradient(-35deg, transparent 15px, #fff 15px);
+            color: #8EC54D; }
         .main-banner-container .main-banner-overlay .banner-menu .categories-labels .label span {
           font-size: 36px;
           font-weight: bold; }
