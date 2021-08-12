@@ -281,6 +281,24 @@ body {
         // height: 100%;
         // width: auto;
       }
+      &:hover {
+        .slide-wrap-img {
+          img {
+            -webkit-filter: grayscale(1);
+            filter: grayscale(1);
+            -webkit-transition: 0.3s ease-in-out;
+            transition: 0.3s ease-in-out;
+          }
+        }
+        .slide-label {
+          > div {
+            background-color: #fff;
+            color: rgba(0, 0, 0, 0.5);
+            -webkit-transition: 0.3s ease-in-out;
+            transition: 0.3s ease-in-out;
+          }
+        }
+      }
     }
     .slick-center {
       -webkit-transform: scale(1.25);
@@ -1043,11 +1061,24 @@ div.skewed2 {
 }
 .service-wrap {
   .service-image {
+    img {
+      -webkit-transition: 0.3s ease-in-out;
+      transition: 0.3s ease-in-out;
+    }
   }
   .service-title {
   }
   .service-slogan {
     font-family: $mountainBridge;
+  }
+  &:hover {
+    .service-image {
+      img {
+        transform: scale(1.2);
+        -webkit-transition: 0.3s ease-in-out;
+        transition: 0.3s ease-in-out;
+      }
+    }
   }
 }
 .services-row {
@@ -1090,7 +1121,7 @@ div.skewed2 {
     padding-top: 0;
     padding-bottom: 0;
   }
-  &.mt20{
+  &.mt20 {
     margin-top: 20px;
   }
   .content {

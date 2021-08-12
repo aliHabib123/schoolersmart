@@ -56,27 +56,33 @@ $instagram = $contentMySqlExtDAO->queryBySlug('instagram')[0];
                         <ul>
                             <li><a href="<?php echo MAIN_URL . 'page/about-us' ?>">About us</a></li>
                             <li><a href="<?php echo MAIN_URL . 'our-team' ?>">Our Team</a></li>
-                            <li><a href="<?php echo MAIN_URL . 'careers' ?>">Careers</a></li>
-                            <li><a href="<?php echo MAIN_URL . 'contact-us' ?>">Contact us</a></li>
-                            <li><a href="<?php echo MAIN_URL . 'page/terms-conditions' ?>">Terms & conditions</a></li>
                             <li><a href="<?php echo MAIN_URL . 'page/frequently-asked-questions' ?>">FAQ's</a></li>
                         </ul>
                     </div>
                     <div class="col footer-menu">
                         <div class="footer-menu_title">USEFUL LINKS</div>
                         <ul>
-                            <!-- <li><a href="javascript:void(0);">News/Events</a></li> -->
+                            <?php
+                            /*
+                            <li><a href="javascript:void(0);">News/Events</a></li>
                             <li><a href="<?php echo MAIN_URL . 'promotions' ?>">Promotions</a></li>
                             <li><a href="<?php echo MAIN_URL . 'latest-arrivals' ?>">Latest Arrivals</a></li>
-                            <li><a href="<?php echo MAIN_URL . 'page/delivery-and-shipping'; ?>">Delivery And Shipping</a></li>
+                            */
+                            ?>
+                            <li><a href="<?php echo MAIN_URL . 'my-profile'; ?>">My Account</a></li>
+                            <li><a href="<?php echo MAIN_URL . 'my-cart'; ?>">My Cart</a></li>
+                            <li><a href="<?php echo MAIN_URL . 'my-wishlist'; ?>">My Wishlist</a></li>
+                            <li><a href="<?php echo MAIN_URL . 'my-orders'; ?>">My Orders</a></li>
+                            <?php if (IS_MULTI_VENDOR) { ?>
+                                <li><a href="<?php echo MAIN_URL . 'vendor-login'; ?>">Vendor Area</a></li>
+                            <?php } ?>
                         </ul>
                     </div>
                     <div class="col footer-menu">
                         <div class="footer-menu_title">INFORMATION CENTER</div>
                         <ul>
-                            <li><a href="javascript:void(0);" data-toggle="modal" data-target="#login-signup-modal">Sign In</a></li>
-                            <li><a href="<?php echo MAIN_URL . 'my-cart'; ?>">My Cart</a></li>
-                            <li><a href="<?php echo MAIN_URL . 'my-wishlist'; ?>">My Wishlist</a></li>
+                            <li><a href="<?php echo MAIN_URL . 'page/delivery-and-shipping'; ?>">Delivery And Shipping</a></li>
+                            <li><a href="<?php echo MAIN_URL . 'page/terms-conditions' ?>">Terms & conditions</a></li>
                             <li><a href="<?php echo MAIN_URL . 'page/return-policy'; ?>">Return Policy</a></li>
                             <li><a href="<?php echo MAIN_URL . 'page/warranty'; ?>">Warranty</a></li>
                         </ul>
@@ -84,13 +90,9 @@ $instagram = $contentMySqlExtDAO->queryBySlug('instagram')[0];
                     <div class="col footer-menu">
                         <div class="footer-menu_title">KNOW US BETTER</div>
                         <ul>
-                            <li><a href="<?php echo MAIN_URL . 'my-cart'; ?>">My Cart</a></li>
-                            <li><a href="<?php echo MAIN_URL . 'my-wishlist'; ?>">My Wishlist</a></li>
-                            <li><a href="<?php echo MAIN_URL . 'page/return-policy'; ?>">Return Policy</a></li>
-                            <li><a href="<?php echo MAIN_URL . 'page/warranty'; ?>">Warranty</a></li>
-                            <?php if (IS_MULTI_VENDOR) { ?>
-                                <li><a href="<?php echo MAIN_URL . 'vendor-login'; ?>">Vendor Area</a></li>
-                            <?php } ?>
+                            <li><a href="<?php echo MAIN_URL . 'page/our-newsletter'; ?>">Our Newsletter</a></li>
+                            <li><a href="<?php echo MAIN_URL . 'careers' ?>">Careers</a></li>
+                            <li><a href="<?php echo MAIN_URL . 'contact-us' ?>">Contact us</a></li>
                         </ul>
                     </div>
                 </div>

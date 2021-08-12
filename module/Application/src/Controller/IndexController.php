@@ -20,6 +20,7 @@ class IndexController extends AbstractActionController
         $bannerLocation = ($langId == 1) ? 1 : 2;
         $banners = ContentController::getBanners($bannerLocation);
         $ads = ContentController::getContent("type = 'ad' and lang = $langId ORDER BY display_order asc LIMIT 3");
+        $services = ContentController::getContent("type = 'service' ORDER BY display_order ASC LIMIT 4 OFFSET 0");
         $featuredCategories = CategoryController::getCategories("is_featured = 1");
 
         //Todays DEALS, PICKED FOR YOU and BEST OFFERS
@@ -34,6 +35,7 @@ class IndexController extends AbstractActionController
             'ads' => $ads,
             'featuredCategories' => $featuredCategories,
             'featuredItems' => $featuredItems,
+            'services' => $services,
             // 'pickedForYou' => $pickedForYou,
             // 'bestOffers' => $bestOffers,
         ];
