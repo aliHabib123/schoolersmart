@@ -217,6 +217,16 @@ body {
           line-height: 1;
           padding: 10px 15px;
           display: inline-block; }
+    .start-shopping-wrapper .start-shopping .slide-wrap:hover .slide-wrap-img img {
+      -webkit-filter: grayscale(1);
+      filter: grayscale(1);
+      -webkit-transition: 0.3s ease-in-out;
+      transition: 0.3s ease-in-out; }
+    .start-shopping-wrapper .start-shopping .slide-wrap:hover .slide-label > div {
+      background-color: #fff;
+      color: rgba(0, 0, 0, 0.5);
+      -webkit-transition: 0.3s ease-in-out;
+      transition: 0.3s ease-in-out; }
   .start-shopping-wrapper .start-shopping .slick-center {
     -webkit-transform: scale(1.25);
     -moz-transform: scale(1.25);
@@ -836,8 +846,17 @@ div.skewed2 {
       font-weight: bold;
       transform: skewX(0deg); }
 
+.service-wrap .service-image img {
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out; }
+
 .service-wrap .service-slogan {
   font-family: "Mountain Bridge"; }
+
+.service-wrap:hover .service-image img {
+  transform: scale(1.2);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out; }
 
 .services-row {
   margin-bottom: 50px; }

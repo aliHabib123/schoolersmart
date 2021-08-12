@@ -188,6 +188,12 @@ if (isset($_REQUEST['act'])) {
 					</a>
 				</li>
 				<li class="">
+					<a href="display_service.php">
+						<i class="fas fa-users"></i>
+						<span class="title">Services</span>
+					</a>
+				</li>
+				<li class="">
 					<a href="display_album.php">
 						<i class="fas fa-columns"></i>
 						<span class="title">Albums</span>
