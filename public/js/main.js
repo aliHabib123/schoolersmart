@@ -34,10 +34,10 @@ $(function () {
       minSlides: 3,
       maxSlides: 3,
       slideWidth: slideWidth,
-      nextSelector: '#custom-next',
-      prevSelector: '#custom-prev',
+      nextSelector: "#custom-next",
+      prevSelector: "#custom-prev",
       nextText: "<img src='img/arrow-yellow-next.png'/>",
-      prevText: "<img src='img/arrow-yellow-prev.png'/>"
+      prevText: "<img src='img/arrow-yellow-prev.png'/>",
     });
   }
   // what-makes-slider
@@ -151,7 +151,7 @@ $(function () {
       maxSlides: 4,
       adaptiveHeight: false,
       slideWidth: "300px",
-      slideMargin: '30',
+      slideMargin: "30",
       pager: false,
       controls: true,
     });
@@ -853,14 +853,16 @@ $("#reset-form").submit(function (e) {
   e.preventDefault();
 });
 $(function () {
-  $(".floating-wpp").floatingWhatsApp({
-    phone: "0096181676564",
-    // popupMessage: translations.whatsappHowCanIHelp,
-    // showPopup: true,
-    // message: "",
-    // headerTitle: translations.whatsappTypicallyReplies,
-    // position: translations.config.right,
-  });
+  if ($(".floating-wpp").length > 0) {
+    $(".floating-wpp").floatingWhatsApp({
+      phone: "0096181676564",
+      // popupMessage: translations.whatsappHowCanIHelp,
+      // showPopup: true,
+      // message: "",
+      // headerTitle: translations.whatsappTypicallyReplies,
+      // position: translations.config.right,
+    });
+  }
 });
 
 $(function () {

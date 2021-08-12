@@ -687,6 +687,16 @@ return [
                     ],
                 ],
             ],
+            'careerSubmit' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/career-submit',
+                    'defaults' => [
+                        'controller' => Controller\CareerController::class,
+                        'action'     => 'careerSubmit',
+                    ],
+                ],
+            ],
             'setSession' => [
                 'type'    => Literal::class,
                 'options' => [

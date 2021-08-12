@@ -9,7 +9,7 @@ use Laminas\Mvc\Controller\AbstractActionController;
 class MailController extends AbstractActionController
 {
 
-  public static function sendMail($to, $subject, $emailBody, $fromEmail = "info@thirteencube.com", $fromName = "Matershop")
+  public static function sendMail($to, $subject, $emailBody, $fromEmail = "info@schoolersmart.com", $fromName = "Schoolersmart")
   {
     // Always set content-type when sending HTML email
     $headers = "MIME-Version: 1.0" . "\r\n";
@@ -86,7 +86,7 @@ class MailController extends AbstractActionController
     return "<tr>
           <td style=\"font-family: sans-serif; font-size: 14px; vertical-align: top;\">
           <p style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-top: 15px;\">Regards,</p>
-          <p style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">Mastershop</p>
+          <p style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">Schoolersmart</p>
           <p><img style=\"max-height: 50px;\" src=\"$logoLink\"/></p>
           </td>
           </tr>";

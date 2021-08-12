@@ -24,15 +24,14 @@ use Application\Controller\HelperController;
                                     FD
                                 </div> -->
                                 <div class="job-content">
-                                    <h5 class="text-center text-md-left">Frontend Developer</h5>
+                                    <h5 class="text-center text-md-left"><?php echo $this->careerInfo->title; ?></h5>
                                     <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
                                         <li class="mr-md-4">
-                                            Full Time
+                                            <?php echo $this->careerInfo->subtitle; ?>
                                         </li>
                                     </ul>
                                     <div class="d-md-flex flex-wrap">
-                                        Lorem ipsum dolor sit detudzdae amet, rcquisc adipiscing elit. Aenean socada commodo
-                                        ligaui egets dolor. Nullam quis ante tiam sit ame orci eget erovtiu faucid.
+                                        <?php echo $this->careerInfo->details; ?>
                                     </div>
                                 </div>
                             </div>
@@ -55,7 +54,7 @@ use Application\Controller\HelperController;
                 <?php echo DesignController::secondaryTitle('Apply'); ?>
                 <div class="form-wrapper">
                     <div class="notice-area"></div>
-                    <form action="<?php echo MAIN_URL . 'contact-submit'; ?>" id="contact-submit">
+                    <form action="<?php echo MAIN_URL . 'career-submit'; ?>" id="contact-submit" enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
@@ -87,7 +86,7 @@ use Application\Controller\HelperController;
                                     <div class="form-group">
                                         <label for="email">Upload CV*</label>
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFile" name="excel">
+                                            <input type="file" class="custom-file-input" id="customFile" name="cv">
                                             <label class="custom-file-label" id="customFileLabel" for="customFile">File Name</label>
                                         </div>
                                     </div>
@@ -96,7 +95,7 @@ use Application\Controller\HelperController;
                         </div>
                         <div class="form-group">
                             <label for="email">Cover Letter*</label>
-                            <textarea class="form-control" style="min-height: 150px;" name="message"></textarea>
+                            <textarea class="form-control" style="min-height: 150px;" name="cover-letter"></textarea>
                         </div>
                         <div class="text-left order-complete-btn-wrap">
                             <button type="submit" class="btn submit-btn">SEND</button>

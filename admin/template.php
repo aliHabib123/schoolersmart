@@ -246,6 +246,12 @@ if (isset($_REQUEST['act'])) {
 					</a>
 				</li>
 				<li class="">
+					<a href="display_career.php">
+						<i class="fas fa-users"></i>
+						<span class="title">Careers</span>
+					</a>
+				</li>
+				<li class="">
 					<a href="display_item_category.php">
 						<i class="fas fa-object-group"></i>
 						<span class="title">Categories</span>
