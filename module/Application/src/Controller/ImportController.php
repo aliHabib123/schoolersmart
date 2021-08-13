@@ -371,6 +371,152 @@ class ImportController extends AbstractActionController
         }
     }
 
+    public function submitImportCmsAction()
+    {
+        $result = true;
+        $msg = "Initial";
+        $missingSkusCount = 0;
+        $missingTitlesCount = 0;
+        if ($_FILES['excel']['tmp_name']) {
+            $file = $_FILES['excel']['tmp_name'];
+            $userfile_extn = explode(".", strtolower($_FILES['excel']['name']));
+            $target_dir = BASE_PATH . upload_file_dir;
+            $newName = HelperController::random(10) . '.' . $userfile_extn[1];
+            define('fileName', $newName);
+            $targetFile = BASE_PATH . upload_file_dir . fileName;
+            $upload = move_uploaded_file($file, $targetFile);
+            //var_dump($upload);
+
+            $fileName = fileName;
+            // Get our import file extension
+            $r = explode('.', $fileName);
+            ${'Extension'} = strtolower(array_pop($r));
+
+            $allowedExtensions = ['xls', 'xlsx'];
+            if (!in_array(${'Extension'}, $allowedExtensions)) {
+                $result = false;
+                $msg = "wrong extension";
+            }
+
+            // Store our content array
+            ${'List'} = [];
+
+            if ($result == true) {
+                // Create a new Excel instance
+                if (${'Extension'} == 'xlsx') {
+                    $objReader = PHPExcel_IOFactory::createReader('Excel2007');
+                } else {
+                    $objReader = PHPExcel_IOFactory::createReader('Excel5');
+                }
+                $objReader->setReadDataOnly(false);
+                $objPHPExcel = $objReader->load(BASE_PATH . upload_file_dir . fileName);
+                $objWorksheet = $objPHPExcel->getActiveSheet();
+
+                // Check for the columns and column titles
+                if (
+                    // $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, 1)->getValue() != 'Image 1' ||
+                    // $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, 1)->getValue() != 'Image 2' ||
+                    // $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, 1)->getValue() != 'Image 3' ||
+                    // $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, 1)->getValue() != 'Image 4' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, 1)->getValue() != 'Title' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, 1)->getValue() != 'Category' ||
+                    //$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, 1)->getValue() != 'sub category' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, 1)->getValue() != 'product category' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, 1)->getValue() != 'SKU' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, 1)->getValue() != 'Description' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, 1)->getValue() != 'Specification' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, 1)->getValue() != 'Color' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, 1)->getValue() != 'Size' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, 1)->getValue() != 'Weight' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, 1)->getValue() != 'Dimensions' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, 1)->getValue() != 'Brand Name' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, 1)->getValue() != 'Stock' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(12, 1)->getValue() != 'Price' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(13, 1)->getValue() != 'Special Price' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(14, 1)->getValue() != 'Warranty' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(15, 1)->getValue() != 'Exchange'
+                ) {
+                    $result = false;
+                    $msg = "Some coloumns missing, please use the correct excel sheet";
+                }
+
+                // Get the total number of rows in the spreadsheet
+                $rows = $objWorksheet->getHighestRow();
+
+                if ($result) {
+                    // Loop through all the rows (line items)
+                    $row = 1;
+                    ${'Iterator'} = 0;
+                    // skip the first row if it has our column names
+                    for (((($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $row)->getValue()) == 'Title') ? $row = 2 :  $row = 1); $row <= $rows; ++$row) {
+                        // Sanitize all our & add them to the accounts array
+                        if ($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue() == "") {
+                            $missingSkusCount++;
+                            $missingSkusCount++;
+                            $missingSkusCount++;
+                        }
+                        if ($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $row)->getValue() == "") {
+                            $missingTitlesCount++;
+                            $missingTitlesCount++;
+                            $missingTitlesCount++;
+                        }
+                        ${'List'}[${'Iterator'}] = [
+                            // 'Image 1' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $row)->getCalculatedValue(),
+                            // 'Image 2' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $row)->getCalculatedValue(),
+                            // 'Image 3' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $row)->getCalculatedValue(),
+                            // 'Image 4' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $row)->getCalculatedValue(),
+                            'Title' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $row)->getCalculatedValue(),
+                            'Category' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $row)->getCalculatedValue(),
+                            //'sub category' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $row)->getCalculatedValue(),
+                            'product category' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $row)->getCalculatedValue(),
+                            'SKU' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue(),
+                            'Description' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $row)->getCalculatedValue(),
+                            'Specification' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $row)->getCalculatedValue(),
+                            'Color' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $row)->getCalculatedValue(),
+                            'Size' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $row)->getCalculatedValue(),
+                            'Weight' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $row)->getCalculatedValue(),
+                            'Dimensions' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $row)->getCalculatedValue(),
+                            'Brand Name' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $row)->getCalculatedValue(),
+                            'Stock' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, $row)->getCalculatedValue(),
+                            'Price' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(12, $row)->getCalculatedValue(),
+                            'Special Price'  => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(13, $row)->getCalculatedValue(),
+                            'Warranty'  => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(14, $row)->getCalculatedValue(),
+                            'Exchange'  => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(15, $row)->getCalculatedValue(),
+                        ];
+                        ${'Iterator'}++;
+                        if ($missingSkusCount > 0) {
+                            $result = false;
+                            $msg = "Some products do not have SKUs";
+                        }
+                        if ($missingTitlesCount > 0) {
+                            $result = false;
+                            $msg = "Some products do not have Titles";
+                        }
+                    } //end for
+                    //print_r(${'List'});
+                } //end if
+            }
+        } else {
+            $result = false;
+            $msg = "No file uploaded";
+        }
+        //print_r(${'List'});
+        // insert rows into database
+        if ($result) {
+            $insert = ProductController::insertBulkItems(${'List'});
+            $result = $insert->res;
+            $msg = $insert->msg;
+        }
+
+        $response = json_encode([
+            'status' => $result,
+            'msg' => $msg,
+            'imported' => $insert,
+        ]);
+        print_r($response);
+        return $this->response;
+    }
+
     public function newImport()
     {
     }
@@ -383,8 +529,9 @@ class ImportController extends AbstractActionController
     {
         $processBatchRes = false;
         $conn = ConnectionFactory::getConnection();
-        $supplierId = $_SESSION['user']->id;
-        $sql = "SELECT * FROM items_temp WHERE supplier_id = $supplierId AND processed = 0 ORDER BY id ASC LIMIT 10 OFFSET 0";
+        //$supplierId = $_SESSION['user']->id;
+        //$sql = "SELECT * FROM items_temp WHERE supplier_id = $supplierId AND processed = 0 ORDER BY id ASC LIMIT 10 OFFSET 0";
+        $sql = "SELECT * FROM items_temp WHERE processed = 0 ORDER BY id ASC LIMIT 10 OFFSET 0";
         $result = $conn->query($sql);
         $res = true;
         $batch = [];
@@ -400,13 +547,13 @@ class ImportController extends AbstractActionController
             // map items fields
             while ($row = $result->fetch_assoc()) {
                 $item = [
-                    'Image 1' => $row['image1'],
-                    'Image 2' => $row['image2'],
-                    'Image 3' => $row['image3'],
-                    'Image 4' => $row['image4'],
+                    // 'Image 1' => $row['image1'],
+                    // 'Image 2' => $row['image2'],
+                    // 'Image 3' => $row['image3'],
+                    // 'Image 4' => $row['image4'],
                     'Title' => $row['title'],
                     'Category' => $row['category'],
-                    'sub category' => $row['sub_category'],
+                    //'sub category' => $row['sub_category'],
                     'product category' => $row['product_category'],
                     'SKU' => $row['sku'],
                     'Description' => $row['description'],
@@ -450,7 +597,8 @@ class ImportController extends AbstractActionController
         $supplierId = $_SESSION['user']->id;
         $conn = ConnectionFactory::getConnection();
         // New Sku List
-        $sql = "select sku from items_temp where supplier_id = $supplierId";
+        //$sql = "select sku from items_temp where supplier_id = $supplierId";
+        $sql = "select sku from items_temp WHERE processed = 1";
         $result = $conn->query($sql);
         $newItemsSKUList = [];
         if ($result->num_rows > 0) {
@@ -460,7 +608,8 @@ class ImportController extends AbstractActionController
         }
 
         // Old SKU List
-        $oldItems = $itemMySqlExtDAO->queryBySupplierId($supplierId);
+        //$oldItems = $itemMySqlExtDAO->queryBySupplierId($supplierId);
+        $oldItems = $itemMySqlExtDAO->queryAll();
         $oldItemsSKUList = array_map(function ($e) {
             return $e->sku;
         }, $oldItems);
@@ -486,11 +635,10 @@ class ImportController extends AbstractActionController
 
     public function cleanTempTableAction()
     {
-
-        $supplierId = $_SESSION['user']->id;
+        //$supplierId = $_SESSION['user']->id;
         $conn = ConnectionFactory::getConnection();
 
-        $sql = "DELETE FROM items_temp where `processed` = 1 AND supplier_id = $supplierId";
+        $sql = "DELETE FROM items_temp where `processed` = 1";
         $result = $conn->query($sql);
         $msg = $result ? 'cleaned up' : 'not cleaned up';
 

@@ -553,16 +553,16 @@ class ProductController extends AbstractActionController
     public static function insertBulkItems($items)
     {
         $conn = ConnectionFactory::getConnection();
-        $supplierId = $_SESSION['user']->id;
+        //$supplierId = $_SESSION['user']->id;
         $data = [];
         foreach ($items as $row) {
-            $image1 = isset($row['Image 1']) ? mysqli_real_escape_string($conn, strval($row['Image 1'])) : '';
-            $image2 = isset($row['Image 2']) ? mysqli_real_escape_string($conn, strval($row['Image 2'])) : '';
-            $image3 = isset($row['Image 3']) ? mysqli_real_escape_string($conn, strval($row['Image 3'])) : '';
-            $image4 = isset($row['Image 4']) ? mysqli_real_escape_string($conn, strval($row['Image 4'])) : '';
+            // $image1 = isset($row['Image 1']) ? mysqli_real_escape_string($conn, strval($row['Image 1'])) : '';
+            // $image2 = isset($row['Image 2']) ? mysqli_real_escape_string($conn, strval($row['Image 2'])) : '';
+            // $image3 = isset($row['Image 3']) ? mysqli_real_escape_string($conn, strval($row['Image 3'])) : '';
+            // $image4 = isset($row['Image 4']) ? mysqli_real_escape_string($conn, strval($row['Image 4'])) : '';
             $title = isset($row['Title']) ? mysqli_real_escape_string($conn, $row['Title']) : '';
             $category = isset($row['Category']) ? $row['Category'] : '';
-            $subCategory = isset($row['sub category']) ? $row['sub category'] : '';
+            //$subCategory = isset($row['sub category']) ? $row['sub category'] : '';
             $productCategory = isset($row['product category']) ? $row['product category'] : '';
             $sku = isset($row['SKU']) ? mysqli_real_escape_string($conn, strval($row['SKU'])) : '';
             $description = isset($row['Description']) ?  mysqli_real_escape_string($conn, $row['Description']) : '';
@@ -577,29 +577,23 @@ class ProductController extends AbstractActionController
             $specialPrice = isset($row['Special Price']) ? $row['Special Price'] : '';
             $warranty = isset($row['Warranty']) ? $row['Warranty'] : '';
             $exchange = isset($row['Exchange']) ? $row['Exchange'] : '';
-            $title_ar = isset($row['title_ar']) ? $row['title_ar'] : '';
-            $description_ar = isset($row['description_ar']) ? $row['description_ar'] : '';
-            $specs_ar = isset($row['specs_ar']) ? $row['specs_ar'] : '';
-            $color_ar = isset($row['color_ar']) ? $row['color_ar'] : '';
-            $size_ar = isset($row['size_ar']) ? $row['size_ar'] : '';
-            $dimensions_ar = isset($row['dimensions_ar']) ? $row['dimensions_ar'] : '';
-            $warranty_ar = isset($row['warranty_ar']) ? $row['warranty_ar'] : '';
-            $exchange_ar = isset($row['exchange_ar']) ? $row['exchange_ar'] : '';
+            // $title_ar = isset($row['title_ar']) ? $row['title_ar'] : '';
+            // $description_ar = isset($row['description_ar']) ? $row['description_ar'] : '';
+            // $specs_ar = isset($row['specs_ar']) ? $row['specs_ar'] : '';
+            // $color_ar = isset($row['color_ar']) ? $row['color_ar'] : '';
+            // $size_ar = isset($row['size_ar']) ? $row['size_ar'] : '';
+            // $dimensions_ar = isset($row['dimensions_ar']) ? $row['dimensions_ar'] : '';
+            // $warranty_ar = isset($row['warranty_ar']) ? $row['warranty_ar'] : '';
+            // $exchange_ar = isset($row['exchange_ar']) ? $row['exchange_ar'] : '';
             $processed = 0;
 
-            $data[] = "('$image1', '$image2', '$image3', '$image4', '$title', '$category',
-                        '$subCategory', '$productCategory', '$sku',
+            $data[] = "('$title', '$category', '$productCategory', '$sku',
                         '$description', '$specs', '$color', '$size', '$weight', '$dimensions', '$brandName',
-                        '$stock', '$price', '$specialPrice', '$warranty', '$exchange',
-                        '$title_ar', '$description_ar', '$specs_ar',
-                        '$color_ar', '$size_ar', '$dimensions_ar', '$warranty_ar', '$exchange_ar', $supplierId, $processed)";
+                        '$stock', '$price', '$specialPrice', '$warranty', '$exchange', $processed)";
         }
-        $sql  = "INSERT INTO items_temp (`image1`, `image2`, `image3`, `image4`, `title`, `category`,
-        `sub_category`, `product_category`, `sku`,
+        $sql  = "INSERT INTO items_temp (`title`, `category`, `product_category`, `sku`,
         `description`, `specs`, `color`, `size`, `weight`, `dimension`, `brand_name`,
-        `stock`, `price`, `special_price`, `warranty`, `exchange`,
-        `title_ar`, `description_ar`, `specs_ar`,
-        `color_ar`, `size_ar`, `dimensions_ar`, `warranty_ar`, `exchange_ar`, `supplier_id`, `processed`) VALUES " . implode(',', $data);
+        `stock`, `price`, `special_price`, `warranty`, `exchange`, `processed`) VALUES " . implode(',', $data);
 
         if (!$conn->query($sql)) {
             $res = false;
@@ -628,34 +622,34 @@ class ProductController extends AbstractActionController
         $itemCategoryMappingMySqlExtDAO = new ItemCategoryMappingMySqlExtDAO();
         $itemBrandMappingMySqlExtDAO = new ItemBrandMappingMySqlExtDAO();
 
-
+        //echo json_encode($items);
         foreach ($items as $row) {
             $update = $insert = false;
-            $albumId = 0;
-            $prefix = $supplierId . '-' . HelperController::slugify($row['SKU']);
-            $image = HelperController::getOrDownloadImage($row['Image 1'], $prefix);
-            $imagesArray = [];
-            if ($row['Image 2'] != "") {
-                $image1 = HelperController::getOrDownloadImage($row['Image 2'], $prefix);
-                if ($image1) {
-                    array_push($imagesArray, $image1);
-                }
-            }
-            if ($row['Image 3'] != "") {
-                $image2 = HelperController::getOrDownloadImage($row['Image 3'], $prefix);
-                if ($image2) {
-                    array_push($imagesArray, $image2);
-                }
-            }
-            if ($row['Image 4'] != "") {
-                $image3 = HelperController::getOrDownloadImage($row['Image 4'], $prefix);
-                if ($image3) {
-                    array_push($imagesArray, $image3);
-                }
-            }
+            //$albumId = 0;
+            // $prefix = $supplierId . '-' . HelperController::slugify($row['SKU']);
+            // $image = HelperController::getOrDownloadImage($row['Image 1'], $prefix);
+            // $imagesArray = [];
+            // if ($row['Image 2'] != "") {
+            //     $image1 = HelperController::getOrDownloadImage($row['Image 2'], $prefix);
+            //     if ($image1) {
+            //         array_push($imagesArray, $image1);
+            //     }
+            // }
+            // if ($row['Image 3'] != "") {
+            //     $image2 = HelperController::getOrDownloadImage($row['Image 3'], $prefix);
+            //     if ($image2) {
+            //         array_push($imagesArray, $image2);
+            //     }
+            // }
+            // if ($row['Image 4'] != "") {
+            //     $image3 = HelperController::getOrDownloadImage($row['Image 4'], $prefix);
+            //     if ($image3) {
+            //         array_push($imagesArray, $image3);
+            //     }
+            // }
 
-            $albumMySqlExtDAO = new AlbumMySqlExtDAO();
-            $albumImageMySqlExtDAO = new ImageMySqlExtDAO();
+            // $albumMySqlExtDAO = new AlbumMySqlExtDAO();
+            // $albumImageMySqlExtDAO = new ImageMySqlExtDAO();
             // if ($imagesArray) {
             //     $albumObj = new Album();
             //     $albumObj->displayOrder = 0;
@@ -672,15 +666,15 @@ class ProductController extends AbstractActionController
 
             $itemObj = new Item();
             self::populateItem($itemObj, $row, $supplierId);
-            if ($image) {
-                $itemObj->image = $image;
-            }
+            // if ($image) {
+            //     $itemObj->image = $image;
+            // }
 
-            $itemExists = $itemMySqlExtDAO->queryBySkuAndSupplierId($row['SKU'], $supplierId);
+            $itemExists = $itemMySqlExtDAO->queryBySku($row['SKU']);
             $date = date('Y-m-d H:i:s');
-            $categoryId = ProductController::getCategory($row['Category'], $row['sub category'], $row['product category']);
+            $categoryId = ProductController::getCategory1($row['Category'], $row['product category']);
             if ($itemExists) {
-
+                //echo 'Item: ' .$row['SKU'] .' exists<br>';
                 // if ($imagesArray) {
                 //     $albumObj = new Album();
                 //     $albumObj->displayOrder = 0;
@@ -696,89 +690,90 @@ class ProductController extends AbstractActionController
                 // }
 
                 // delete image if changed or removed
-                if (!$image || ($image != $itemExists[0]->image)) {
-                    HelperController::deleteImage($itemExists[0]->image);
-                }
+                // if (!$image || ($image != $itemExists[0]->image)) {
+                //     HelperController::deleteImage($itemExists[0]->image);
+                // }
 
                 // delete album and images
-                if ($itemExists[0]->albumId && $itemExists[0]->albumId != 0) {
-                    if (count($imagesArray) == 0) {
-                        $oldImages = $albumImageMySqlExtDAO->queryByAlbumId($itemExists[0]->albumId);
-                        foreach ($oldImages as $oldImage) {
-                            HelperController::deleteImage($oldImage->imageName);
-                            $albumImageMySqlExtDAO->deleteByAlbumId($itemExists[0]->albumId);
-                        }
-                        $albumMySqlExtDAO->delete($itemExists[0]->albumId);
-                    } else {
-                        $albumObj = $albumMySqlExtDAO->load($itemExists[0]->albumId);
-                        if ($albumObj) {
-                            $albumId = $albumObj->id;
-                            if ($albumId != 0) {
-                                $albumImages = $albumImageMySqlExtDAO->queryByAlbumId($albumId);
+                // if ($itemExists[0]->albumId && $itemExists[0]->albumId != 0) {
+                //     if (count($imagesArray) == 0) {
+                //         $oldImages = $albumImageMySqlExtDAO->queryByAlbumId($itemExists[0]->albumId);
+                //         foreach ($oldImages as $oldImage) {
+                //             HelperController::deleteImage($oldImage->imageName);
+                //             $albumImageMySqlExtDAO->deleteByAlbumId($itemExists[0]->albumId);
+                //         }
+                //         $albumMySqlExtDAO->delete($itemExists[0]->albumId);
+                //     } else {
+                //         $albumObj = $albumMySqlExtDAO->load($itemExists[0]->albumId);
+                //         if ($albumObj) {
+                //             $albumId = $albumObj->id;
+                //             if ($albumId != 0) {
+                //                 $albumImages = $albumImageMySqlExtDAO->queryByAlbumId($albumId);
 
-                                //Delete deleted images
-                                foreach ($albumImages as $row1) {
-                                    if (!in_array($row1->imageName, $imagesArray)) {
-                                        HelperController::deleteImage($row1->imageName);
-                                    }
-                                }
+                //                 //Delete deleted images
+                //                 foreach ($albumImages as $row1) {
+                //                     if (!in_array($row1->imageName, $imagesArray)) {
+                //                         HelperController::deleteImage($row1->imageName);
+                //                     }
+                //                 }
 
-                                $oldImagesNames = array_map(function ($e) {
-                                    return $e->imageName;
-                                }, $albumImages);
+                //                 $oldImagesNames = array_map(function ($e) {
+                //                     return $e->imageName;
+                //                 }, $albumImages);
 
-                                //error_log(json_encode($oldImagesNames));
+                //                 //error_log(json_encode($oldImagesNames));
 
-                                //update album
-                                foreach ($imagesArray as $albumImageItem) {
-                                    if (!in_array($albumImageItem, $oldImagesNames)) {
-                                        $albumImageObj = new Image();
-                                        $albumImageObj->albumId = $albumId;
-                                        $albumImageObj->imageName = $albumImageItem;
-                                        $albumImageMySqlExtDAO->insert($albumImageObj);
-                                    }
-                                }
-                            }
-                        } else {
-                            if ($imagesArray) {
-                                $albumObj = new Album();
-                                $albumObj->displayOrder = 0;
-                                $albumObj->active = 1;
-                                $albumId = $albumMySqlExtDAO->insert($albumObj);
+                //                 //update album
+                //                 foreach ($imagesArray as $albumImageItem) {
+                //                     if (!in_array($albumImageItem, $oldImagesNames)) {
+                //                         $albumImageObj = new Image();
+                //                         $albumImageObj->albumId = $albumId;
+                //                         $albumImageObj->imageName = $albumImageItem;
+                //                         $albumImageMySqlExtDAO->insert($albumImageObj);
+                //                     }
+                //                 }
+                //             }
+                //         } else {
+                //             if ($imagesArray) {
+                //                 $albumObj = new Album();
+                //                 $albumObj->displayOrder = 0;
+                //                 $albumObj->active = 1;
+                //                 $albumId = $albumMySqlExtDAO->insert($albumObj);
 
-                                foreach ($imagesArray as $albumImageItem) {
-                                    $albumImageObj = new Image();
-                                    $albumImageObj->albumId = $albumId;
-                                    $albumImageObj->imageName = $albumImageItem;
-                                    $albumImageMySqlExtDAO->insert($albumImageObj);
-                                }
-                                $itemObj->albumId = $albumId;
-                            }
-                        }
-                    }
-                    //print_r($itemExists);
-                } else {
-                    if ($imagesArray) {
-                        $albumObj = new Album();
-                        $albumObj->displayOrder = 0;
-                        $albumObj->active = 1;
-                        $albumId = $albumMySqlExtDAO->insert($albumObj);
+                //                 foreach ($imagesArray as $albumImageItem) {
+                //                     $albumImageObj = new Image();
+                //                     $albumImageObj->albumId = $albumId;
+                //                     $albumImageObj->imageName = $albumImageItem;
+                //                     $albumImageMySqlExtDAO->insert($albumImageObj);
+                //                 }
+                //                 $itemObj->albumId = $albumId;
+                //             }
+                //         }
+                //     }
+                //     //print_r($itemExists);
+                // } else {
+                //     if ($imagesArray) {
+                //         $albumObj = new Album();
+                //         $albumObj->displayOrder = 0;
+                //         $albumObj->active = 1;
+                //         $albumId = $albumMySqlExtDAO->insert($albumObj);
 
-                        foreach ($imagesArray as $albumImageItem) {
-                            $albumImageObj = new Image();
-                            $albumImageObj->albumId = $albumId;
-                            $albumImageObj->imageName = $albumImageItem;
-                            $albumImageMySqlExtDAO->insert($albumImageObj);
-                        }
-                        $itemObj->albumId = $albumId;
-                    }
-                }
+                //         foreach ($imagesArray as $albumImageItem) {
+                //             $albumImageObj = new Image();
+                //             $albumImageObj->albumId = $albumId;
+                //             $albumImageObj->imageName = $albumImageItem;
+                //             $albumImageMySqlExtDAO->insert($albumImageObj);
+                //         }
+                //         $itemObj->albumId = $albumId;
+                //     }
+                // }
 
                 $itemObj->id = $itemExists[0]->id;
                 $itemObj->createdAt = $itemExists[0]->createdAt;
                 $itemObj->updatedAt = $date;
                 //print_r($itemObj);echo '<br>';
                 $update = $itemMySqlExtDAO->update($itemObj);
+                //echo 'update res: ' . json_encode($update);
                 if ($update) {
                     $updatedItems++;
                     //echo $itemObj->id.'<br>';
@@ -790,25 +785,27 @@ class ProductController extends AbstractActionController
                     }
                 }
             } else {
-                if ($imagesArray) {
-                    $albumObj = new Album();
-                    $albumObj->displayOrder = 0;
-                    $albumObj->active = 1;
-                    $albumId = $albumMySqlExtDAO->insert($albumObj);
+                //echo 'Item: ' .$row['SKU'] .' does not exists<br>';
+                // if ($imagesArray) {
+                //     $albumObj = new Album();
+                //     $albumObj->displayOrder = 0;
+                //     $albumObj->active = 1;
+                //     $albumId = $albumMySqlExtDAO->insert($albumObj);
 
-                    foreach ($imagesArray as $albumImageItem) {
-                        $albumImageObj = new Image();
-                        $albumImageObj->albumId = $albumId;
-                        $albumImageObj->imageName = $albumImageItem;
-                        $albumImageMySqlExtDAO->insert($albumImageObj);
-                    }
-                    $itemObj->albumId = $albumId;
-                }
+                //     foreach ($imagesArray as $albumImageItem) {
+                //         $albumImageObj = new Image();
+                //         $albumImageObj->albumId = $albumId;
+                //         $albumImageObj->imageName = $albumImageItem;
+                //         $albumImageMySqlExtDAO->insert($albumImageObj);
+                //     }
+                //     $itemObj->albumId = $albumId;
+                // }
 
                 //echo 'does not exists<br>';
                 $itemObj->updatedAt = $date;
                 $itemObj->createdAt = $date;
                 $insert = $itemMySqlExtDAO->insert($itemObj);
+                //echo 'insert res: ' . json_encode($insert);
                 if ($insert) {
                     $insertedItems++;
                     if ($categoryId) {
@@ -822,7 +819,8 @@ class ProductController extends AbstractActionController
             if ($update || $insert) {
                 //echo 'update or insert<br>';
                 $conn =  ConnectionFactory::getConnection();
-                $sql = "UPDATE items_temp set processed = 1 where supplier_id = $supplierId AND sku = '" . $row['SKU'] . "'";
+                //$sql = "UPDATE items_temp set processed = 1 where supplier_id = $supplierId AND sku = '" . $row['SKU'] . "'";
+                $sql = "UPDATE items_temp set processed = 1 where sku = '" . $row['SKU'] . "'";
                 if (!$conn->query($sql)) {
                     $msg = $conn->error;
                     //echo $msg;
@@ -956,6 +954,33 @@ class ProductController extends AbstractActionController
             WHERE c.`name` IS NOT NULL
             AND c.`name` = '$cat3' AND b.`name` = '$cat2' AND a.`name` = '$cat1'
             ORDER BY c.`name` ASC LIMIT 1 OFFSET 0";
+        $rows = $conn->query($sql);
+        $conn->close();
+        if ($rows->num_rows > 0) {
+            // output data of each row
+            $row  =  $rows->fetch_object();
+            return $row->id;
+        } else {
+            return 0;
+        }
+    }
+
+    public static function getCategory1($cat1 = "", $cat2 = "")
+    {
+        $conn = ConnectionFactory::getConnection();
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        $sql = "SELECT
+            b.`id`
+            FROM
+            item_category a
+            LEFT OUTER JOIN item_category b
+            ON a.`id` = b.`parent_id`
+            WHERE b.`name` IS NOT NULL
+            AND b.`name` = '$cat2' AND a.`name` = '$cat1'
+            ORDER BY b.`name` ASC LIMIT 1 OFFSET 0";
         $rows = $conn->query($sql);
         $conn->close();
         if ($rows->num_rows > 0) {
