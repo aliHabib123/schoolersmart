@@ -1342,3 +1342,63 @@ div.skewed2 {
     z-index: 999999999999999;
   }
 }
+.idea-wrap {
+  margin-bottom: 50px;
+  .idea-img {
+    margin-bottom: 10px;
+    img {
+      width: 100%;
+    }
+  }
+  .idea-title {
+    a {
+      color: #000;
+      font-size: 22px;
+    }
+  }
+  .idea-date {
+    color: #9d9d9d;
+    font-size: 16px;
+  }
+  .idea-brief {
+    color: #717171;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  .idea-button {
+    a {
+      color: $eastern-blue;
+      border: 1px solid $eastern-blue;
+      display: inline-block;
+      line-height: 1;
+      padding: 10px 15px;
+      border-radius: 8px;
+      &:hover {
+        background-color: $eastern-blue;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.main-wrapper.idea{
+  .inner-idea-img {
+    float: left;
+    margin-right: 15px;
+  }
+  .page-date{
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-family: $fontPrimary;
+    font-weight: normal;
+    padding-top: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+    
+  }
+  .page-title{
+    margin-top: 30px;
+    font-size: 22px;
+    color: $blue;
+  }
+}

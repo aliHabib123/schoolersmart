@@ -79,6 +79,26 @@ class IndexController extends AbstractActionController
         ]);
         return $view;
     }
+    public function ideasAndResourcesAction(){
+        $team = ContentController::getContent("type = 'resource' ORDER BY display_order asc");
+        $bannerLocation = 7;
+        $banners = ContentController::getBanners($bannerLocation);
+        $view = new ViewModel([
+            'banner' => $banners[0],
+            'resources' => $team,
+        ]);
+        return $view;
+    }
+    public function ideaDetailsAction(){
+        $id = HelperController::filterInput($this->params('id'));
+        $contentMySqlExtDAO = new ContentMySqlExtDAO();
+        $pageInfo = $contentMySqlExtDAO->load($id);
+        $this->layout()->htmlClass = 'header-style-2';
+        $this->layout()->header2 = true;
+        return new ViewModel([
+            'page' => $pageInfo,
+        ]);
+    }
     public function testAction()
     {
         $view = new ViewModel();

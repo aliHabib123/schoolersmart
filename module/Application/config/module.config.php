@@ -697,6 +697,26 @@ return [
                     ],
                 ],
             ],
+            'ideasAndResources' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/ideas-resources',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'ideasAndResources',
+                    ],
+                ],
+            ],
+            'ideaDetails' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/idea/:id',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'ideaDetails',
+                    ],
+                ],
+            ],
             'setSession' => [
                 'type'    => Literal::class,
                 'options' => [

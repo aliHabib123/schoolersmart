@@ -1,9 +1,6 @@
 <?php
 /**
  * Class that operate on table 'content'. Database Mysql.
- *
- * @author: http://phpdao.com
- * @date: 2021-05-14 19:34
  */
 class ContentMySqlDAO implements ContentDAO{
 
@@ -57,12 +54,13 @@ class ContentMySqlDAO implements ContentDAO{
  	 * @param ContentMySql content
  	 */
 	public function insert($content){
-		$sql = 'INSERT INTO content (parent_id, title, subtitle, details, image, file, album_id, custom_url, slug, display_order, active, type, mime_type, lang, translation_id, can_delete) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO content (parent_id, title, subtitle, date_text, details, image, file, album_id, custom_url, slug, display_order, active, type, mime_type, lang, translation_id, can_delete) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($content->parentId);
 		$sqlQuery->set($content->title);
 		$sqlQuery->set($content->subtitle);
+		$sqlQuery->set($content->dateText);
 		$sqlQuery->set($content->details);
 		$sqlQuery->set($content->image);
 		$sqlQuery->set($content->file);
@@ -75,7 +73,7 @@ class ContentMySqlDAO implements ContentDAO{
 		$sqlQuery->set($content->mimeType);
 		$sqlQuery->setNumber($content->lang);
 		$sqlQuery->set($content->translationId);
-		$sqlQuery->set($content->canDelete);
+		$sqlQuery->setNumber($content->canDelete);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$content->id = $id;
@@ -88,12 +86,13 @@ class ContentMySqlDAO implements ContentDAO{
  	 * @param ContentMySql content
  	 */
 	public function update($content){
-		$sql = 'UPDATE content SET parent_id = ?, title = ?, subtitle = ?, details = ?, image = ?, file = ?, album_id = ?, custom_url = ?, slug = ?, display_order = ?, active = ?, type = ?, mime_type = ?, lang = ?, translation_id = ?, can_delete = ? WHERE id = ?';
+		$sql = 'UPDATE content SET parent_id = ?, title = ?, subtitle = ?, date_text = ?, details = ?, image = ?, file = ?, album_id = ?, custom_url = ?, slug = ?, display_order = ?, active = ?, type = ?, mime_type = ?, lang = ?, translation_id = ?, can_delete = ? WHERE id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($content->parentId);
 		$sqlQuery->set($content->title);
 		$sqlQuery->set($content->subtitle);
+		$sqlQuery->set($content->dateText);
 		$sqlQuery->set($content->details);
 		$sqlQuery->set($content->image);
 		$sqlQuery->set($content->file);
@@ -106,7 +105,7 @@ class ContentMySqlDAO implements ContentDAO{
 		$sqlQuery->set($content->mimeType);
 		$sqlQuery->setNumber($content->lang);
 		$sqlQuery->set($content->translationId);
-		$sqlQuery->set($content->canDelete);
+		$sqlQuery->setNumber($content->canDelete);
 
 		$sqlQuery->set($content->id);
 		return $this->executeUpdate($sqlQuery);
@@ -137,6 +136,13 @@ class ContentMySqlDAO implements ContentDAO{
 
 	public function queryBySubtitle($value){
 		$sql = 'SELECT * FROM content WHERE subtitle = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByDateText($value){
+		$sql = 'SELECT * FROM content WHERE date_text = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		return $this->getList($sqlQuery);
@@ -229,7 +235,7 @@ class ContentMySqlDAO implements ContentDAO{
 	public function queryByCanDelete($value){
 		$sql = 'SELECT * FROM content WHERE can_delete = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->getList($sqlQuery);
 	}
 
@@ -250,6 +256,13 @@ class ContentMySqlDAO implements ContentDAO{
 
 	public function deleteBySubtitle($value){
 		$sql = 'DELETE FROM content WHERE subtitle = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByDateText($value){
+		$sql = 'DELETE FROM content WHERE date_text = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		return $this->executeUpdate($sqlQuery);
@@ -342,7 +355,7 @@ class ContentMySqlDAO implements ContentDAO{
 	public function deleteByCanDelete($value){
 		$sql = 'DELETE FROM content WHERE can_delete = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -360,6 +373,7 @@ class ContentMySqlDAO implements ContentDAO{
 		$content->parentId = $row['parent_id'];
 		$content->title = $row['title'];
 		$content->subtitle = $row['subtitle'];
+		$content->dateText = $row['date_text'];
 		$content->details = $row['details'];
 		$content->image = $row['image'];
 		$content->file = $row['file'];

@@ -1,0 +1,26 @@
+<?php
+
+use Application\Controller\HelperController;
+use Application\Controller\DesignController;
+?>
+<div class="main-wrapper idea">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12 page-title">
+                <?php echo $this->page->title; ?>
+            </div>
+            <div class="col-md-12 page-date">
+                <?php echo $this->page->dateText; ?>
+            </div>
+            <div class="col-md-12">
+                <div class="page-details">
+                    <div class="inner-idea-img">
+                        <img src="<?php echo HelperController::getImageUrl($this->page->image); ?>" alt="<?php echo $this->page->title; ?>" />
+                    </div>
+                    <?php echo $this->page->details; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
