@@ -197,7 +197,7 @@ if (isset($_REQUEST['act'])) {
 				</li>
 				<li class="">
 					<a href="display_resource.php">
-					<i class="far fa-lightbulb"></i>
+						<i class="far fa-lightbulb"></i>
 						<span class="title">Ideas & Resources</span>
 					</a>
 				</li>
@@ -283,6 +283,28 @@ if (isset($_REQUEST['act'])) {
 						<span class="title">Products</span>
 					</a>
 				</li>
+				<?php if(ENABLE_BULK_UPLOAD){?>
+				<li>
+					<a class="active" href="javascript:;">
+						<i class="fas fa-ad"></i>
+						<span class="title">Bulk Upload</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="bulk-import.php">
+								Products
+							</a>
+						</li>
+						<li>
+							<a href="responsive_filemanager/filemanager/dialog.php" target="_blank">
+								Images
+							</a>
+						</li>
+
+					</ul>
+				</li>
+				<?php }?>
 				<li class="">
 					<a href="display_orders.php">
 						<i class="fas fa-file-invoice-dollar"></i>
