@@ -48,9 +48,9 @@ function main()
 	if ($categoryId) {
 		$categoryArray = explode('-', $categoryId);
 		$selectedCategory = $categoryArray[0];
-		if (count($categoryArray) == 3) {
+		if (count($categoryArray) == 2) {
 			$condition .= " d.`category_id`= '$selectedCategory' AND";
-		} elseif (count($categoryArray) == 2) {
+		} elseif (count($categoryArray) == 1) {
 			$categoriesLevel2 = $categoryMySqlExtDAO->select("parent_id = '" . $categoryArray[0] . "'");
 			$inCategoryArray = [];
 			foreach ($categoriesLevel2 as $row) {
@@ -58,16 +58,16 @@ function main()
 			}
 			$condition .= " d.`category_id` IN (" . implode(',', $inCategoryArray) . ") AND";
 		} else {
-			$categoriesLevel2 = $categoryMySqlExtDAO->select("parent_id = " . $categoryArray[0]);
-			$inCategoryArray = [];
-			foreach ($categoriesLevel2 as $row) {
-				//array_push($inCategoryArray, $row->id);
-				$categoriesLevel3 = $categoryMySqlExtDAO->select("parent_id = " . $row->id);
-				foreach ($categoriesLevel3 as $row1) {
-					array_push($inCategoryArray, $row1->id);
-				}
-			}
-			$condition .= " d.`category_id` IN (" . implode(',', $inCategoryArray) . ") AND";
+			// $categoriesLevel2 = $categoryMySqlExtDAO->select("parent_id = " . $categoryArray[0]);
+			// $inCategoryArray = [];
+			// foreach ($categoriesLevel2 as $row) {
+			// 	//array_push($inCategoryArray, $row->id);
+			// 	$categoriesLevel3 = $categoryMySqlExtDAO->select("parent_id = " . $row->id);
+			// 	foreach ($categoriesLevel3 as $row1) {
+			// 		array_push($inCategoryArray, $row1->id);
+			// 	}
+			// }
+			// $condition .= " d.`category_id` IN (" . implode(',', $inCategoryArray) . ") AND";
 		}
 	}
 
