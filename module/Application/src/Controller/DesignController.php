@@ -45,7 +45,21 @@ class DesignController extends AbstractActionController
             }
             $price .= " " . $currencySymbol;
         }
-        $image = ($item->image != "" && $item->image != null) ? HelperController::getImageUrl($item->image) : PRODUCT_PLACEHOLDER_IMAGE_URL;
+        if (USE_FILEMANAGER_UPLOADS) {
+            //echo 'using filemanager-';
+            //echo BASE_PATH . filemanager_upload_thumb_dir . $item->sku . '.png';
+            if (file_exists(BASE_PATH . filemanager_upload_thumb_dir . $item->sku . '.png')) {
+                //echo 'file exists';
+                $image = HelperController::getImageUrlFromFileManager($item->sku . '.png')->image;
+            } else {
+                //echo 'file does not exists';
+                $image = PRODUCT_PLACEHOLDER_IMAGE_URL;
+            }
+            //$image = ($item->image != "" && $item->image != null) ? HelperController::getImageUrl($item->image) : PRODUCT_PLACEHOLDER_IMAGE_URL;
+        } else {
+            $image = ($item->image != "" && $item->image != null) ? HelperController::getImageUrl($item->image) : PRODUCT_PLACEHOLDER_IMAGE_URL;
+        }
+
         $url = MAIN_URL . 'product/' . $item->slug;
 
         $imageSrc = "img/heart-off.png";
@@ -226,9 +240,9 @@ class DesignController extends AbstractActionController
         $price = ProductController::getFinalPrice(floatval($item->regularPrice) * $rate, floatval($item->salePrice) * $rate);
         $rawPrice = ProductController::getFinalPrice(floatval($item->regularPrice) * $rate, floatval($item->salePrice) * $rate, true);
         $subtotalRaw = $rawPrice * $item->cartQty;
-        $subtotal = number_format($subtotalRaw) . " ". $currency;
+        $subtotal = number_format($subtotalRaw) . " " . $currency;
         if ($price != "n/a") {
-            $price .= " ". $currency;
+            $price .= " " . $currency;
         }
         $image = ($item->image != "" && $item->image != null) ? HelperController::getImageUrl($item->image) : PRODUCT_PLACEHOLDER_IMAGE_URL;
         $title = $item->title;
@@ -269,9 +283,9 @@ class DesignController extends AbstractActionController
         $price = ProductController::getFinalPrice($item->regularPrice * $rate, $item->salePrice * $rate);
         $rawPrice = ProductController::getFinalPrice($item->regularPrice * $rate, $item->salePrice * $rate, true);
         $subtotalRaw = $rawPrice * $item->cartQty;
-        $subtotal = number_format($subtotalRaw) . " ". $currency;
+        $subtotal = number_format($subtotalRaw) . " " . $currency;
         if ($price != "n/a") {
-            $price .= " ". $currency;
+            $price .= " " . $currency;
         }
         $image = ($item->image != "" && $item->image != null) ? HelperController::getImageUrl($item->image) : PRODUCT_PLACEHOLDER_IMAGE_URL;
         //$url = MAIN_URL . 'product/' . $item->slug;
