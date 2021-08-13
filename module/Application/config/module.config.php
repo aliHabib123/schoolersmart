@@ -238,7 +238,7 @@ return [
                     'route'    => '/submit-import',
                     'defaults' => [
                         'controller' => Controller\ImportController::class,
-                        'action'     => 'submitImport',
+                        'action'     => 'submitImportCms',
                     ],
                 ],
             ],

@@ -34,6 +34,8 @@ if (isset($_REQUEST['act'])) {
 	<meta content="" name="description" />
 	<meta content="" name="author" />
 	<meta name="MobileOptimized" content="320">
+	<script src="assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+	<script src="assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 	<!-- BEGIN GLOBAL MANDATORY STYLES -->
 	<link href="../public/fontawesome-free-5.15.3-web/css/all.css" rel="stylesheet" type="text/css" />
 	<link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -367,8 +369,6 @@ if (isset($_REQUEST['act'])) {
 	<script src="assets/plugins/respond.min.js"></script>
 	<script src="assets/plugins/excanvas.min.js"></script> 
 	<![endif]-->
-	<script src="assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
-	<script src="assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 	<script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="assets/plugins/bootstrap/js/bootstrap2-typeahead.min.js" type="text/javascript"></script>
 	<script src="assets/plugins/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js" type="text/javascript"></script>

@@ -85,6 +85,14 @@ class HelperController extends AbstractActionController
         }
     }
 
+    public static function getImageUrlFromFileManager($imageName)
+    {
+        $obj = new stdClass();
+        $obj->image = BASE_URL . filemanager_upload_image_dir . $imageName;
+        $obj->thumb = BASE_URL . filemanager_upload_thumb_dir . $imageName;
+        return $obj;
+    }
+
     public static function getImageUrl($imageName)
     {
         return BASE_URL . upload_image_dir . $imageName;
