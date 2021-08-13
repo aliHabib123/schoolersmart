@@ -1,9 +1,6 @@
 <?php
 /**
  * Intreface DAO
- *
- * @author: http://phpdao.com
- * @date: 2021-05-14 19:34
  */
 interface ContentDAO{
 
@@ -57,6 +54,8 @@ interface ContentDAO{
 
 	public function queryBySubtitle($value);
 
+	public function queryByDateText($value);
+
 	public function queryByDetails($value);
 
 	public function queryByImage($value);
@@ -83,11 +82,14 @@ interface ContentDAO{
 
 	public function queryByCanDelete($value);
 
+
 	public function deleteByParentId($value);
 
 	public function deleteByTitle($value);
 
 	public function deleteBySubtitle($value);
+
+	public function deleteByDateText($value);
 
 	public function deleteByDetails($value);
 

@@ -1,0 +1,37 @@
+<?php
+
+use Application\Controller\DesignController;
+use Application\Controller\HelperController;
+?>
+<div class="main-wrapper careers-page">
+    <div class="page-banner-wrap about">
+        <?php if ($this->banner->imageName) { ?>
+            <div class="page-banner">
+                <img src="<?php echo HelperController::getImageUrl($this->banner->imageName); ?>" alt="" />
+            </div>
+        <?php } ?>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="skewed2"><span><?php echo 'Ideas & Resources'; ?></span></div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <?php foreach ($this->resources as $row) { ?>
+                <div class="col-md-4">
+                    <div class="idea-wrap">
+                        <div class="idea-img"><a href="<?php echo MAIN_URL . 'idea/' . $row->id; ?>"><img src="<?php echo HelperController::getImageUrl($row->image); ?>" /></a></div>
+                        <div class="idea-date"><?php echo $row->dateText; ?></div>
+                        <div class="idea-title"><a href="<?php echo MAIN_URL . 'idea/' . $row->id; ?>"><?php echo $row->title; ?></a></div>
+                        <div class="idea-brief"><?php echo substr(strip_tags($row->details), 0, 200); ?></div>
+                        <div class="idea-button"><a href="<?php echo MAIN_URL . 'idea/' . $row->id; ?>">READ MORE</a></div>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+</div>

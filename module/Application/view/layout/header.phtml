@@ -104,7 +104,7 @@ if (!isset($_SESSION['rate']) || !isset($_SESSION['currency'])) {
                 <span class="search-wrapper">
                     <a href="javascript:void(0);"><img src="img/search-icon<?php echo !empty($this->header2) ? '-dark' : ''; ?>.png" /></a>
                     <div class="search-wrapper-inner">
-                        <form method="GET" action="<?php echo MAIN_URL.'products'?>">
+                        <form method="GET" action="<?php echo MAIN_URL . 'products' ?>">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search ..." name="search">
                                 <div class="input-group-append">
@@ -125,7 +125,7 @@ if (!isset($_SESSION['rate']) || !isset($_SESSION['currency'])) {
                         <ul>
                             <li><a href="<?php echo MAIN_URL; ?>">HOME</a></li>
                             <li><a href="<?php echo MAIN_URL . 'page/about-us' ?>">ABOUT US</a></li>
-                            <li><a href="javascript:void(0);">IDEAS & RESOURCES</a></li>
+                            <li><a href="<?php echo MAIN_URL . 'ideas-resources'; ?>">IDEAS & RESOURCES</a></li>
                             <li><a href="<?php echo MAIN_URL . 'contact-us' ?>">CONTACT US</a></li>
                         </ul>
                     </div>
