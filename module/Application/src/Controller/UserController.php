@@ -110,6 +110,7 @@ class UserController extends AbstractActionController
         $mobile = HelperController::filterInput($this->getRequest()->getPost('mobile'));
         $country = HelperController::filterInput($this->getRequest()->getPost('country'));
         $city = HelperController::filterInput($this->getRequest()->getPost('city'));
+        $postalCode = HelperController::filterInput($this->getRequest()->getPost('postal-code'));
         $userType = HelperController::filterInput($this->getRequest()->getPost('user-type'));
 
         // School
@@ -127,7 +128,7 @@ class UserController extends AbstractActionController
         $agree = HelperController::filterInput($this->getRequest()->getPost('agree'));
         $redirectUrl = HelperController::filterInput($this->getRequest()->getPost('redirectUrl'));
         
-        if ($schoolNumber == "" || $schoolName == "" || $firstName == "" || $lastName == "" || $mobile == "" || $email == "" || $password == "" || $confirmPassword == "") {
+        if ($schoolNumber == "" || $schoolName == "" || $firstName == "" || $lastName == "" || $mobile == "" || $email == "" || $password == "" || $confirmPassword == "" || $postalCode == "") {
             $msg = "Please fill all inputs";
         } elseif ($password != $confirmPassword) {
             $msg = "Passwords do not match";
