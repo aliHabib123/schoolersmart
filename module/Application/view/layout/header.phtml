@@ -55,7 +55,103 @@ if (!isset($_SESSION['rate']) || !isset($_SESSION['currency'])) {
 ?>
 <header class="main-header">
     <div class="container-fluid">
-        <div class="middle-menu d-none d-sm-block clearfix">
+        <div>
+
+        </div>
+    </div>
+    <div class="middle-menu d-none d-sm-block">
+        <nav class="navbar navbar-light navbar-expand-md bg-light justify-content-center">
+            <a href="<?php echo MAIN_URL ?>"><img src="img/logo.png?v=1.0.0" /></a>
+            <button class="navbar-toggler ml-1" type="button" data-toggle="collapse" data-target="#collapsingNavbar2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
+                <ul class="navbar-nav mx-auto text-center">
+
+                    <li class="nav-item active"><a class="nav-link" href="<?php echo MAIN_URL; ?>">HOME</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo MAIN_URL . 'page/about-us' ?>">ABOUT US</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo MAIN_URL . 'ideas-resources'; ?>">IDEAS & RESOURCES</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo MAIN_URL . 'contact-us' ?>">CONTACT US</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo MAIN_URL . 'products' ?>">SHOP</a></li>
+
+                </ul>
+            </div>
+            <div class="navbar-collapse collapse justify-content-stretch" id="navbar7">
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item">
+                        <span class="dropdown-wrap">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Currency: <?php echo $selectedCurrency; ?>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <?php foreach ($currencies as $currency) { ?>
+                                        <a class="dropdown-item currency-item" href="javascript:void(0);" data-currency="<?php echo $currency->currencyName; ?>" data-rate="<?php echo $currency->conversionRate; ?>"><?php echo $currency->currencyName; ?></a>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <?php if (isset($_SESSION['user'])) { ?>
+                            <span class="dropdown-wrap">
+                                <div class="dropdown">
+                                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Welcome <?php echo $_SESSION['user']->firstName; ?>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="<?php echo MAIN_URL . 'my-orders'; ?>">My Orders</a>
+                                        <a class="dropdown-item" href="<?php echo MAIN_URL . 'my-wishlist'; ?>">My Wishlist</a>
+                                        <a class="dropdown-item" href="<?php echo MAIN_URL . 'logout'; ?>">Logout</a>
+                                    </div>
+                                </div>
+                            </span>
+                        <?php } else { ?>
+                            <span class="login-logout-wrap"><a href="javascript:void(0);" data-toggle="modal" data-target="#login-signup-modal"><i class="far fa-user"></i></a></span>
+                        <?php } ?>
+                    </li>
+                    <li class="nav-item">
+                        <span>
+                            <a href="<?php echo MAIN_URL . 'my-wishlist'; ?>"><i class="far fa-heart"></i></a>
+                            <span class="badge"><?php echo $wishlistCount; ?></span>
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <span class="cart-wrapper">
+                            <a href="javascript:void(0);">
+                                <i class="fas fa-shopping-cart"></i>
+                            </a>
+                            <span class="badge"><?php echo $cartCount; ?></span>
+                            <div class="compact-cart-wrapper">
+                                <?php echo DesignController::compactCartItems($cartItems); ?>
+                            </div>
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <span class="search-wrapper">
+                            <a href="javascript:void(0);"><i class="fas fa-search"></i></a>
+                            <div class="search-wrapper-inner">
+                                <form method="GET" action="<?php echo MAIN_URL . 'products' ?>">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search ..." name="search">
+                                        <div class="input-group-append">
+                                            <button class="btn" type="submit">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container-fluid">
+
+        <div class="middle-menu d-none d-sm-block clearfix" style="display: none !important;">
             <div class="logo-container">
                 <a href="<?php echo MAIN_URL ?>"><img src="img/logo.png?v=1.0.0" /></a>
             </div>

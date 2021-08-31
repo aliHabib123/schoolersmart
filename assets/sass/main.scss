@@ -672,18 +672,19 @@ body {
       margin-bottom: 10px;
       background-color: transparent;
       border-radius: 4px;
-      display: block;
+      display: block !important;
       text-align: center;
       color: #000;
+      font-size: 18px !important;
     }
     a.to-checkout {
       background-color: $eastern-blue;
       color: #fff !important;
       border: 1px solid $eastern-blue;
       border-radius: 0;
-      display: block;
+      display: block !important;
       text-align: center;
-      font-size: 18px;
+      font-size: 18px !important;
       padding: 5px;
       margin-bottom: 17px;
     }
@@ -1088,6 +1089,7 @@ div.skewed2 {
   position: relative;
   &.open {
     .compact-cart-wrapper {
+      z-index: 99999;
       visibility: visible;
       bottom: auto;
       top: 120%;
@@ -1115,6 +1117,7 @@ div.skewed2 {
   }
   &.open {
     .search-wrapper-inner {
+      z-index: 99999;
       visibility: visible;
       bottom: auto;
       top: 120%;
