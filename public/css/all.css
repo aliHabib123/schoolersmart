@@ -1203,9 +1203,7 @@ div.skewed2 {
 .header-style-2 header.main-header {
   position: relative;
   background-color: #fff;
-  border-bottom: 1px solid #000;
-  padding-bottom: 15px;
-  padding-top: 7px; }
+  border-bottom: 1px solid #ebebeb; }
   .header-style-2 header.main-header .middle-menu .buttons-container > span.dropdown-wrap .dropdown {
     border: 1px solid #000;
     color: #000; }
