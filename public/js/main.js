@@ -1,4 +1,43 @@
 $(function () {
+  const megaDropDownMenu = $(".mega-dropdown");
+  const megaDropDownMenuPosition = megaDropDownMenu.position();
+  $("head").append(
+    `<style>.mega-dropdown-menu:before, .mega-dropdown-menu:after { left:${megaDropDownMenuPosition.left}px !important; }</style>`
+  );
+  //   megaDropDownMenu.on('mouseenter mouseleave', function(event){
+  //     $(this).toggleClass('show');
+  //     $(this).find('.mega-dropdown-menu').toggleClass('show');
+  // });
+
+  // Open tabs on hover
+  $(document).on(
+    "mouseenter",
+    ".mega-dropdown-menu .nav-pills a",
+    function (e) {
+      e.preventDefault();
+      console.log($(this));
+      $(".mega-dropdown-menu #v-pills-tabContent")
+        .find("div.active, div.show")
+        .removeClass(["active", "show"]);
+      $(this).tab("show");
+    }
+  );
+
+  $(document).on(
+    "change",
+    '.subcategory-forms-check > input[type="checkbox"], .category-forms-check > input[type="checkbox"]',
+    function (e) {
+      e.preventDefault();
+      window.location.href = $(this).data("href");
+    }
+  );
+  // $('.nav-pills a').click(function(){
+  //   $(this).tab('show');
+  // })
+  //console.log(ttt);
+  $(document).on("click", ".mega-dropdown", function (e) {
+    e.stopPropagation();
+  });
   if ($("#main-banner").length > 0) {
     $("#main-banner").bxSlider({
       mode: "fade",

@@ -215,8 +215,6 @@ body {
       height: 7px;
     }
   }
-  .home-products-slider {
-  }
 }
 .qualities-wrap {
   &.dark {
@@ -276,11 +274,6 @@ body {
         }
       }
       padding: 15px;
-      // background-color: red;
-      img {
-        // height: 100%;
-        // width: auto;
-      }
       &:hover {
         .slide-wrap-img {
           img {
@@ -304,11 +297,6 @@ body {
       -webkit-transform: scale(1.25);
       -moz-transform: scale(1.25);
       transform: scale(1.25);
-    }
-
-    .slick-list {
-      // padding: 45px 60px !important;
-      // margin-left: 30px !important;
     }
   }
   .slick-dots {
@@ -418,12 +406,8 @@ body {
   img {
     width: 100%;
   }
-  .ad1 {
-  }
   .ad2 {
     margin-bottom: 26px;
-  }
-  .ad3 {
   }
 }
 .accordion-c {
@@ -692,6 +676,7 @@ body {
 }
 .noSelect,
 .noSelect * {
+  user-select: none;
   -webkit-user-select: none; /* Chrome all / Safari all */
   -moz-user-select: none; /* Firefox all */
   -ms-user-select: none; /* IE 10+ */
@@ -724,8 +709,6 @@ body {
   text-align: -webkit-center;
   text-align: -moz-center;
   margin-bottom: 30px;
-  img {
-  }
 }
 .modal-header {
   padding: 0.5em 0.5rem;
@@ -763,9 +746,6 @@ body {
       outline: none;
       border-color: initial;
     }
-  }
-  .confirm-password {
-    //margin-bottom: 30px;
   }
   .centered-button {
     text-align: center;
@@ -1067,8 +1047,6 @@ div.skewed2 {
       transition: 0.3s ease-in-out;
     }
   }
-  .service-title {
-  }
   .service-slogan {
     font-family: $mountainBridge;
   }
@@ -1317,12 +1295,6 @@ div.skewed2 {
     font-weight: bold;
     font-size: 16px;
   }
-  .nav-item {
-    //transform: skewX(40deg);
-    a {
-      //transform: skewX(-40deg);
-    }
-  }
 }
 .btn-style-1 {
   display: inline-block;
@@ -1384,12 +1356,12 @@ div.skewed2 {
   }
 }
 
-.main-wrapper.idea{
+.main-wrapper.idea {
   .inner-idea-img {
     float: left;
     margin-right: 15px;
   }
-  .page-date{
+  .page-date {
     font-size: 16px;
     margin-bottom: 20px;
     font-family: $fontPrimary;
@@ -1397,9 +1369,8 @@ div.skewed2 {
     padding-top: 0;
     border-bottom: none;
     padding-bottom: 0;
-    
   }
-  .page-title{
+  .page-title {
     margin-top: 30px;
     font-size: 22px;
     color: $blue;

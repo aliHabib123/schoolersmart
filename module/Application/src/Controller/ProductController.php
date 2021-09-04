@@ -90,6 +90,7 @@ class ProductController extends AbstractActionController
         // get Best Deals
         $bestDeals = self::getItems(false, false, "", "", "", self::$BEST_DEALS, "", 4, 0);
         //print_r($bestDeals);
+        $banners = ContentController::getBanners(4);
         $this->layout()->withBanner = true;
         $this->layout()->banners = $banners;
         $data = [
@@ -1040,5 +1041,84 @@ class ProductController extends AbstractActionController
         $cls->res = $res;
         $cls->msg = $msg;
         return $cls;
+    }
+
+    public function shopAction()
+    {
+        $prefixUrl = MAIN_URL . 'shop/';
+        $page = 1;
+        $limit = 9;
+        $offset = 0;
+        if (isset($_GET['page']) && $_GET['page'] != "") {
+            $page = $_GET['page'];
+            $offset = ($page - 1) * $limit;
+        }
+        $search = (isset($_GET['search']) && $_GET['search'] != "") ? $_GET['search'] : "";
+        $brandId = (isset($_GET['brand']) && $_GET['brand'] != "") ? $_GET['brand'] : "";
+        $minPrice = (isset($_GET['min-price']) && $_GET['min-price'] != "") ? $_GET['min-price'] : "";
+        $maxPrice = (isset($_GET['max-price']) && $_GET['max-price'] != "") ? $_GET['max-price'] : "";
+        $categoriesFiltered = (isset($_GET['c']) && $_GET['c'] != "") ? $_GET['c'] : [];
+        $subCategoriesFiltered = (isset($_GET['sc']) && $_GET['sc'] != "") ? $_GET['sc'] : [];
+        $brandsFiltered = (isset($_GET['b']) && $_GET['b'] != "") ? $_GET['b'] : [];
+
+        $cat1 = $this->params('cat1') ? HelperController::filterInput($this->params('cat1')) : false;
+        $cat2 = $this->params('cat2') ? HelperController::filterInput($this->params('cat2')) : false;
+        $categoryArray = [];
+        $brandsArray = [];
+
+        // Get Brands
+        $itemBrandMySqlExtDAO = new ItemBrandMySqlExtDAO();
+        $brandsList = $itemBrandMySqlExtDAO->queryAll();
+
+        // Get Categories
+        $itemCategoryMySqlExtDAO = new ItemCategoryMySqlExtDAO();
+        $categoryList = $itemCategoryMySqlExtDAO->select('parent_id = 0 ORDER BY name ASC');
+        $featuredCategories = [];
+        if ($cat2) {
+            $subCategory = $itemCategoryMySqlExtDAO->queryBySlug($cat2);
+            array_push($categoryArray, $subCategory[0]->id);
+            $prefixUrl .= $cat1 . '/' . $cat2;
+        } elseif ($cat1) {
+            $category = $itemCategoryMySqlExtDAO->queryBySlug($cat1);
+            $categoryId = $category[0]->id;
+            $subCategories = $itemCategoryMySqlExtDAO->select("parent_id = $categoryId");
+            if ($subCategories) {
+                foreach ($subCategories as $subRow) {
+                    array_push($categoryArray, $subRow->id);
+                }
+            }
+            $prefixUrl .= $cat1;
+            $featuredCategories = $subCategories;
+        } else {
+            $featuredCategories = CategoryController::getCategories();
+        }
+        $items = self::getItems($categoryArray, $search, $brandsArray, $minPrice, $maxPrice, false, "", $limit, $offset);
+        $itemsCount = count(self::getItems($categoryArray, $search, $brandsArray, $minPrice, $maxPrice, false));
+        $totalPages = ceil($itemsCount / $limit);
+
+        // get Best Deals
+        $bestDeals = self::getItems(false, false, "", "", "", self::$BEST_DEALS, "", 4, 0);
+        $banners = ContentController::getBanners(4);
+        $this->layout()->withBanner = true;
+        $this->layout()->banners = $banners;
+        $data = [
+            'items' => $items,
+            'totalPages' => $totalPages,
+            'currentPage' => $page,
+            'isSearch' => $isSearchPage,
+            'search' => $search,
+            'prefixUrl' => $prefixUrl,
+            'brandsList' => $brandsList,
+            'brandId' => $brandId,
+            'minPrice' => $minPrice,
+            'maxPrice' => $maxPrice,
+            'categoryList' => $categoryList,
+            'categoriesFiltered' => $categoriesFiltered,
+            'subCategoriesFiltered' => $subCategoriesFiltered,
+            'brandsFiltered' => $brandsFiltered,
+            'bestDeals' => $bestDeals,
+            'featuredCategories' => $featuredCategories,
+        ];
+        return new ViewModel($data);
     }
 }

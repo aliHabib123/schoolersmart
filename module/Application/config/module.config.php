@@ -41,6 +41,20 @@ return [
                     ],
                 ],
             ],
+            'shop' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/shop[/:cat1][/:cat2][/]',
+                    'defaults' => [
+                        'controller' => Controller\ProductController::class,
+                        'action'     => 'shop',
+                        'year'       => date('Y'),
+                    ],
+                    'constraints' => [
+                        'year' => '\d{4}',
+                    ],
+                ],
+            ],
             'products' => [
                 'type' => Segment::class,
                 'options' => [

@@ -3,9 +3,6 @@
 use Application\Controller\CategoryController;
 use Application\Controller\DesignController;
 use Application\Controller\HelperController;
-use Application\Controller\ProductController;
-use Application\Controller\UserController;
-use Application\Controller\OptionsController;
 
 global $cartCount;
 global $cartItems;
@@ -72,7 +69,57 @@ if (!isset($_SESSION['rate']) || !isset($_SESSION['currency'])) {
                     <li class="nav-item"><a class="nav-link" href="<?php echo MAIN_URL . 'page/about-us' ?>">ABOUT US</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo MAIN_URL . 'ideas-resources'; ?>">IDEAS & RESOURCES</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo MAIN_URL . 'contact-us' ?>">CONTACT US</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?php echo MAIN_URL . 'products' ?>">SHOP</a></li>
+                    <?php /*<li class="nav-item"><a class="nav-link" href="<?php echo MAIN_URL . 'products' ?>">SHOP</a></li>*/ ?>
+                    <li class="nav-item dropdown mega-dropdown">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">SHOP <span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
+
+                        <div class="dropdown-menu mega-dropdown-menu ">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                            <?php
+                                            $c = 0;
+
+                                            foreach ($level1Categories as $row) {
+                                                $additionalClass = "";
+                                                if ($c == 0) {
+                                                    $additionalClass = " active";
+                                                } ?>
+                                                <a class="nav-link <?php echo $additionalClass; ?>" href="#v-pills-<?php echo $row->id ?>" role="tab"><?php echo $row->name; ?></a>
+                                            <?php $c++;
+                                            } ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="tab-content p-3" id="v-pills-tabContent">
+                                            <?php
+                                            $c = 0;
+
+                                            foreach ($level1Categories as $row) {
+                                                $additionalClass = "";
+                                                if ($c == 0) {
+                                                    $additionalClass = " show active";
+                                                } ?>
+                                                <div class="tab-pane fade <?php echo $additionalClass; ?>" id="v-pills-<?php echo $row->id ?>" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                                    <h5><?php echo $row->name; ?></h5>
+                                                    <?php $subCatgeories = CategoryController::getCategories("parent_id = $row->id and active = 1 ORDER BY mega_menu_display_order ASC, name ASC, id DESC"); ?>
+                                                    <ul>
+                                                        <?php foreach ($subCatgeories as $sub) { ?>
+                                                            <li><a href="<?php echo MAIN_URL . 'shop/' . $row->slug . '/' . $sub->slug; ?>"><?php echo $sub->name; ?></a></li>
+                                                        <?php } ?>
+                                                    </ul>
+                                                </div>
+                                            <?php $c++;
+                                            } ?>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </li>
 
                 </ul>
             </div>
