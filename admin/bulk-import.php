@@ -5,11 +5,27 @@
     $totalPages = 5;
     $currentPage = 5; ?>
     <div class="portlet box green">
+        <div class="page-loader"></div>
         <div class="portlet-title">
             <div class="caption"><i class="fa fa-reorder"></i>Bulk Import</div>
         </div>
+
         <div class="portlet-body form">
+            <div class="desc" style="padding: 15px;">
+                <p style="font-size: 15px;">
+                    Before Using the "Bulk Import Feature, make sure you have already
+                    entered the categories, subcategories and brands from the CMS with the exact names."<br><br>
+                    Also make sure to use the correct excel file structure with the corect header names,
+                    if you don't have the file, download a sample file
+                    from <a style="font-size: 16px;color:blue;font-weight: bold;" download href="<?php echo SITE_LINK . 'public/files/excel_sample.xlsx'; ?>">here</a>
+                <h3 style="font-weight: bold !important;">Guidelines:</h3>
+                <p>Categories: comma separated <span style="color:red">ex: category 1, category 2</span></p>
+                <p>Subcategories: comma separated <span style="color:red">ex: subcategory 1, subcategory 2</span></p>
+                <p>age Range: <span style="color:red">ex: 2-4 or 5+ or 0</span></p>
+                </p>
+            </div>
             <form action="<?php echo SITE_LINK . 'submit-import' ?>" method="post" enctype="multipart/form-data" name="frm" id="import-form" class="form-horizontal form-bordered">
+
                 <div class="form-body">
 
                     <div class="form-group">
@@ -82,7 +98,8 @@
                     data: {},
                     beforeSend: function() {
                         jQuery(".notice-area").html(
-                            "importing your file, please wait. <i class='fas fa-spinner fa-spin'></i>"
+                            `importing your file, please wait. <i class='fas fa-spinner fa-spin'></i><br>
+                            <span style="color:red">Do not leave the page</span>`
                         );
                     },
                     success: function(response) {
@@ -108,7 +125,8 @@
                     data: {},
                     beforeSend: function() {
                         jQuery(".notice-area").html(
-                            "importing your file, please wait. <i class='fas fa-spinner fa-spin'></i>"
+                            `importing your file, please wait. <i class='fas fa-spinner fa-spin'></i><br>
+                            <span style="color:red">Do not leave the page</span>`
                         );
                     },
                     success: function(response) {
@@ -127,7 +145,8 @@
                     data: {},
                     beforeSend: function() {
                         jQuery(".notice-area").html(
-                            "importing your file, please wait. <i class='fas fa-spinner fa-spin'></i>"
+                            `importing your file, please wait <i class='fas fa-spinner fa-spin'></i><br>
+                            <span style="color:red">Do not leave the page</span>`
                         );
                     },
                     success: function(response) {
@@ -137,8 +156,56 @@
                     error: function() {},
                 });
             }
+
+            function checkTempTable() {
+                jQuery.ajax({
+                    url: mainUrl + "insert-batch",
+                    type: "POST",
+                    dataType: "json",
+                    data: {},
+                    beforeSend: function() {},
+                    success: function(response) {
+                        jQuery(".page-loader").hide();
+                        console.log(response);
+                        if (response.res == true) {
+                            jQuery(".notice-area").html(
+                                `importing your file, please wait. <i class='fas fa-spinner fa-spin'></i><br>
+                            <span style="color:red">Do not leave the page</span>`
+                            );
+                            insertItemsBatches();
+                        }
+                    },
+                    error: function() {
+                        jQuery(".page-loader").hide();
+                    },
+                });
+            }
+            jQuery('.page-loader').toggle();
+            checkTempTable();
         });
     </script>
+    <style>
+        .page-loader {
+            display: none;
+            position: fixed;
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: 100%;
+            z-index: 999999;
+        }
+
+        .page-loader span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .page-loader span i {
+            color: #fff;
+            font-size: 60px;
+        }
+    </style>
 <?php
 }
 include "template.php"; ?>

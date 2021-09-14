@@ -86,7 +86,7 @@ if (!isset($_SESSION['rate']) || !isset($_SESSION['currency'])) {
                                                 if ($c == 0) {
                                                     $additionalClass = " active";
                                                 } ?>
-                                                <a class="nav-link <?php echo $additionalClass; ?>" href="<?php echo MAIN_URL . 'shop/' . $row->slug; ?>" role="tab"><?php echo $row->name; ?></a>
+                                                <a class="nav-link <?php echo $additionalClass; ?>" href="#v-pills-<?php echo $row->id ?>" data-href="<?php echo MAIN_URL . 'shop/' . $row->slug; ?>" role="tab"><?php echo $row->name; ?></a>
                                             <?php $c++;
                                             } ?>
                                         </div>

@@ -48,9 +48,10 @@ class DesignController extends AbstractActionController
         if (USE_FILEMANAGER_UPLOADS) {
             //echo 'using filemanager-';
             //echo BASE_PATH . filemanager_upload_thumb_dir . $item->sku . '.png';
-            if (file_exists(BASE_PATH . filemanager_upload_thumb_dir . $item->sku . '.png')) {
+            //echo BASE_PATH . filemanager_upload_thumb_dir . $item->sku . '-1-U' . '.jpg';
+            if (file_exists(BASE_PATH . filemanager_upload_thumb_dir . $item->sku . '-1-U' . '.jpg')) {
                 //echo 'file exists';
-                $image = HelperController::getImageUrlFromFileManager($item->sku . '.png')->image;
+                $image = HelperController::getImageUrlFromFileManager($item->sku . '-1-U' . '.jpg')->image;
             } else {
                 //echo 'file does not exists';
                 $image = PRODUCT_PLACEHOLDER_IMAGE_URL;

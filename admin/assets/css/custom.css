@@ -17,6 +17,9 @@
 .notice-area {
   text-align: center;
   min-height: 20px;
+  font-size: 15px;
+  margin-top: 10px;
+  font-weight: bold;
 }
 .notice-area .error {
   color: red;
@@ -50,6 +53,6 @@
 .category-title {
   font-weight: bold;
 }
-.catgeories-wrap label{
+.catgeories-wrap label {
   width: 100%;
 }

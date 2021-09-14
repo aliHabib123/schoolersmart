@@ -34,7 +34,7 @@ $(function () {
   //v-pills-tab
   $(document).on("click", "#v-pills-tab a", function (e) {
     e.preventDefault();
-    window.location.href = $(this).attr("href");
+    window.location.href = $(this).data("href");
   });
 
   $(document).on(
