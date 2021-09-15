@@ -29,8 +29,14 @@ function main()
 							<input name="symbol" type="text" class="form-control" id="symbol" value="<?php echo stripslashes($res->currencySymbol) ?>" placeholder="Enter Symbol">
 						</div>
 					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">Rate</label>
+						<div class="col-md-3">
+							<input name="rate" type="text" class="form-control" id="rate" value="<?php echo stripslashes($res->conversionRate); ?>" placeholder="Enter Symbol">
+						</div>
+					</div>
 
-					
+
 
 					<div class="form-group">
 						<?php

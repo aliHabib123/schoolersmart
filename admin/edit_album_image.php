@@ -40,7 +40,7 @@ function main()
 								<a href="#" class="btn red fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Remove</a>
 							</div>
 						</div>
-						<span>1200 * 600 px</span>
+						<!-- <span>1200 * 600 px</span> -->
 					</div>
 				</div>
 

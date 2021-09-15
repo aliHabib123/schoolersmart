@@ -13,6 +13,7 @@ extract($_POST);
 $obj =  $currencyMysqlExtDAO->load($id);
 $obj->currencyName = $name;
 $obj->currencySymbol = $symbol;
+$obj->conversionRate = $rate;
 $obj->displayOrder = $display_order;
 
 $num = 0;

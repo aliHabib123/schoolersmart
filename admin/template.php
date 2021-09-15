@@ -183,12 +183,14 @@ if (isset($_REQUEST['act'])) {
 						<span class="title">Pages</span>
 					</a>
 				</li>
-				<li class="">
-					<a href="display_team.php">
-						<i class="fas fa-users"></i>
-						<span class="title">Team</span>
-					</a>
-				</li>
+				<?php if (ENABLE_TEAM_MANAGEMENT) { ?>
+					<li class="">
+						<a href="display_team.php">
+							<i class="fas fa-users"></i>
+							<span class="title">Team</span>
+						</a>
+					</li>
+				<?php } ?>
 				<li class="">
 					<a href="display_service.php">
 						<i class="fas fa-cubes"></i>
@@ -283,28 +285,28 @@ if (isset($_REQUEST['act'])) {
 						<span class="title">Products</span>
 					</a>
 				</li>
-				<?php if(ENABLE_BULK_UPLOAD){?>
-				<li>
-					<a class="active" href="javascript:;">
-						<i class="fas fa-ad"></i>
-						<span class="title">Bulk Upload</span>
-						<span class="arrow "></span>
-					</a>
-					<ul class="sub-menu">
-						<li>
-							<a href="bulk-import.php">
-								Products
-							</a>
-						</li>
-						<li>
-							<a href="responsive_filemanager/filemanager/dialog.php" target="_blank">
-								Images
-							</a>
-						</li>
+				<?php if (ENABLE_BULK_UPLOAD) { ?>
+					<li>
+						<a class="active" href="javascript:;">
+							<i class="fas fa-ad"></i>
+							<span class="title">Bulk Upload</span>
+							<span class="arrow "></span>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="bulk-import.php">
+									Products
+								</a>
+							</li>
+							<li>
+								<a href="responsive_filemanager/filemanager/dialog.php" target="_blank">
+									Images
+								</a>
+							</li>
 
-					</ul>
-				</li>
-				<?php }?>
+						</ul>
+					</li>
+				<?php } ?>
 				<li class="">
 					<a href="display_orders.php">
 						<i class="fas fa-file-invoice-dollar"></i>

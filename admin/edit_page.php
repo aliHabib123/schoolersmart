@@ -29,6 +29,13 @@ function main()
 					</div>
 
 					<div class="form-group">
+						<label class="col-md-3 control-label">Subtitle</label>
+						<div class="col-md-3">
+							<input name="subtitle" type="text" class="form-control" id="subtitle" value="<?php echo stripslashes($page->subtitle) ?>" placeholder="Enter Page Subtitle">
+						</div>
+					</div>
+
+					<div class="form-group">
 						<label class="col-md-3 control-label">Image</label>
 						<div class="col-md-9">
 							<div class="fileupload fileupload-new" data-provides="fileupload">

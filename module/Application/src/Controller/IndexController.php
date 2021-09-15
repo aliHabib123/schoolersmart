@@ -51,11 +51,16 @@ class IndexController extends AbstractActionController
             $page = $contentMySqlExtDAO->queryBySlug($slug);
             $albumId = $page[0]->albumId;
             $images = $imageMySqlExtDAO->queryByAlbumId($albumId);
+
+            $whatMakesUsSpecial = $contentMySqlExtDAO->load(93);
+            $whatMakesUsSpecialAlbum = $imageMySqlExtDAO->queryByAlbumId($whatMakesUsSpecial->albumId);
             $this->layout()->htmlClass = 'content';
 
             $view = new ViewModel([
                 'page' => $page[0],
                 'images' => $images,
+                'what' => $whatMakesUsSpecial,
+                'whatAlbum' => $whatMakesUsSpecialAlbum,
             ]);
             $view->setTemplate('application/index/about');
             return $view;

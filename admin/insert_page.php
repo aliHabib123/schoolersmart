@@ -33,13 +33,14 @@ if (is_file($imagesPath.$image)) {
 
 $obj =  new ContentMySqlDAO();
 $obj->title = $title;
+$obj->subtitle = $subtitle;
 $obj->image = $image;
 $obj->details = $details;
 $obj->lang = $lang;
 $obj->displayOrder = $display_order;
 $obj->type = 'page';
 $obj->slug = $slug;
-$obj->canDelete = 1;
+$obj->canDelete = 0;
 $obj->albumId = $album;
 
 if($translate){
