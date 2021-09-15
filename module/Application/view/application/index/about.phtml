@@ -46,38 +46,22 @@ use Application\Controller\DesignController;
                 <div class="row">
                     <div class="col-md-6">
                         <div class="column1">
-                            <div class="title">WHAT</div>
-                            <div class="subtitle">MAKES US <span>SPECIAL</span></div>
-                            <div class="description">
-                                We believe every student can flourish in an environment where they feel safe and inspired to
-                                explore and grow. We empoer leaders with modern educational ecosystems that optimize student
-                                outcomes. We create HOLISTIC ENVIRONMENTS, from crayons to curriculum, furniture to technology, We
-                                empoer leaders with modern educational ecosystems that optimize student outcomes.<br><br>
-                                We create HOLISTIC ENVIRONMENTS, from crayons to curriculum, furniture to technology,
-                            </div>
+                            <div class="title"><?php echo $this->what->title; ?></div>
+                            <div class="subtitle"><?php echo $this->what->subtitle; ?></div>
+                            <div class="description"><?php echo $this->what->details; ?></div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="column2">
                             <div class="what-makes-slider">
-                                <div>
-                                    <a href="javascript:void(0);">
-                                        <img src="img/hotselling.png" />
-                                    </a>
-                                    <div class="slider-title">AFFORDABLE QUALITY</div>
-                                </div>
-                                <div>
-                                    <a href="javascript:void(0);">
-                                        <img src="img/hotselling.png" />
-                                    </a>
-                                    <div class="slider-title">AFFORDABLE QUALITY</div>
-                                </div>
-                                <div>
-                                    <a href="javascript:void(0);">
-                                        <img src="img/hotselling.png" />
-                                    </a>
-                                    <div class="slider-title">AFFORDABLE QUALITY</div>
-                                </div>
+                                <?php foreach ($this->whatAlbum as $row) { ?>
+                                    <div>
+                                        <a href="javascript:void(0);">
+                                            <img src="<?php echo HelperController::getImageUrl($row->imageName); ?>" />
+                                        </a>
+                                        <div class="slider-title"><?php echo $row->caption; ?></div>
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -99,63 +83,63 @@ use Application\Controller\DesignController;
             <div class="row">
                 <div class="col-md-4">
                     <div class="team-member-wrap">
-                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-img"><img src="img/team.png" /></div>
                         <div class="team-member-position">BUSINESS DEVELOPMENT</div>
                         <div class="team-member-name">FULL NAME</div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="team-member-wrap">
-                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-img"><img src="img/team.png" /></div>
                         <div class="team-member-position">BUSINESS DEVELOPMENT</div>
                         <div class="team-member-name">FULL NAME</div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="team-member-wrap">
-                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-img"><img src="img/team.png" /></div>
                         <div class="team-member-position">BUSINESS DEVELOPMENT</div>
                         <div class="team-member-name">FULL NAME</div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="team-member-wrap">
-                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-img"><img src="img/team.png" /></div>
                         <div class="team-member-position">BUSINESS DEVELOPMENT</div>
                         <div class="team-member-name">FULL NAME</div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="team-member-wrap">
-                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-img"><img src="img/team.png" /></div>
                         <div class="team-member-position">BUSINESS DEVELOPMENT</div>
                         <div class="team-member-name">FULL NAME</div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="team-member-wrap">
-                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-img"><img src="img/team.png" /></div>
                         <div class="team-member-position">BUSINESS DEVELOPMENT</div>
                         <div class="team-member-name">FULL NAME</div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="team-member-wrap">
-                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-img"><img src="img/team.png" /></div>
                         <div class="team-member-position">BUSINESS DEVELOPMENT</div>
                         <div class="team-member-name">FULL NAME</div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="team-member-wrap">
-                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-img"><img src="img/team.png" /></div>
                         <div class="team-member-position">BUSINESS DEVELOPMENT</div>
                         <div class="team-member-name">FULL NAME</div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="team-member-wrap">
-                        <div class="team-member-img"><img src="img/team.png"/></div>
+                        <div class="team-member-img"><img src="img/team.png" /></div>
                         <div class="team-member-position">BUSINESS DEVELOPMENT</div>
                         <div class="team-member-name">FULL NAME</div>
                     </div>

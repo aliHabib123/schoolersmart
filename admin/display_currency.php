@@ -24,25 +24,6 @@ function main()
 			<div class="caption">
 				<i class="fa fa-globe"></i>CURRENCY MANAGEMENT
 			</div>
-			<div class="actions">
-				<div class="btn-group">
-					<a class="btn default" href="#" data-toggle="dropdown">
-						Columns
-						<i class="fa fa-angle-down"></i>
-					</a>
-					<div id="sample_2_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
-						<label><input type="checkbox" checked data-column="0">ID</label>
-						<label><input type="checkbox" checked data-column="<?php echo "1"; ?>"><?php echo "Name"; ?></label>
-						<label><input type="checkbox" checked data-column="<?php echo "2"; ?>"><?php echo "Symbol"; ?></label>
-						<label><input type="checkbox" checked data-column="<?php echo "3"; ?>"><?php echo "Display Order"; ?></label>
-					</div>
-				</div>
-				<div class="btn-group">
-					<a id="sample_editable_1_new" class="btn green" href="new_item_brand.php">
-						Add New <i class="fa fa-plus"></i>
-					</a>
-				</div>
-			</div>
 		</div>
 		<div class="portlet-body">
 			<table class="table table-striped table-bordered table-hover table-full-width" id="sample_2">
@@ -51,6 +32,7 @@ function main()
 						<th>ID</th>
 						<th><?php echo "Name"; ?></th>
 						<th><?php echo "Symbol"; ?></th>
+						<th><?php echo "Conversion Rate"; ?></th>
 						<th><?php echo "Display Order"; ?></th>
 						<th></th>
 						<th></th>
@@ -67,6 +49,7 @@ function main()
 							<td><?php echo $row->id; ?></td>
 							<td><?php echo $row->currencyName; ?></td>
 							<td><?php echo $row->currencySymbol; ?></td>
+							<td><?php echo $row->conversionRate; ?></td>
 							<td align="center"><?php echo $row->displayOrder; ?></td>
 							<td>
 								<a class="btn btn-xs yellow" href="edit_currency.php?id=<?php echo $row->id; ?>">

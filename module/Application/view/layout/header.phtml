@@ -155,19 +155,19 @@ if (!isset($_SESSION['rate']) || !isset($_SESSION['currency'])) {
                                 </div>
                             </span>
                         <?php } else { ?>
-                            <span class="login-logout-wrap"><a href="javascript:void(0);" data-toggle="modal" data-target="#login-signup-modal"><i class="far fa-user"></i></a></span>
+                            <span class="login-logout-wrap"><a href="javascript:void(0);" data-toggle="modal" data-target="#login-signup-modal"><i data-feather="user"></i></a></span>
                         <?php } ?>
                     </li>
                     <li class="nav-item">
                         <span>
-                            <a href="<?php echo MAIN_URL . 'my-wishlist'; ?>"><i class="far fa-heart"></i></a>
+                            <a href="<?php echo MAIN_URL . 'my-wishlist'; ?>"><i data-feather="heart"></i></a>
                             <span class="badge"><?php echo $wishlistCount; ?></span>
                         </span>
                     </li>
                     <li class="nav-item">
                         <span class="cart-wrapper">
                             <a href="javascript:void(0);">
-                                <i class="fas fa-shopping-cart"></i>
+                            <i data-feather="shopping-cart"></i>
                             </a>
                             <span class="badge"><?php echo $cartCount; ?></span>
                             <div class="compact-cart-wrapper">
@@ -177,14 +177,14 @@ if (!isset($_SESSION['rate']) || !isset($_SESSION['currency'])) {
                     </li>
                     <li class="nav-item">
                         <span class="search-wrapper">
-                            <a href="javascript:void(0);"><i class="fas fa-search"></i></a>
+                            <a href="javascript:void(0);"><i data-feather="search"></i></a>
                             <div class="search-wrapper-inner">
                                 <form method="GET" action="<?php echo MAIN_URL . 'products' ?>">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search ..." name="search">
                                         <div class="input-group-append">
                                             <button class="btn" type="submit">
-                                                <i class="fa fa-search"></i>
+                                            <i data-feather="search"></i>
                                             </button>
                                         </div>
                                     </div>

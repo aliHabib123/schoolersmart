@@ -1,5 +1,5 @@
 <?php function main()
-{?>
+{ ?>
 	<div class="portlet box green">
 		<div class="portlet-title">
 			<div class="caption"><i class="fa fa-reorder"></i>Create Album Image</div>
@@ -25,7 +25,7 @@
 									<a href="#" class="btn red fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Remove</a>
 								</div>
 							</div>
-							<span>1200 * 600 px</span>
+							<!-- <span>1200 * 600 px</span> -->
 						</div>
 					</div>
 					<div class="form-group">

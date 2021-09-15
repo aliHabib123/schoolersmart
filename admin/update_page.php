@@ -47,6 +47,7 @@ if ($_FILES['image']['size'] > 0) {
 $obj =  new ContentMySqlDAO();
 $obj->id = $id;
 $obj->title = $title;
+$obj->subtitle = $subtitle;
 $obj->image = $image;
 $obj->details = $details;
 $obj->lang = $lang;

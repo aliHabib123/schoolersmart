@@ -702,3 +702,12 @@
 .mega-dropdown-menu #v-pills-tabContent .tab-pane ul li a:hover {
   color: $eastern-blue;
 }
+.navbar-expand-md #navbar7 .navbar-nav .dropdown-menu {
+  background-color: #fff;
+}
+@media (min-width: 768px) {
+  .navbar-expand-md .navbar-nav .nav-link {
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+  }
+}

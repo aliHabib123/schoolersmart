@@ -938,6 +938,14 @@ div.skewed2 {
       text-align: center;
       text-align: -webkit-center;
       text-align: -moz-center; }
+      .diagonal-box .content .column2 .what-makes-slider > div a img {
+        -webkit-transition: 0.3s ease-in-out;
+        transition: 0.3s ease-in-out; }
+      .diagonal-box .content .column2 .what-makes-slider > div a:hover img {
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -webkit-transition: 0.3s ease-in-out;
+        transition: 0.3s ease-in-out; }
       .diagonal-box .content .column2 .what-makes-slider > div .slider-title {
         font-weight: bold;
         color: #fff;
@@ -1653,6 +1661,14 @@ div.skewed2 {
 
 .mega-dropdown-menu #v-pills-tabContent .tab-pane ul li a:hover {
   color: #21a9a0; }
+
+.navbar-expand-md #navbar7 .navbar-nav .dropdown-menu {
+  background-color: #fff; }
+
+@media (min-width: 768px) {
+  .navbar-expand-md .navbar-nav .nav-link {
+    padding-right: 1.5rem;
+    padding-left: 1.5rem; } }
 
 .main-banner-container {
   position: relative; }
