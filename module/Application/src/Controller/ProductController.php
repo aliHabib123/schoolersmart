@@ -1060,7 +1060,8 @@ class ProductController extends AbstractActionController
         $categoriesFiltered = (isset($_GET['c']) && $_GET['c'] != "") ? $_GET['c'] : [];
         $subCategoriesFiltered = (isset($_GET['sc']) && $_GET['sc'] != "") ? $_GET['sc'] : [];
         $brandsFiltered = (isset($_GET['b']) && $_GET['b'] != "") ? $_GET['b'] : [];
-
+        // print_r($brandsFiltered);
+        // echo '<br><br><br>';
         $cat1 = $this->params('cat1') ? HelperController::filterInput($this->params('cat1')) : false;
         $cat2 = $this->params('cat2') ? HelperController::filterInput($this->params('cat2')) : false;
         $categoryArray = [];
@@ -1073,6 +1074,8 @@ class ProductController extends AbstractActionController
         // Get Categories
         $itemCategoryMySqlExtDAO = new ItemCategoryMySqlExtDAO();
         $categoryList = $itemCategoryMySqlExtDAO->select('parent_id = 0 ORDER BY name ASC');
+
+
         $featuredCategories = [];
         if ($cat2) {
             $subCategory = $itemCategoryMySqlExtDAO->queryBySlug($cat2);
@@ -1092,20 +1095,25 @@ class ProductController extends AbstractActionController
         } else {
             $featuredCategories = CategoryController::getCategories();
         }
-        $items = self::getItems($categoryArray, $search, $brandsArray, $minPrice, $maxPrice, false, "", $limit, $offset);
-        $itemsCount = count(self::getItems($categoryArray, $search, $brandsArray, $minPrice, $maxPrice, false));
-        $totalPages = ceil($itemsCount / $limit);
+
+        if($cat2){
+            $items = self::getItems($categoryArray, $search, $brandsFiltered, $minPrice, $maxPrice, false, "", $limit, $offset);
+            $itemsCount = count(self::getItems($categoryArray, $search, $brandsFiltered, $minPrice, $maxPrice, false));
+            $totalPages = ceil($itemsCount / $limit);
+        }
 
         // get Best Deals
-        $bestDeals = self::getItems(false, false, "", "", "", self::$BEST_DEALS, "", 4, 0);
+        //$bestDeals = self::getItems(false, false, "", "", "", self::$BEST_DEALS, "", 4, 0);
         $banners = ContentController::getBanners(4);
         $this->layout()->withBanner = true;
         $this->layout()->banners = $banners;
         $data = [
+            'cat1' => $cat1,
+            'cat2' => $cat2,
             'items' => $items,
             'totalPages' => $totalPages,
             'currentPage' => $page,
-            'isSearch' => $isSearchPage,
+            //'isSearch' => $isSearchPage,
             'search' => $search,
             'prefixUrl' => $prefixUrl,
             'brandsList' => $brandsList,
@@ -1118,6 +1126,7 @@ class ProductController extends AbstractActionController
             'brandsFiltered' => $brandsFiltered,
             'bestDeals' => $bestDeals,
             'featuredCategories' => $featuredCategories,
+            'subCategories' => $subCategories,
         ];
         return new ViewModel($data);
     }

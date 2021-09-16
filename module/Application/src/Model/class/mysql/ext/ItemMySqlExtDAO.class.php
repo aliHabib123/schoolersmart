@@ -50,11 +50,13 @@ class ItemMySqlExtDAO extends ItemMySqlDAO
 
         $sql .= " WHERE 1";
         if ($minPrice != "") {
-            $sql .= " AND a.`regular_price`";
+            $minPrice = floatval($minPrice);
+            $sql .= " AND a.`regular_price` >= $minPrice";
         }
 
         if ($maxPrice != "") {
-            $sql .= " AND a.`regular_price`";
+            $maxPrice = floatval($maxPrice);
+            $sql .= " AND a.`regular_price` <= $maxPrice";
         }
 
         if (is_array($categoryId)) {
@@ -97,7 +99,7 @@ class ItemMySqlExtDAO extends ItemMySqlDAO
         if ($limit != 0) {
             $sql .= " LIMIT $limit OFFSET $offset";
         }
-        //echo $sql.'<br>';
+        //echo $sql.'<br><br><br>';
         $sqlQuery = new SqlQuery($sql);
         return $this->getList($sqlQuery);
     }

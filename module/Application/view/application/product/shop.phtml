@@ -67,87 +67,44 @@ if ($this->isSearch) {
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <?php echo DesignController::mainTitle("LETS START <span>shopping</span>"); ?>
+                <?php $titleClass = (!$this->cat1 && !$this->cat2) ? 'mb10' : ''; ?>
+                <?php echo DesignController::mainTitle("LETS START <span>shopping</span>", $titleClass); ?>
             </div>
-            <?php if(count($this->featuredCategories)){?>
-            <div class="col-md-12">
-                <div class="categories-slider-wrapper">
-                    <div id="categories-slider">
-                        <?php foreach ($this->featuredCategories as $cat) {
-                            $itemCategoryMySqlExtDAO =  new ItemCategoryMySqlExtDAO();
-                            if ($cat->parentId == 0) {
-                                $url = MAIN_URL . 'shop/' . $cat->slug;
-                            } else {
-                                $parentCategory = $itemCategoryMySqlExtDAO->load($cat->parentId);
-                                if ($parentCategory->parentId == 0) {
-                                    $url = MAIN_URL . 'shop/' . $parentCategory->slug . '/' . $cat->slug;
+            <?php if (count($this->featuredCategories) && !$this->cat1) { ?>
+                <div class="col-md-12">
+                    <div class="categories-slider-wrapper">
+                        <div id="categories-slider">
+                            <?php foreach ($this->featuredCategories as $cat) {
+                                $itemCategoryMySqlExtDAO =  new ItemCategoryMySqlExtDAO();
+                                if ($cat->parentId == 0) {
+                                    $url = MAIN_URL . 'shop/' . $cat->slug;
                                 } else {
-                                    $mainCategory = $itemCategoryMySqlExtDAO->load($parentCategory->parentId);
-                                    $url = MAIN_URL . 'shop/' . $mainCategory->slug . '/' . $parentCategory->slug . '/' . $cat->slug;
-                                }
-                            } ?>
-                            <div>
-                                <div class="cat-img hover08"><a href="<?php echo $url; ?>"><img src="<?php echo HelperController::getImageUrl($cat->image); ?>" /></a></div>
-                                <div class="cat-title"><a href="<?php echo $url; ?>"><?php echo $cat->name; ?></a></div>
-                            </div>
-                        <?php
-                        } ?>
-                    </div>
-                </div>
-            </div>
-            <?php }?>
-        </div>
-    </div>
-    <div class="hot-selling-products-wrap diagonal-box mt20 grey">
-        <div class="content">
-            <div class="container">
-                <div class="hot-selling-custom-controls">
-                    <span id="custom-prev"></span>
-                    <span id="custom-next"></span>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <?php echo DesignController::mainTitle("HOT SELLING <span class='bold'>PRODUCTS</span>", 'style-2'); ?>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="hot-selling-products-slider">
-                            <?php foreach ($this->bestDeals as $row) {
-                                echo '<div>';
-                                echo DesignController::item($row);
-                                echo '</div>';
+                                    $parentCategory = $itemCategoryMySqlExtDAO->load($cat->parentId);
+                                    if ($parentCategory->parentId == 0) {
+                                        $url = MAIN_URL . 'shop/' . $parentCategory->slug . '/' . $cat->slug;
+                                    } else {
+                                        $mainCategory = $itemCategoryMySqlExtDAO->load($parentCategory->parentId);
+                                        $url = MAIN_URL . 'shop/' . $mainCategory->slug . '/' . $parentCategory->slug . '/' . $cat->slug;
+                                    }
+                                } ?>
+                                <div>
+                                    <div class="cat-img hover08"><a href="<?php echo $url; ?>"><img src="<?php echo HelperController::getImageUrl($cat->image); ?>" /></a></div>
+                                    <div class="cat-title"><a href="<?php echo $url; ?>"><?php echo $cat->name; ?></a></div>
+                                </div>
+                            <?php
                             } ?>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php } ?>
         </div>
     </div>
-    <div class="best-deals-wrap">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <?php echo DesignController::mainTitle("BEST <span class='bold'>DEALS</span>", 'style-2'); ?>
-                </div>
-            </div>
-            <div class="row">
-                <?php foreach ($this->bestDeals as $row) {
-                    echo '<div class="col-md-3">';
-                    echo DesignController::item($row);
-                    echo '</div>';
-                } ?>
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <a class="btn-style-1" href="<?php echo MAIN_URL . 'best-deals'; ?>">VIEW ALL DEALS</a>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <div class="container">
         <div class="row">
             <div class="col-md-3">
                 <div class="accordion-c">
-                    <!-- <div class="accordion_title">Filter by</div> -->
+                    <div class="accordion_title">FILTER</div>
                     <div id="accordion">
                         <form action="<?php echo  $this->prefixUrl; ?>" method="get" id="sidebar-filter">
                             <?php if (!$this->cat3) { ?>
@@ -166,10 +123,11 @@ if ($this->isSearch) {
                                                         $checked = "checked";
                                                     } ?>
                                                     <div class="forms-check category-forms-check">
-                                                        <input data-href="<?php echo MAIN_URL . 'shop/', $row->slug; ?>" <?php echo $checked; ?> class="forms-check-input" type="checkbox" value="<?php echo $row->id; ?>" id="cat_<?php echo $row->id; ?>">
+                                                        <?php /* <input data-href="<?php echo MAIN_URL . 'shop/', $row->slug; ?>" <?php echo $checked; ?> class="forms-check-input" type="checkbox" value="<?php echo $row->id; ?>" id="cat_<?php echo $row->id; ?>">
                                                         <label class="form-scheck-label" for="cat_<?php echo $row->id; ?>">
                                                             <?php echo $row->name; ?>
-                                                        </label>
+                                                        </label>*/ ?>
+                                                        <div class="main-category-label"><a href="<?php echo MAIN_URL . 'shop/', $row->slug; ?>"><?php echo $row->name; ?></a></div>
 
                                                         <?php $subCategories = CategoryController::getCategories("parent_id = $row->id"); ?>
                                                         <?php if ($subCategories) { ?>
@@ -216,10 +174,35 @@ if ($this->isSearch) {
                             <div class="card">
                                 <div class="card-header">
                                     <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
-                                        Brand<i class="fas fa-chevron-down"></i>
+                                        Age<i class="fas fa-chevron-down"></i>
                                     </a>
                                 </div>
                                 <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="age-selector">
+                                            <select name="age" id="age-range" class="form-control">
+                                                <option value="">All</option>
+                                                <option value="0-2">0-2 Years</option>
+                                                <option value="2-3">2-3 Years</option>
+                                                <option value="3-4">3-4 Years</option>
+                                                <option value="4-5">4-5 Years</option>
+                                                <option value="5-6">5-6 Years</option>
+                                                <option value="6-7">6-7 Years</option>
+                                                <option value="7-8">7-8 Years</option>
+                                                <option value="8-99">8+ Years</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">
+                                        Brand<i class="fas fa-chevron-down"></i>
+                                    </a>
+                                </div>
+                                <div id="collapseFour" class="collapse" data-parent="#accordion">
                                     <div class="card-body">
                                         <?php if ($this->brandsList) { ?>
                                             <div class="sidebar-brand-menu">
@@ -257,22 +240,80 @@ if ($this->isSearch) {
 
             </div>
             <div class="col-md-9">
-                <div class="row">
-                    <?php if ($this->items) { ?>
-                        <?php foreach ($this->items as $item) { ?>
-                            <div class="col-md-4 col-6 item-col">
-                                <?php echo DesignController::item($item); ?>
+                <?php if (!$this->cat1) { ?>
+                    <div class="hot-selling-products-wrap">
+                        <div class="hot-selling-custom-controls">
+                            <span id="custom-prev"></span>
+                            <span id="custom-next"></span>
+                        </div>
+                        <div class="">
+                            <?php echo DesignController::mainTitle("HOT SELLING <span class='bold'>PRODUCTS</span>", 'style-2'); ?>
+                        </div>
+                        <div class="">
+                            <div class="hot-selling-products-slider">
+                                <?php foreach ($this->bestDeals as $row) {
+                                    echo '<div>';
+                                    echo DesignController::item($row);
+                                    echo '</div>';
+                                } ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="best-deals-wrap">
+                        <div class="best-deals-custom-controls">
+                            <span id="custom-prev1"></span>
+                            <span id="custom-next1"></span>
+                        </div>
+                        <div class="">
+                            <?php echo DesignController::mainTitle("BEST <span class='bold'>DEALS</span>", 'style-2'); ?>
+                        </div>
+                        <div class="best-deals-slider">
+                            <?php foreach ($this->bestDeals as $row) {
+                                echo '<div>';
+                                echo DesignController::item($row);
+                                echo '</div>';
+                            } ?>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <a class="btn-style-1" href="<?php echo MAIN_URL . 'best-deals'; ?>">VIEW ALL DEALS</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+                <?php if ($this->cat2) { ?>
+                    <div class="row">
+                        <?php if ($this->items) { ?>
+                            <?php foreach ($this->items as $item) { ?>
+                                <div class="col-md-4 col-6 item-col">
+                                    <?php echo DesignController::item($item); ?>
+                                </div>
+                            <?php } ?>
+                            <div class="col-md-12">
+                                <div id="product-pagination" class="product-pagination text-center"></div>
+                            </div>
+                        <?php } else { ?>
+                            <div class="col-md-12">
+                                <h3 style="text-align: center;display: block;margin-top: 30px;">No Items Found</h3>
                             </div>
                         <?php } ?>
-                        <div class="col-md-12">
-                            <div id="product-pagination" class="product-pagination text-center"></div>
+                    </div>
+                <?php } ?>
+                <?php if ($this->cat1 && !$this->cat2) { ?>
+                    <div class="categories-grid">
+                        <div class="row">
+                            <?php foreach ($this->subCategories as $row) {
+                                $url = MAIN_URL . 'shop/' . $this->cat1 . '/' . $row->slug; ?>
+                                <div class="col-md-4">
+                                    <div>
+                                        <div class="cat-img hover08"><a href="<?php echo $url; ?>"><img src="<?php echo HelperController::getImageUrl($row->image); ?>" /></a></div>
+                                        <div class="cat-title"><a href="<?php echo $url; ?>"><?php echo $row->name; ?></a></div>
+                                    </div>
+                                </div>
+                            <?php } ?>
                         </div>
-                    <?php } else { ?>
-                        <div class="col-md-12">
-                            <h3 style="text-align: center;display: block;margin-top: 30px;">No Items Found</h3>
-                        </div>
-                    <?php } ?>
-                </div>
+                    </div>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -286,24 +327,27 @@ $append = "";
 if ($output) {
     $append = '&' . http_build_query($output);
 }
-
 ?>
 <script type="text/javascript">
-    const append = '<?php echo $append; ?>';
     const currentPageUrl = '<?php echo $this->prefixUrl; ?>';
-    $(function() {
-        $("#product-pagination").twbsPagination({
-            totalPages: <?php echo $this->totalPages; ?>,
-            visiblePages: 5,
-            first: '<i class="fas fa-angle-double-left"></i>',
-            last: '<i class="fas fa-angle-double-right"></i>',
-            next: '<i class="fas fa-chevron-right"></i>',
-            prev: '<i class="fas fa-chevron-left"></i>',
-            startPage: <?php echo $this->currentPage; ?>,
-            initiateStartPageClick: false,
-            onPageClick: function(event, page) {
-                location.href = currentPageUrl + "/?page=" + page + append;
-            },
-        });
-    });
 </script>
+<?php if ($this->cat2) { ?>
+    <script type="text/javascript">
+        const append = '<?php echo $append; ?>';
+        $(function() {
+            $("#product-pagination").twbsPagination({
+                totalPages: <?php echo $this->totalPages; ?>,
+                visiblePages: 5,
+                first: '<i class="fas fa-angle-double-left"></i>',
+                last: '<i class="fas fa-angle-double-right"></i>',
+                next: '<i class="fas fa-chevron-right"></i>',
+                prev: '<i class="fas fa-chevron-left"></i>',
+                startPage: <?php echo $this->currentPage; ?>,
+                initiateStartPageClick: false,
+                onPageClick: function(event, page) {
+                    location.href = currentPageUrl + "/?page=" + page + append;
+                },
+            });
+        });
+    </script>
+<?php } ?>

@@ -563,8 +563,56 @@ h3.no-results {
 }
 .best-deals-wrap {
   margin-bottom: 50px;
+  position: relative;
+  .main-title.style-2 {
+    margin-top: 1px;
+    margin-bottom: 15px;
+    text-align: left;
+    padding-left: 15px;
+  }
+  .best-deals-slider {
+    > div {
+      padding: 10px 20px;
+    }
+  }
+  .best-deals-custom-controls {
+    position: absolute;
+    right: 0;
+    z-index: 999999999;
+    padding-right: 15px;
+    top: -4px;
+    span {
+      display: inline-block;
+      width: 50px;
+      margin-left: 10px;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: auto;
+      }
+      &:hover {
+        transform: scale(0.85);
+      }
+    }
+  }
+  .bx-wrapper {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    margin-bottom: 0;
+    background-color: transparent;
+  }
 }
 .hot-selling-products-wrap {
+  position: relative;
+  margin-bottom: 35px;
+  .main-title.style-2 {
+    margin-top: 1px;
+    margin-bottom: 15px;
+    text-align: left;
+    padding-left: 15px;
+  }
   .content {
     .container {
       position: relative;
@@ -579,9 +627,18 @@ h3.no-results {
     position: absolute;
     right: 0;
     z-index: 999999999;
+    padding-right: 15px;
+    top: -4px;
     span {
       display: inline-block;
-      &:hover{
+      width: 50px;
+      margin-left: 10px;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: auto;
+      }
+      &:hover {
         transform: scale(0.85);
       }
     }
@@ -593,5 +650,36 @@ h3.no-results {
     border: none;
     margin-bottom: 0;
     background-color: transparent;
+  }
+}
+.main-category-label {
+  margin-bottom: 10px;
+  a {
+    font-weight: bold;
+    color: $base-black;
+  }
+}
+.forms-check.category-forms-check {
+  margin-bottom: 5px;
+}
+.categories-grid {
+  >div >div> div{
+    margin-bottom: 20px;
+  }
+  .cat-img {
+    img {
+      width: 100%;
+    }
+  }
+  .cat-title {
+    text-align: center;
+    margin-top: 10px;
+    a {
+      font-family: $fontsecondary;
+      font-size: 20px;
+      font-weight: 300;
+      color: #000;
+      line-height: 1;
+    }
   }
 }

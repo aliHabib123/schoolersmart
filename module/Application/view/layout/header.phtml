@@ -63,17 +63,17 @@ if (!isset($_SESSION['rate']) || !isset($_SESSION['currency'])) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
-                <ul class="navbar-nav mx-auto text-center">
+                <ul class="navbar-nav mx-auto text-center main-menu">
 
                     <li class="nav-item active"><a class="nav-link" href="<?php echo MAIN_URL; ?>">HOME</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo MAIN_URL . 'page/about-us' ?>">ABOUT US</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo MAIN_URL . 'ideas-resources'; ?>">IDEAS & RESOURCES</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo MAIN_URL . 'contact-us' ?>">CONTACT US</a></li>
                     <?php /*<li class="nav-item"><a class="nav-link" href="<?php echo MAIN_URL . 'products' ?>">SHOP</a></li>*/ ?>
-                    <li class="nav-item dropdown mega-dropdown">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">SHOP <span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
+                    <li class="nav-item dropdown mega-dropdown shopdropdown">
+                        <a href="<?php echo MAIN_URL . 'shop'; ?>" class="dropdown-toggle nav-link" data-tossggles="dropdown">SHOP <span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
 
-                        <div class="dropdown-menu mega-dropdown-menu ">
+                        <div class="dropdown-menu mega-dropdown-menu mega-menu-wrap">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-3">
@@ -86,7 +86,7 @@ if (!isset($_SESSION['rate']) || !isset($_SESSION['currency'])) {
                                                 if ($c == 0) {
                                                     $additionalClass = " active";
                                                 } ?>
-                                                <a class="nav-link <?php echo $additionalClass; ?>" href="#v-pills-<?php echo $row->id ?>" role="tab"><?php echo $row->name; ?></a>
+                                                <a class="nav-link <?php echo $additionalClass; ?>" href="<?php echo MAIN_URL . 'shop/' . $row->slug; ?>" role="tab"><?php echo $row->name; ?></a>
                                             <?php $c++;
                                             } ?>
                                         </div>
@@ -167,7 +167,7 @@ if (!isset($_SESSION['rate']) || !isset($_SESSION['currency'])) {
                     <li class="nav-item">
                         <span class="cart-wrapper">
                             <a href="javascript:void(0);">
-                            <i data-feather="shopping-cart"></i>
+                                <i data-feather="shopping-cart"></i>
                             </a>
                             <span class="badge"><?php echo $cartCount; ?></span>
                             <div class="compact-cart-wrapper">
@@ -184,7 +184,7 @@ if (!isset($_SESSION['rate']) || !isset($_SESSION['currency'])) {
                                         <input type="text" class="form-control" placeholder="Search ..." name="search">
                                         <div class="input-group-append">
                                             <button class="btn" type="submit">
-                                            <i data-feather="search"></i>
+                                                <i data-feather="search"></i>
                                             </button>
                                         </div>
                                     </div>
