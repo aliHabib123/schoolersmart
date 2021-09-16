@@ -1103,7 +1103,8 @@ class ProductController extends AbstractActionController
         }
 
         // get Best Deals
-        //$bestDeals = self::getItems(false, false, "", "", "", self::$BEST_DEALS, "", 4, 0);
+        $bestDeals = self::getItems(false, false, "", "", "", self::$BEST_DEALS, "", 4, 0);
+        $hotSelling = self::getItems(false, false, "", "", "", self::$HOT_SELLING_PRODUCTS, "", 4, 0);
         $banners = ContentController::getBanners(4);
         $this->layout()->withBanner = true;
         $this->layout()->banners = $banners;
@@ -1125,6 +1126,7 @@ class ProductController extends AbstractActionController
             'subCategoriesFiltered' => $subCategoriesFiltered,
             'brandsFiltered' => $brandsFiltered,
             'bestDeals' => $bestDeals,
+            'hotSelling' => $hotSelling,
             'featuredCategories' => $featuredCategories,
             'subCategories' => $subCategories,
         ];
