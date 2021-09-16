@@ -14,7 +14,7 @@ body {
 .categories-slider-wrapper {
   margin-left: -15px;
   margin-right: -15px;
-  margin-bottom: 20px;
+  margin-bottom: 45px;
   margin-top: 20px; }
   .categories-slider-wrapper .bx-wrapper {
     -moz-box-shadow: none;
@@ -59,6 +59,8 @@ body {
   margin-bottom: 40px; }
   .main-title.with-subtitle {
     margin-bottom: 5px; }
+  .main-title.mb10 {
+    margin-bottom: 10px; }
   .main-title span {
     font-family: "Notera";
     font-weight: normal;
@@ -1559,26 +1561,6 @@ div.skewed2 {
   box-shadow: none;
   -webkit-box-shadow: none; }
 
-.mega-dropdown-menu:before {
-  content: "";
-  border-bottom: 15px solid #fff;
-  border-right: 17px solid transparent;
-  border-left: 17px solid transparent;
-  position: absolute;
-  top: -15px;
-  left: 285px;
-  z-index: 10; }
-
-.mega-dropdown-menu:after {
-  content: "";
-  border-bottom: 17px solid #ccc;
-  border-right: 19px solid transparent;
-  border-left: 19px solid transparent;
-  position: absolute;
-  top: -17px;
-  left: 283px;
-  z-index: 8; }
-
 .mega-dropdown-menu > li > ul {
   padding: 0;
   margin: 0; }
@@ -1664,6 +1646,12 @@ div.skewed2 {
 
 .navbar-expand-md #navbar7 .navbar-nav .dropdown-menu {
   background-color: #fff; }
+
+.main-menu > li > a.nav-link {
+  padding: 1.5rem 1rem; }
+
+.mega-menu-wrap.dropdown-menu {
+  top: 85%; }
 
 @media (min-width: 768px) {
   .navbar-expand-md .navbar-nav .nav-link {
@@ -2329,30 +2317,99 @@ h3.no-results {
   padding-left: 20px; }
 
 .best-deals-wrap {
-  margin-bottom: 50px; }
-
-.hot-selling-products-wrap .content .container {
+  margin-bottom: 50px;
   position: relative; }
+  .best-deals-wrap .main-title.style-2 {
+    margin-top: 1px;
+    margin-bottom: 15px;
+    text-align: left;
+    padding-left: 15px; }
+  .best-deals-wrap .best-deals-slider > div {
+    padding: 10px 20px; }
+  .best-deals-wrap .best-deals-custom-controls {
+    position: absolute;
+    right: 0;
+    z-index: 999999999;
+    padding-right: 15px;
+    top: -4px; }
+    .best-deals-wrap .best-deals-custom-controls span {
+      display: inline-block;
+      width: 50px;
+      margin-left: 10px;
+      overflow: hidden; }
+      .best-deals-wrap .best-deals-custom-controls span img {
+        width: 100%;
+        height: auto; }
+      .best-deals-wrap .best-deals-custom-controls span:hover {
+        transform: scale(0.85); }
+  .best-deals-wrap .bx-wrapper {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    margin-bottom: 0;
+    background-color: transparent; }
 
-.hot-selling-products-wrap .hot-selling-products-slider > div {
-  padding: 10px 20px; }
+.hot-selling-products-wrap {
+  position: relative;
+  margin-bottom: 35px; }
+  .hot-selling-products-wrap .main-title.style-2 {
+    margin-top: 1px;
+    margin-bottom: 15px;
+    text-align: left;
+    padding-left: 15px; }
+  .hot-selling-products-wrap .content .container {
+    position: relative; }
+  .hot-selling-products-wrap .hot-selling-products-slider > div {
+    padding: 10px 20px; }
+  .hot-selling-products-wrap .hot-selling-custom-controls {
+    position: absolute;
+    right: 0;
+    z-index: 999999999;
+    padding-right: 15px;
+    top: -4px; }
+    .hot-selling-products-wrap .hot-selling-custom-controls span {
+      display: inline-block;
+      width: 50px;
+      margin-left: 10px;
+      overflow: hidden; }
+      .hot-selling-products-wrap .hot-selling-custom-controls span img {
+        width: 100%;
+        height: auto; }
+      .hot-selling-products-wrap .hot-selling-custom-controls span:hover {
+        transform: scale(0.85); }
+  .hot-selling-products-wrap .bx-wrapper {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    margin-bottom: 0;
+    background-color: transparent; }
 
-.hot-selling-products-wrap .hot-selling-custom-controls {
-  position: absolute;
-  right: 0;
-  z-index: 999999999; }
-  .hot-selling-products-wrap .hot-selling-custom-controls span {
-    display: inline-block; }
-    .hot-selling-products-wrap .hot-selling-custom-controls span:hover {
-      transform: scale(0.85); }
+.main-category-label {
+  margin-bottom: 10px; }
+  .main-category-label a {
+    font-weight: bold;
+    color: #5a5a5a; }
 
-.hot-selling-products-wrap .bx-wrapper {
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border: none;
-  margin-bottom: 0;
-  background-color: transparent; }
+.forms-check.category-forms-check {
+  margin-bottom: 5px; }
+
+.categories-grid > div > div > div {
+  margin-bottom: 20px; }
+
+.categories-grid .cat-img img {
+  width: 100%; }
+
+.categories-grid .cat-title {
+  text-align: center;
+  margin-top: 10px; }
+  .categories-grid .cat-title a {
+    font-family: "Montserrat Alternates", sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: #000;
+    line-height: 1; }
 
 footer {
   background-color: #f6f6f6;

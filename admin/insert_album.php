@@ -27,7 +27,6 @@ $obj->image = $image;
 $obj->displayOrder = $display_order;
 $obj->active = $active;
 $obj->albumType = 'content';
-print_r($obj);
 
 $insert = $albumMysqlExtDAO->insert($obj);
 if ($insert) {
