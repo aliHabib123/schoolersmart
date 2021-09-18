@@ -2,13 +2,13 @@
 date_default_timezone_set('Asia/Beirut');
 ini_set('display_errors', '1');
 ini_set('log_errors', '1');
-ini_set('error_log', 'C:\xampp\htdocs\mastershop\error_log.log');
+ini_set('error_log', 'C:\xampp\htdocs\schoolersmart\error_log.log');
 error_reporting(E_ALL ^ E_DEPRECATED);
 include_once 'class/SimpleImage.php';
 $simpleImage = new SimpleImage();
 
-$siteName = "Mastershop";
-$siteLink = "http://localhost/mastershop/";
+$siteName = "Schoolersmart";
+$siteLink = "http://localhost/schoolersmart/";
 $imagesLink = $siteLink.'public/uploads/images/';
 
 // default images path

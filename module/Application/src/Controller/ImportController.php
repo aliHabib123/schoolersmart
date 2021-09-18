@@ -7,6 +7,7 @@ namespace Application\Controller;
 use ConnectionFactory;
 use ItemBrandMappingMySqlExtDAO;
 use ItemCategoryMappingMySqlExtDAO;
+use ItemCategoryMySqlExtDAO;
 use ItemMySqlExtDAO;
 use Laminas\Mvc\Controller\AbstractActionController;
 use PHPExcel_Reader_Excel2007;
@@ -22,6 +23,7 @@ use PHPExcel_Worksheet_Drawing;
 use PHPExcel_Worksheet_MemoryDrawing;
 
 use PHPExcel_IOFactory;
+use stdClass;
 use UserMySqlExtDAO;
 
 class ImportController extends AbstractActionController
@@ -418,23 +420,25 @@ class ImportController extends AbstractActionController
                     // $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, 1)->getValue() != 'Image 2' ||
                     // $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, 1)->getValue() != 'Image 3' ||
                     // $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, 1)->getValue() != 'Image 4' ||
-                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, 1)->getValue() != 'Title' ||
-                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, 1)->getValue() != 'Category' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, 1)->getValue() != 'Ref.' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, 1)->getValue() != 'Product' ||
                     //$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, 1)->getValue() != 'sub category' ||
-                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, 1)->getValue() != 'product category' ||
-                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, 1)->getValue() != 'SKU' ||
-                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, 1)->getValue() != 'Description' ||
-                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, 1)->getValue() != 'Specification' ||
-                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, 1)->getValue() != 'Color' ||
-                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, 1)->getValue() != 'Size' ||
-                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, 1)->getValue() != 'Weight' ||
-                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, 1)->getValue() != 'Dimensions' ||
-                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, 1)->getValue() != 'Brand Name' ||
-                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, 1)->getValue() != 'Stock' ||
-                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(12, 1)->getValue() != 'Price' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, 1)->getValue() != 'DESCRIPTION' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, 1)->getValue() != 'L' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, 1)->getValue() != 'W' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, 1)->getValue() != 'H' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, 1)->getValue() != 'Weight (Kg)' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, 1)->getValue() != 'Brand' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, 1)->getValue() != 'Languages' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, 1)->getValue() != 'AGE' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, 1)->getValue() != 'QTY' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, 1)->getValue() != 'Page' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(12, 1)->getValue() != 'Selling Price' ||
                     $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(13, 1)->getValue() != 'Special Price' ||
-                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(14, 1)->getValue() != 'Warranty' ||
-                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(15, 1)->getValue() != 'Exchange'
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(14, 1)->getValue() != 'Category' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(15, 1)->getValue() != 'Subcategory' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(16, 1)->getValue() != 'Exchange' ||
+                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(17, 1)->getValue() != 'Warranty'
                 ) {
                     $result = false;
                     $msg = "Some coloumns missing, please use the correct excel sheet";
@@ -442,22 +446,19 @@ class ImportController extends AbstractActionController
 
                 // Get the total number of rows in the spreadsheet
                 $rows = $objWorksheet->getHighestRow();
+                //echo $rows;
 
                 if ($result) {
                     // Loop through all the rows (line items)
                     $row = 1;
                     ${'Iterator'} = 0;
                     // skip the first row if it has our column names
-                    for (((($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $row)->getValue()) == 'Title') ? $row = 2 :  $row = 1); $row <= $rows; ++$row) {
+                    for (((($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $row)->getValue()) == 'Ref.') ? $row = 2 :  $row = 1); $row <= $rows; ++$row) {
                         // Sanitize all our & add them to the accounts array
-                        if ($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue() == "") {
-                            $missingSkusCount++;
-                            $missingSkusCount++;
+                        if ($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $row)->getValue() == "") {
                             $missingSkusCount++;
                         }
-                        if ($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $row)->getValue() == "") {
-                            $missingTitlesCount++;
-                            $missingTitlesCount++;
+                        if ($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue() == "") {
                             $missingTitlesCount++;
                         }
                         ${'List'}[${'Iterator'}] = [
@@ -465,28 +466,30 @@ class ImportController extends AbstractActionController
                             // 'Image 2' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $row)->getCalculatedValue(),
                             // 'Image 3' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $row)->getCalculatedValue(),
                             // 'Image 4' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $row)->getCalculatedValue(),
-                            'Title' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $row)->getCalculatedValue(),
-                            'Category' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $row)->getCalculatedValue(),
+                            'Ref.' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $row)->getCalculatedValue(),
+                            'Product' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $row)->getCalculatedValue(),
                             //'sub category' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $row)->getCalculatedValue(),
-                            'product category' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $row)->getCalculatedValue(),
-                            'SKU' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue(),
-                            'Description' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $row)->getCalculatedValue(),
-                            'Specification' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $row)->getCalculatedValue(),
-                            'Color' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $row)->getCalculatedValue(),
-                            'Size' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $row)->getCalculatedValue(),
-                            'Weight' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $row)->getCalculatedValue(),
-                            'Dimensions' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $row)->getCalculatedValue(),
-                            'Brand Name' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $row)->getCalculatedValue(),
-                            'Stock' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, $row)->getCalculatedValue(),
-                            'Price' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(12, $row)->getCalculatedValue(),
-                            'Special Price'  => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(13, $row)->getCalculatedValue(),
-                            'Warranty'  => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(14, $row)->getCalculatedValue(),
-                            'Exchange'  => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(15, $row)->getCalculatedValue(),
+                            'DESCRIPTION' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $row)->getCalculatedValue(),
+                            'L' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue(),
+                            'W' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $row)->getCalculatedValue(),
+                            'H' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $row)->getCalculatedValue(),
+                            'Weight (Kg)' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $row)->getCalculatedValue(),
+                            'Brand' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $row)->getCalculatedValue(),
+                            'Languages' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $row)->getCalculatedValue(),
+                            'AGE' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $row)->getCalculatedValue(),
+                            'QTY' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $row)->getCalculatedValue(),
+                            'Page' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, $row)->getCalculatedValue(),
+                            'Selling Price' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(12, $row)->getCalculatedValue(),
+                            'Special Price' => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(13, $row)->getCalculatedValue(),
+                            'Category'  => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(14, $row)->getCalculatedValue(),
+                            'Subcategory'  => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(15, $row)->getCalculatedValue(),
+                            'Exchange'  => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(16, $row)->getCalculatedValue(),
+                            'Warranty'  => $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(17, $row)->getCalculatedValue(),
                         ];
                         ${'Iterator'}++;
                         if ($missingSkusCount > 0) {
                             $result = false;
-                            $msg = "Some products do not have SKUs";
+                            $msg = "Some products do not have Ref. Number";
                         }
                         if ($missingTitlesCount > 0) {
                             $result = false;
@@ -500,7 +503,9 @@ class ImportController extends AbstractActionController
             $result = false;
             $msg = "No file uploaded";
         }
-        //print_r(${'List'});
+        //print_r($msg);
+        // print_r(${'List'});
+        // die();
         // insert rows into database
         if ($result) {
             $insert = ProductController::insertBulkItems(${'List'});
@@ -547,12 +552,8 @@ class ImportController extends AbstractActionController
             // map items fields
             while ($row = $result->fetch_assoc()) {
                 $item = [
-                    // 'Image 1' => $row['image1'],
-                    // 'Image 2' => $row['image2'],
-                    // 'Image 3' => $row['image3'],
-                    // 'Image 4' => $row['image4'],
                     'Title' => $row['title'],
-                    'Category' => $row['category'],
+                    'Category' => array_filter(array_map('trim', explode(',', $row['category']))),
                     //'sub category' => $row['sub_category'],
                     'product category' => $row['product_category'],
                     'SKU' => $row['sku'],
@@ -568,6 +569,12 @@ class ImportController extends AbstractActionController
                     'Special Price'  => $row['special_price'],
                     'Warranty'  => $row['warranty'],
                     'Exchange'  => $row['exchange'],
+                    'Length' => $row['length'],
+                    'Width' => $row['width'],
+                    'Height' => $row['height'],
+                    'Languages' => $row['languages'],
+                    'Age' => $row['age'],
+                    'Page' => $row['page'],
                 ];
                 array_push($batch, $item);
             }
@@ -649,5 +656,38 @@ class ImportController extends AbstractActionController
         ]);
         print_r($response);
         return $this->response;
+    }
+
+    public static function getAgeRange($t)
+    {
+        $t = str_replace('years', '', $t);
+        $t = str_replace('+', '', $t);
+        $cls = new stdClass();
+        $cls->minAge = 0;
+        $cls->maxAge = 100;
+        $ageArray = array_values(array_filter(array_map('trim', explode('-', $t)), fn ($value) => !is_null($value) && $value !== ''));
+        if (count($ageArray) == 2) {
+            $cls->minAge = $ageArray[0];
+            $cls->maxAge = $ageArray[1];
+        } elseif (count($ageArray) == 1) {
+            if ($ageArray[0] != 0) {
+                $cls->minAge = $ageArray[0];
+            }
+        }
+        return $cls;
+    }
+
+    public static function getCategoryIDs($categories)
+    {
+        $categoriesArray = array_values(array_filter(array_map('trim', explode(',', $categories))));
+        $itemCategoryMySqlExtDAO = new ItemCategoryMySqlExtDAO();
+        $ids = [];
+        foreach ($categoriesArray as $cat) {
+            $category = $itemCategoryMySqlExtDAO->queryByName($cat);
+            if ($category) {
+                array_push($ids, $category[0]->id);
+            }
+        }
+        return $ids;
     }
 }

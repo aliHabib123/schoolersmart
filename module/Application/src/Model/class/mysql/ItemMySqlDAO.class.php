@@ -54,7 +54,7 @@ class ItemMySqlDAO implements ItemDAO{
  	 * @param ItemMySql item
  	 */
 	public function insert($item){
-		$sql = 'INSERT INTO item (title, description, image, regular_price, sale_price, weight, height, width, sku, qty, specification, color, size, dimensions, warranty, exchange, status, is_featured, is_new, supplier_id, display_order, lang_id, translation_id, album_id, slug, age_range_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO item (title, description, image, regular_price, sale_price, weight, height, width, length, min_age, max_age, sku, qty, specification, color, size, dimensions, warranty, exchange, status, is_featured, is_new, supplier_id, display_order, lang_id, translation_id, album_id, slug, age_range_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($item->title);
@@ -65,6 +65,9 @@ class ItemMySqlDAO implements ItemDAO{
 		$sqlQuery->set($item->weight);
 		$sqlQuery->set($item->height);
 		$sqlQuery->set($item->width);
+		$sqlQuery->set($item->length);
+		$sqlQuery->setNumber($item->minAge);
+		$sqlQuery->setNumber($item->maxAge);
 		$sqlQuery->set($item->sku);
 		$sqlQuery->setNumber($item->qty);
 		$sqlQuery->set($item->specification);
@@ -97,7 +100,7 @@ class ItemMySqlDAO implements ItemDAO{
  	 * @param ItemMySql item
  	 */
 	public function update($item){
-		$sql = 'UPDATE item SET title = ?, description = ?, image = ?, regular_price = ?, sale_price = ?, weight = ?, height = ?, width = ?, sku = ?, qty = ?, specification = ?, color = ?, size = ?, dimensions = ?, warranty = ?, exchange = ?, status = ?, is_featured = ?, is_new = ?, supplier_id = ?, display_order = ?, lang_id = ?, translation_id = ?, album_id = ?, slug = ?, age_range_id = ?, created_at = ?, updated_at = ? WHERE id = ?';
+		$sql = 'UPDATE item SET title = ?, description = ?, image = ?, regular_price = ?, sale_price = ?, weight = ?, height = ?, width = ?, length = ?, min_age = ?, max_age = ?, sku = ?, qty = ?, specification = ?, color = ?, size = ?, dimensions = ?, warranty = ?, exchange = ?, status = ?, is_featured = ?, is_new = ?, supplier_id = ?, display_order = ?, lang_id = ?, translation_id = ?, album_id = ?, slug = ?, age_range_id = ?, created_at = ?, updated_at = ? WHERE id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($item->title);
@@ -108,6 +111,9 @@ class ItemMySqlDAO implements ItemDAO{
 		$sqlQuery->set($item->weight);
 		$sqlQuery->set($item->height);
 		$sqlQuery->set($item->width);
+		$sqlQuery->set($item->length);
+		$sqlQuery->setNumber($item->minAge);
+		$sqlQuery->setNumber($item->maxAge);
 		$sqlQuery->set($item->sku);
 		$sqlQuery->setNumber($item->qty);
 		$sqlQuery->set($item->specification);
@@ -195,6 +201,27 @@ class ItemMySqlDAO implements ItemDAO{
 		$sql = 'SELECT * FROM item WHERE width = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByLength($value){
+		$sql = 'SELECT * FROM item WHERE length = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByMinAge($value){
+		$sql = 'SELECT * FROM item WHERE min_age = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByMaxAge($value){
+		$sql = 'SELECT * FROM item WHERE max_age = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
 		return $this->getList($sqlQuery);
 	}
 
@@ -395,6 +422,27 @@ class ItemMySqlDAO implements ItemDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 
+	public function deleteByLength($value){
+		$sql = 'DELETE FROM item WHERE length = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByMinAge($value){
+		$sql = 'DELETE FROM item WHERE min_age = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByMaxAge($value){
+		$sql = 'DELETE FROM item WHERE max_age = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
 	public function deleteBySku($value){
 		$sql = 'DELETE FROM item WHERE sku = ?';
 		$sqlQuery = new SqlQuery($sql);
@@ -554,6 +602,9 @@ class ItemMySqlDAO implements ItemDAO{
 		$item->weight = $row['weight'];
 		$item->height = $row['height'];
 		$item->width = $row['width'];
+		$item->length = $row['length'];
+		$item->minAge = $row['min_age'];
+		$item->maxAge = $row['max_age'];
 		$item->sku = $row['sku'];
 		$item->qty = $row['qty'];
 		$item->specification = $row['specification'];

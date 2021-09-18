@@ -64,6 +64,12 @@ interface ItemDAO{
 
 	public function queryByWidth($value);
 
+	public function queryByLength($value);
+
+	public function queryByMinAge($value);
+
+	public function queryByMaxAge($value);
+
 	public function queryBySku($value);
 
 	public function queryByQty($value);
@@ -120,6 +126,12 @@ interface ItemDAO{
 	public function deleteByHeight($value);
 
 	public function deleteByWidth($value);
+
+	public function deleteByLength($value);
+
+	public function deleteByMinAge($value);
+
+	public function deleteByMaxAge($value);
 
 	public function deleteBySku($value);
 

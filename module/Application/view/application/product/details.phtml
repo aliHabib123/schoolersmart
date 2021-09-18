@@ -6,7 +6,17 @@ use Application\Controller\ProductController;
 
 $item = $this->item;
 $specs = preg_split("/\\r\\n|\\r|\\n/", $item->specification);
-$image = ($item->image != "" && $item->image != null) ? HelperController::getImageUrl($item->image) : PRODUCT_PLACEHOLDER_IMAGE_URL; ?>
+if (USE_FILEMANAGER_UPLOADS) {
+    if (file_exists(BASE_PATH . filemanager_upload_thumb_dir . $item->sku . '-1-U' . '.jpg')) {
+        //echo 'file exists';
+        $image = HelperController::getImageUrlFromFileManager($item->sku . '-1-U' . '.jpg')->image;
+    } else {
+        //echo 'file does not exists';
+        $image = PRODUCT_PLACEHOLDER_IMAGE_URL;
+    }
+} else {
+    $image = ($item->image != "" && $item->image != null) ? HelperController::getImageUrl($item->image) : PRODUCT_PLACEHOLDER_IMAGE_URL;
+} ?>
 <div class="main-wrapper">
     <div class="small-banner-container with-breadcrumb">
         <div class="small-banner_img">
@@ -16,7 +26,7 @@ $image = ($item->image != "" && $item->image != null) ? HelperController::getIma
             <div class="container">
                 <ul>
                     <li><a href="<?php echo MAIN_URL; ?>"><span><img src="img/home-icon.jpg" /></span>Home</a></li>
-                    <li><a href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => [$this->parentCategory->id]])?>"><?php echo $this->parentCategory->name; ?></a></li>
+                    <li><a href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => [$this->parentCategory->id]]) ?>"><?php echo $this->parentCategory->name; ?></a></li>
                     <li><a><?php echo $this->itemCategory->categoryName; ?></a></li>
                 </ul>
             </div>
@@ -27,7 +37,7 @@ $image = ($item->image != "" && $item->image != null) ? HelperController::getIma
             <div class="container">
                 <ul>
                     <li><a href="<?php echo MAIN_URL; ?>"><span><img src="img/home-icon.jpg" /></span>Home</a></li>
-                    <li><a href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => [$this->parentCategory->id]])?>"><?php echo $this->parentCategory->name; ?></a></li>
+                    <li><a href="<?php echo MAIN_URL . 'products?' . http_build_query(['c' => [$this->parentCategory->id]]) ?>"><?php echo $this->parentCategory->name; ?></a></li>
                     <li><a><?php echo $this->itemCategory->categoryName; ?></a></li>
                 </ul>
             </div>
@@ -45,20 +55,28 @@ $image = ($item->image != "" && $item->image != null) ? HelperController::getIma
                     <div class="product-images-slider-c clearfix">
                         <div class="product-images-slider">
                             <div><img class="change-main-image" src="<?php echo $image; ?>" /></div>
-                            <?php if ($this->images) {
-                                foreach ($this->images as $row) { ?>
-                                    <div><img class="change-main-image" src="<?php echo HelperController::getImageUrl($row->imageName); ?>" /></div>
-                            <?php }
-                            } ?>
+                            <?php if (USE_FILEMANAGER_UPLOADS) { ?>
+                                <?php if ($this->images) { ?>
+                                    <?php foreach ($this->images as $row) { ?>
+                                        <div><img class="change-main-image" src="<?php echo $row; ?>" /></div>
+                                    <?php } ?>
+                                <?php } ?>
+                            <?php } else { ?>
+                                <?php if ($this->images) { ?>
+                                    <?php foreach ($this->images as $row) { ?>
+                                        <div><img class="change-main-image" src="<?php echo HelperController::getImageUrl($row->imageName); ?>" /></div>
+                                    <?php } ?>
+                                <?php } ?>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-7">
                     <div class="product-details-side">
                         <?php if ($item->salePrice) { ?>
-                            <div class="price1"><?php echo number_format($item->regularPrice * $_SESSION['rate']); ?> <?php echo $_SESSION['currency'];?></div>
+                            <div class="price1"><?php echo number_format($item->regularPrice * $_SESSION['rate']); ?> <?php echo $_SESSION['currency']; ?></div>
                         <?php } ?>
-                        <div class="price2"><?php echo ProductController::getFinalPrice($item->regularPrice * $_SESSION['rate'], $item->salePrice * $_SESSION['rate']); ?><span><?php echo $_SESSION['currency'];?></span></div>
+                        <div class="price2"><?php echo ProductController::getFinalPrice($item->regularPrice * $_SESSION['rate'], $item->salePrice * $_SESSION['rate']); ?><span><?php echo $_SESSION['currency']; ?></span></div>
                         <div class="title"><?php echo $item->title; ?></div>
                         <div class="sku"><b>SKU: </b><?php echo $item->sku; ?></div>
                         <?php if ($item->warranty) { ?>
@@ -67,8 +85,13 @@ $image = ($item->image != "" && $item->image != null) ? HelperController::getIma
                         <?php if ($item->exchange) { ?>
                             <div class="sku"><b>Exchange: </b><?php echo $item->exchange; ?></div>
                         <?php } ?>
-                        <?php if (isset($this->itemBrand->image)) { ?>
-                            <div class="brand"><img src="<?php echo HelperController::getImageUrl($this->itemBrand->image); ?>" /></div>
+                        <?php if (isset($this->itemBrand->image)) {
+                            if ($this->itemBrand->image != "" && $this->itemBrand->image != null) { ?>
+                                <div class="brand"><img src="<?php echo HelperController::getImageUrl($this->itemBrand->image); ?>" /></div>
+                            <?php } else {
+                                echo '<h3>' . $this->itemBrand->name . '</h3>';
+                            } ?>
+
                         <?php } ?>
                         <div class="desc"><?php echo $item->description; ?></div>
                         <!-- <div class="color">Color: Not Specified</div> -->

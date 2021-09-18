@@ -22,6 +22,12 @@
 
 		var $width;
 
+		var $length;
+
+		var $minAge;
+
+		var $maxAge;
+
 		var $sku;
 
 		var $qty;
