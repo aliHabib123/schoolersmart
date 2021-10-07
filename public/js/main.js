@@ -68,7 +68,7 @@ $(function () {
     let width = $(".hot-selling-products-slider").width();
     let slideWidth = width / 3;
     if ($(window).width() < 768) {
-      slideWidth = width / 2;
+      slideWidth = width / 1;
     }
     slideWidth = slideWidth + "px";
     $(".hot-selling-products-slider").bxSlider({
@@ -77,7 +77,7 @@ $(function () {
       adaptiveHeight: true,
       controls: true,
       pager: false,
-      minSlides: 3,
+      minSlides: 1,
       maxSlides: 3,
       slideWidth: slideWidth,
       nextSelector: "#custom-next",
@@ -87,11 +87,11 @@ $(function () {
     });
   }
   //best-deals-slider
-  if ($(".hot-selling-products-slider").length > 0) {
+  if ($(".best-deals-slider").length > 0) {
     let width = $(".best-deals-slider").width();
     let slideWidth = width / 3;
     if ($(window).width() < 768) {
-      slideWidth = width / 2;
+      slideWidth = width / 1;
     }
     slideWidth = slideWidth + "px";
     $(".best-deals-slider").bxSlider({
@@ -100,7 +100,7 @@ $(function () {
       adaptiveHeight: true,
       controls: true,
       pager: false,
-      minSlides: 3,
+      minSlides: 1,
       maxSlides: 3,
       slideWidth: slideWidth,
       nextSelector: "#custom-next1",

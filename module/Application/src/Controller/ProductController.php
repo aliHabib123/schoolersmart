@@ -982,9 +982,11 @@ class ProductController extends AbstractActionController
         // get Best Deals
         $bestDeals = self::getItems(false, false, "", "", "", self::$BEST_DEALS, "", 4, 0);
         $hotSelling = self::getItems(false, false, "", "", "", self::$HOT_SELLING_PRODUCTS, "", 4, 0);
-        $banners = ContentController::getBanners(4);
-        $this->layout()->withBanner = true;
-        $this->layout()->banners = $banners;
+        //$banners = ContentController::getBanners(4);
+        //$this->layout()->withBanner = true;
+        //$this->layout()->banners = $banners;
+        $this->layout()->htmlClass = 'header-style-2';
+        $this->layout()->header2 = true;
         $data = [
             'cat1' => $cat1,
             'cat2' => $cat2,
