@@ -3829,4 +3829,13 @@ a.list-group-item,
       margin-bottom: 15px;
       height: 100px;
       overflow: hidden;
-      position: relative; } }
+      position: relative; }
+  .categories-slider-wrapper #categories-slider .cat-title {
+    margin-bottom: 20px; }
+  .hot-selling-products-wrap .main-title.style-2 {
+    margin-top: 30px;
+    margin-bottom: 50px; }
+  .hot-selling-products-wrap .hot-selling-custom-controls {
+    top: 30px; }
+  .footer1 .col {
+    flex-basis: initial; } }
