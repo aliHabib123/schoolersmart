@@ -220,8 +220,6 @@ body {
           padding: 10px 15px;
           display: inline-block; }
     .start-shopping-wrapper .start-shopping .slide-wrap:hover .slide-wrap-img img {
-      -webkit-filter: grayscale(1);
-      filter: grayscale(1);
       -webkit-transition: 0.3s ease-in-out;
       transition: 0.3s ease-in-out; }
     .start-shopping-wrapper .start-shopping .slide-wrap:hover .slide-label > div {
@@ -756,13 +754,9 @@ a.disabled {
 
 /* Gray Scale */
 .hover08 img {
-  -webkit-filter: grayscale(0);
-  filter: grayscale(0);
   transition: 0.3s ease-in-out; }
 
 .hover08:hover img {
-  -webkit-filter: grayscale(100%);
-  filter: grayscale(100%);
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out; }
 

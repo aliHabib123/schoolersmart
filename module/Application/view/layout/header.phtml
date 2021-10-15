@@ -22,7 +22,7 @@ if (isset($_SESSION['user'])) {
 }
 
 global $categories;
-$level1Categories = CategoryController::getCategories('parent_id = 0 ORDER BY display_order ASC, name ASC, id DESC');
+$level1Categories = CategoryController::getCategories('parent_id = 0 AND active = 1 ORDER BY display_order ASC, name ASC, id DESC');
 $categories = $level1Categories;
 //print_r($categories);echo '<br>';
 $c = 0;

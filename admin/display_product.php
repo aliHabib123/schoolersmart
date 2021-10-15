@@ -199,6 +199,7 @@ function main()
 							<th><?php echo "Supplier"; ?></th>
 						<?php } ?>
 						<th></th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -221,6 +222,12 @@ function main()
 								<a class="btn btn-xs yellow" href="edit_product.php?id=<?php echo $row->id . '&' . $queryString; ?>">
 									Edit
 									<i class="fa fa-edit"></i>
+								</a>
+							</td>
+							<td>
+								<a class="btn btn-xs red" href="javascript:deleteAjax('product', '<?php echo $row->id; ?>')">
+									<i class="fa fa-times"></i>
+									Delete
 								</a>
 							</td>
 						</tr>
