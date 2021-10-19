@@ -1,4 +1,41 @@
 @media (max-width: 768px) {
+  .prevnext {
+    padding: 10px 15px;
+  }
+  .prevnext::after {
+    clear: both;
+  }
+  span#category-next {
+    float: left;
+    background-color: #ebebeb;
+    a {
+      padding: 5px;
+      color: #000;
+    }
+  }
+  span#category-prev {
+    float: right;
+    background-color: #ebebeb;
+    a {
+      padding: 5px;
+      color: #000;
+    }
+  }
+  .modal-left {
+    padding: 2rem 1rem;
+    .modal-logo {
+      img {
+        width: 80%;
+        margin: auto;
+      }
+    }
+  }
+  .navbar-dark .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(233,28,108,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+  button.navbar-toggler:focus {
+    outline: none;
+  }
   .middle-menu {
     .logo-container {
       float: none;
@@ -151,9 +188,9 @@
       }
     }
     .navbar-dark.navbar-custom {
-      background-color: $amaranth;
+      background-color: #fff;
       .nav-link {
-        color: #fff;
+        color: #909090;
       }
     }
   }
@@ -161,13 +198,17 @@
     font-size: 25px;
     margin-top: 20px;
     margin-bottom: 0px;
+    span {
+      line-height: 0.8;
+    }
   }
   .special-tags ul li a {
     font-size: 14px;
     padding: 0px 6px;
   }
   .categories-slider-wrapper {
-    padding-bottom: 40px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
     .bx-wrapper {
       -moz-box-shadow: none;
       -webkit-box-shadow: none;
@@ -490,14 +531,27 @@
           right: -4px;
           border-radius: 50%;
         }
+        &.login-logout-wrap {
+          margin-left: 0;
+          margin-right: 15px;
+          a {
+            font-size: 15px;
+          }
+        }
       }
       .wishlist-wrapper {
         float: right;
         margin-top: 3px;
+        > a > img {
+          width: 22px;
+        }
       }
       .cart-wrapper {
         float: right;
         margin-top: 3px;
+        > a > img {
+          width: 20px;
+        }
       }
       .dropdown-wrap {
         margin-left: 0;
@@ -508,6 +562,7 @@
           border-radius: 0;
           margin-top: 0.3rem;
           margin-bottom: 0.3rem;
+          font-size: 0.752rem;
         }
       }
     }
