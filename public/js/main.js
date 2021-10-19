@@ -297,8 +297,11 @@ $(function () {
         maxSlides: 2,
         adaptiveHeight: true,
         slideWidth: slideWidth,
-        pager: true,
-        controls: false,
+        pager: false,
+        pagerType: "short",
+        controls: true,
+        nextSelector: "#category-next",
+        prevSelector: "#category-prev",
       };
     }
     slideWidth = slideWidth + "px";
