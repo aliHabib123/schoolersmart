@@ -664,7 +664,7 @@ class ProductController extends AbstractActionController
                     $itemCategoryMappingMySqlExtDAO->deleteByItemId($itemExists[0]->id);
                     if (!empty($categoryIds)) {
                         foreach ($categoryIds as $catId) {
-                            CategoryController::updateOrInsertItemCategory($itemObj->id, $catId);
+                            $itemCategoryMappingMySqlExtDAO->insertItemCategory($itemExists[0]->id, $catId);
                         }
                     }
                     $itemBrandMappingMySqlExtDAO->deleteByItemId($itemExists[0]->id);
