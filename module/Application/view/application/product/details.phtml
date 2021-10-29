@@ -78,6 +78,7 @@ if (USE_FILEMANAGER_UPLOADS) {
                         <?php } ?>
                         <div class="price2"><?php echo ProductController::getFinalPrice($item->regularPrice * $_SESSION['rate'], $item->salePrice * $_SESSION['rate']); ?><span><?php echo $_SESSION['currency']; ?></span></div>
                         <div class="title"><?php echo $item->title; ?></div>
+                        <div class="sku"><b>Age: </b><?php echo DesignController::itemAgeHTML($item->minAge, $item->maxAge); ?></div>
                         <div class="sku"><b>SKU: </b><?php echo $item->sku; ?></div>
                         <?php if ($item->warranty) { ?>
                             <div class="sku"><b>Warranty: </b><?php echo $item->warranty; ?></div>
