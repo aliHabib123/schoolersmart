@@ -346,4 +346,20 @@ class DesignController extends AbstractActionController
         }
         return $html;
     }
+
+    public static function itemAgeHTML($min, $max)
+    {
+        if ($min == 0 && $max == 100) {
+            return 'Any Age';
+        }
+        if ($min == 0 && $max > 0) {
+            return 'Up to ' . $max . ' years';
+        }
+        if ($min > 0 && $max == 100) {
+            return  $min . '+ years';
+        }
+        if ($min > 0 && $max > 0) {
+            return  $min . ' - ' . $max . ' years';
+        }
+    }
 }
