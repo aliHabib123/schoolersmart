@@ -29,6 +29,11 @@ class IndexController extends AbstractActionController
         // $pickedForYou = ProductController::getItems(false, false, "", "", "", ProductController::$PICKED_FOR_YOU, "", 10, 0);
         // $bestOffers = ProductController::getItems(false, false, "", "", "", ProductController::$BEST_OFFERS, "", 10, 0);
 
+        $contentMySqlExtDAO = new ContentMySqlExtDAO();
+        $imageMySqlExtDAO = new ImageMySqlExtDAO();
+        $whatMakesUsSpecial = $contentMySqlExtDAO->load(94);
+        $whatMakesUsSpecialAlbum = $imageMySqlExtDAO->queryByAlbumId($whatMakesUsSpecial->albumId);
+
         $this->layout()->withBanner = true;
         $this->layout()->banners = $banners;
         $this->layout()->isHome = true;
@@ -38,6 +43,8 @@ class IndexController extends AbstractActionController
             'featuredItems' => $featuredItems,
             'services' => $services,
             'shoppingSlider' => $shoppingSlider,
+            'what' => $whatMakesUsSpecial,
+            'whatAlbum' => $whatMakesUsSpecialAlbum,
             // 'pickedForYou' => $pickedForYou,
             // 'bestOffers' => $bestOffers,
         ];
