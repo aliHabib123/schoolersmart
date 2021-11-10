@@ -68,7 +68,7 @@ body {
   &.with-subtitle {
     margin-bottom: 5px;
   }
-  &.mb10{
+  &.mb10 {
     margin-bottom: 10px;
   }
   span {
@@ -267,12 +267,15 @@ body {
           text-align: center;
           text-align: -webkit-center;
           text-align: -moz-center;
-          > div {
+          > a {
             background-color: rgba(0, 0, 0, 0.5);
             color: #fff;
             line-height: 1;
             padding: 10px 15px;
             display: inline-block;
+            // a {
+            //   color: #fff;
+            // }
           }
         }
       }
@@ -287,11 +290,14 @@ body {
           }
         }
         .slide-label {
-          > div {
+          > a {
             background-color: #fff;
             color: rgba(0, 0, 0, 0.5);
             -webkit-transition: 0.3s ease-in-out;
             transition: 0.3s ease-in-out;
+            // a {
+            //   color: rgba(0, 0, 0, 0.5);
+            // }
           }
         }
       }

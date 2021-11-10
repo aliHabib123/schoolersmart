@@ -101,46 +101,20 @@ use Application\Controller\HelperController;
             </div>
             <div class="col-md-12">
                 <div class="start-shopping">
-                    <div>
-                        <div class="slide-wrap">
-                            <div class="slide-wrap-img">
-                                <img src="img/slider.png" />
-                                <div class="slide-label">
-                                    <div>LEARN AT SCHOOL</div>
+                    <?php if ($this->shoppingSlider) {
+                        foreach ($this->shoppingSlider as $row) { ?>
+                            <div>
+                                <div class="slide-wrap">
+                                    <div class="slide-wrap-img">
+                                        <a href="<?php echo $row->customUrl; ?>"><img src="<?php echo HelperController::getImageUrl($row->image); ?>" /></a>
+                                        <div class="slide-label">
+                                            <a href="<?php echo $row->customUrl; ?>"><?php echo $row->title; ?></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="slide-wrap">
-                            <div class="slide-wrap-img">
-                                <img src="img/slider.png" />
-                                <div class="slide-label">
-                                    <div>LEARN AT HOME</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="slide-wrap">
-                            <div class="slide-wrap-img">
-                                <img src="img/slider.png" />
-                                <div class="slide-label">
-                                    <div>SPECIALITY</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="slide-wrap">
-                            <div class="slide-wrap-img">
-                                <img src="img/slider.png" />
-                                <div class="slide-label">
-                                    <div>LEARN AT HOME</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php }
+                    } ?>
                 </div>
             </div>
         </div>
