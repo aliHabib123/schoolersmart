@@ -21,12 +21,18 @@ class IndexController extends AbstractActionController
         $banners = ContentController::getBanners($bannerLocation);
         $ads = ContentController::getContent("type = 'ad' and lang = $langId ORDER BY display_order asc LIMIT 3");
         $services = ContentController::getContent("type = 'service' ORDER BY display_order ASC LIMIT 4 OFFSET 0");
+        $shoppingSlider = ContentController::getContent("type = 'shopping_slider' ORDER BY display_order ASC, id DESC");//shopping_slider
         $featuredCategories = CategoryController::getCategories("is_featured = 1");
 
         //Todays DEALS, PICKED FOR YOU and BEST OFFERS
         $featuredItems = ProductController::getItems(false, false, "", "", "", ProductController::$FEATURED, "", 24, 0);
         // $pickedForYou = ProductController::getItems(false, false, "", "", "", ProductController::$PICKED_FOR_YOU, "", 10, 0);
         // $bestOffers = ProductController::getItems(false, false, "", "", "", ProductController::$BEST_OFFERS, "", 10, 0);
+
+        $contentMySqlExtDAO = new ContentMySqlExtDAO();
+        $imageMySqlExtDAO = new ImageMySqlExtDAO();
+        $whatMakesUsSpecial = $contentMySqlExtDAO->load(94);
+        $whatMakesUsSpecialAlbum = $imageMySqlExtDAO->queryByAlbumId($whatMakesUsSpecial->albumId);
 
         $this->layout()->withBanner = true;
         $this->layout()->banners = $banners;
@@ -36,6 +42,9 @@ class IndexController extends AbstractActionController
             'featuredCategories' => $featuredCategories,
             'featuredItems' => $featuredItems,
             'services' => $services,
+            'shoppingSlider' => $shoppingSlider,
+            'what' => $whatMakesUsSpecial,
+            'whatAlbum' => $whatMakesUsSpecialAlbum,
             // 'pickedForYou' => $pickedForYou,
             // 'bestOffers' => $bestOffers,
         ];

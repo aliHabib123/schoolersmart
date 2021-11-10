@@ -2,10 +2,10 @@
 		
 <div class="portlet box green">
 	<div class="portlet-title">
-		<div class="caption"><i class="fa fa-reorder"></i>Create Service</div>
+		<div class="caption"><i class="fa fa-reorder"></i>Create Shopping Slider</div>
 	</div>
 	<div class="portlet-body form">
-	<form action="insert_service.php" method="post" enctype="multipart/form-data" name="frm" id="frm"  class="form-horizontal form-bordered">
+	<form action="insert_shopping_slider.php" method="post" enctype="multipart/form-data" name="frm" id="frm"  class="form-horizontal form-bordered">
 	<div class="form-body">
 
 	<div class="form-group">
@@ -15,9 +15,9 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-md-3 control-label">Subtitle</label>
+		<label class="col-md-3 control-label">Link</label>
 		<div class="col-md-3">
-			<input  name="subtitle" type="text"  class="form-control" id="subtitle" value="" placeholder="Enter Subtitle">
+			<input  name="link" type="text"  class="form-control" id="link" value="" placeholder="Enter Link">
 		</div>
 	</div>
 	<div class="form-group">

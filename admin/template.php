@@ -198,6 +198,12 @@ if (isset($_REQUEST['act'])) {
 					</a>
 				</li>
 				<li class="">
+					<a href="display_shopping_slider.php">
+						<i class="fas fa-cubes"></i>
+						<span class="title">Shopping Slider</span>
+					</a>
+				</li>
+				<li class="">
 					<a href="display_resource.php">
 						<i class="far fa-lightbulb"></i>
 						<span class="title">Ideas & Resources</span>

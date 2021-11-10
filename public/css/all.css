@@ -213,7 +213,7 @@ body {
         text-align: center;
         text-align: -webkit-center;
         text-align: -moz-center; }
-        .start-shopping-wrapper .start-shopping .slide-wrap .slide-wrap-img .slide-label > div {
+        .start-shopping-wrapper .start-shopping .slide-wrap .slide-wrap-img .slide-label > a {
           background-color: rgba(0, 0, 0, 0.5);
           color: #fff;
           line-height: 1;
@@ -222,7 +222,7 @@ body {
     .start-shopping-wrapper .start-shopping .slide-wrap:hover .slide-wrap-img img {
       -webkit-transition: 0.3s ease-in-out;
       transition: 0.3s ease-in-out; }
-    .start-shopping-wrapper .start-shopping .slide-wrap:hover .slide-label > div {
+    .start-shopping-wrapper .start-shopping .slide-wrap:hover .slide-label > a {
       background-color: #fff;
       color: rgba(0, 0, 0, 0.5);
       -webkit-transition: 0.3s ease-in-out;

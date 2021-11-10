@@ -10,10 +10,10 @@ function main()
 	<script language="JavaScript" type="text/javascript" src="javascript/delete_file_confirmation.js"></script>
 	<div class="portlet box green">
 		<div class="portlet-title">
-			<div class="caption"><i class="fa fa-reorder"></i>Edit Service</div>
+			<div class="caption"><i class="fa fa-reorder"></i>Edit Shopping Slider</div>
 		</div>
 		<div class="portlet-body form">
-			<form action="update_service.php" method="post" enctype="multipart/form-data" name="frm" id="frm" class="form-horizontal form-bordered">
+			<form action="update_shopping_slider.php" method="post" enctype="multipart/form-data" name="frm" id="frm" class="form-horizontal form-bordered">
 				<div class="form-body">
 					<input name="id" type="hidden" value="<?php echo $page->id ?>" />
 					<input name="slug" type="hidden" value="<?php echo $page->slug ?>" />
@@ -26,9 +26,9 @@ function main()
 					</div>
 
 					<div class="form-group">
-						<label class="col-md-3 control-label">Subtitle</label>
+						<label class="col-md-3 control-label">Link</label>
 						<div class="col-md-3">
-							<input name="subtitle" type="text" class="form-control" id="subtitle" value="<?php echo stripslashes($page->subtitle) ?>" placeholder="Enter Page title">
+							<input name="link" type="text" class="form-control" id="link" value="<?php echo stripslashes($page->subtitle) ?>" placeholder="Enter Link">
 						</div>
 					</div>
 
