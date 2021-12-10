@@ -288,9 +288,9 @@ class ProductController extends AbstractActionController
         if (USE_FILEMANAGER_UPLOADS) {
             $images = [];
             for ($i = 2; $i < 6; $i++) {
-                if (file_exists(BASE_PATH . filemanager_upload_thumb_dir . $item->sku . '-' . $i . '-U' . '.jpg')) {
+                if (file_exists(BASE_PATH . filemanager_upload_thumb_dir . str_replace('.', '-', $item->sku) . '-' . $i . '-U' . '.jpg')) {
                     //echo 'file exists';
-                    $image = HelperController::getImageUrlFromFileManager($item->sku . '-' . $i . '-U' . '.jpg')->image;
+                    $image = HelperController::getImageUrlFromFileManager(str_replace('.', '-', $item->sku) . '-' . $i . '-U' . '.jpg')->image;
                     array_push($images, $image);
                 }
             }
